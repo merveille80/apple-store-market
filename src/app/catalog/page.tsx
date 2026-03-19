@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Search, Filter, SlidersHorizontal, ChevronDown, Check, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -19,7 +19,7 @@ import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
 import { useSearchParams } from "next/navigation"
 
-export default function CatalogPage() {
+function CatalogContent() {
   const searchParams = useSearchParams()
   const storeFilter = searchParams.get('store')
 
@@ -264,5 +264,17 @@ export default function CatalogPage() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function CatalogPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="h-8 w-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+      </div>
+    }>
+      <CatalogContent />
+    </Suspense>
   )
 }

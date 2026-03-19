@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, Suspense } from "react"
 import { motion } from "framer-motion"
 import { Apple, Mail, Lock, Smartphone, ArrowRight, Store, Phone, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -11,7 +11,7 @@ import { createClient } from "@/lib/supabase/client"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect } from "react"
 
-export default function LoginPage() {
+function LoginContent() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [storeName, setStoreName] = useState("")
@@ -292,5 +292,17 @@ export default function LoginPage() {
 
       </motion.div>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen bg-black">
+        <div className="h-8 w-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+      </div>
+    }>
+      <LoginContent />
+    </Suspense>
   )
 }
