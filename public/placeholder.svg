@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#09090b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#18181b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="phoneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:0.05" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)" />
+  <rect x="300" y="100" width="200" height="400" rx="40" fill="url(#phoneGrad)" stroke="#3f3f46" stroke-width="2" />
+  <rect x="360" y="115" width="80" height="20" rx="10" fill="#27272a" />
+  <circle cx="400" cy="460" r="15" fill="#27272a" opacity="0.5" />
+  <text x="400" y="310" font-family="Arial" font-size="14" fill="#52525b" text-anchor="middle" font-weight="bold">APPLE STORE KOLWEZI</text>
+  <text x="400" y="335" font-family="Arial" font-size="10" fill="#3f3f46" text-anchor="middle">PHOTO EN ATTENTE</text>
+</svg>
