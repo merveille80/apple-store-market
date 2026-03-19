@@ -55,6 +55,7 @@ export default function EditProductPage() {
   const [images, setImages] = useState<File[]>([])
   const [previewUrls, setPreviewUrls] = useState<string[]>([])
   const [existingImages, setExistingImages] = useState<any[]>([])
+  const [imagesToDelete, setImagesToDelete] = useState<any[]>([])
   const [storeId, setStoreId] = useState<string | null>(null)
   
   // Form state
@@ -123,8 +124,9 @@ export default function EditProductPage() {
         description: product.description || "",
         city: product.city || "Kolwezi"
       })
-      setExistingImages(product.product_images || [])
-      setPreviewUrls((product.product_images || []).map((img: any) => img.image_url))
+      const sortedImages = (product.product_images || []).sort((a: any, b: any) => a.display_order - b.display_order)
+      setExistingImages(sortedImages)
+      setPreviewUrls(sortedImages.map((img: any) => img.image_url))
       
       setIsPageLoading(false)
     }
@@ -141,21 +143,19 @@ export default function EditProductPage() {
     }
   }
 
-  const removeImage = async (idx: number) => {
-    // If it's an existing image, we might want to delete it from DB
+  const removeImage = (idx: number) => {
     const previewUrl = previewUrls[idx]
-    const existingImg = existingImages.find(img => img.image_url === previewUrl)
     
-    if (existingImg) {
-      const supabase = createClient()
-      if (supabase) {
-        await supabase.from('product_images').delete().eq('id', existingImg.id)
+    if (!previewUrl.startsWith('blob:')) {
+      // C'est une image existante, on la marque pour suppression différée
+      const existingImg = existingImages.find(img => img.image_url === previewUrl)
+      if (existingImg) {
+        setImagesToDelete([...imagesToDelete, existingImg])
         setExistingImages(existingImages.filter(img => img.id !== existingImg.id))
       }
     } else {
-      // It's a new file, find its index in the images array
-      // This is slightly tricky because previewUrls includes both
-      const newFilesIdx = previewUrls.slice(0, idx).filter(url => !existingImages.some(ei => ei.image_url === url)).length
+      // Nouvelle image, on supprime de l'état images actuel
+      const newFilesIdx = previewUrls.slice(0, idx).filter(url => url.startsWith('blob:')).length
       const newImages = [...images]
       newImages.splice(newFilesIdx, 1)
       setImages(newImages)
@@ -198,29 +198,56 @@ export default function EditProductPage() {
       return
     }
 
-    // 2. Upload NEW images
-    for (let i = 0; i < images.length; i++) {
-      const file = images[i]
-      const fileExt = file.name.split('.').pop()
-      const fileName = `${id}/${Date.now()}_${i}.${fileExt}`
-      const filePath = `product-images/${fileName}`
+    // 2. Nettoyage : Supprimer les images effacées du DB et du Storage
+    for (const img of imagesToDelete) {
+      await supabase.from('product_images').delete().eq('id', img.id)
+      
+      const urlParts = img.image_url.split('/public/products/')
+      if (urlParts.length === 2) {
+        await supabase.storage.from('products').remove([urlParts[1]])
+      }
+    }
 
-      const { error: uploadError } = await supabase.storage
-        .from('products')
-        .upload(filePath, file)
+    // 3. Traiter l'ordre final: Uploader les nouvelles et MAJ l'ordre des existantes
+    let newImageIndex = 0
+    for (let i = 0; i < previewUrls.length; i++) {
+      const url = previewUrls[i]
+      
+      if (url.startsWith('blob:')) {
+        const file = images[newImageIndex]
+        newImageIndex++
+        
+        if (file) {
+          const fileExt = file.name.split('.').pop()
+          const fileName = `${id}/${Date.now()}_${i}.${fileExt}`
+          const filePath = `product-images/${fileName}`
 
-      if (!uploadError) {
-        const { data: { publicUrl } } = supabase.storage
-          .from('products')
-          .getPublicUrl(filePath)
+          const { error: uploadError } = await supabase.storage
+            .from('products')
+            .upload(filePath, file)
 
-        await supabase
-          .from('product_images')
-          .insert({
-            product_id: id,
-            image_url: publicUrl,
-            display_order: existingImages.length + i
-          })
+          if (!uploadError) {
+            const { data: { publicUrl } } = supabase.storage
+              .from('products')
+              .getPublicUrl(filePath)
+
+            await supabase
+              .from('product_images')
+              .insert({
+                product_id: id,
+                image_url: publicUrl,
+                display_order: i
+              })
+          }
+        }
+      } else {
+        const existingImg = existingImages.find(img => img.image_url === url)
+        if (existingImg && existingImg.display_order !== i) {
+          await supabase
+            .from('product_images')
+            .update({ display_order: i })
+            .eq('id', existingImg.id)
+        }
       }
     }
 
