@@ -81,6 +81,7 @@ export default function ProductDetailPage() {
           city: data.city || data.stores?.city || "Kolwezi",
           store: data.stores?.name || "Vendeur Particulier",
           storeId: data.stores?.id,
+          storeSlug: data.stores?.slug,
           whatsapp: data.stores?.whatsapp_number || "243820000000",
           images: data.product_images?.length > 0 
             ? data.product_images.sort((a: any, b: any) => a.display_order - b.display_order).map((img: any) => img.image_url)
@@ -195,7 +196,16 @@ Lien : ${window.location.href}`
         {/* Info */}
         <div className="flex flex-col">
           <div className="mb-8">
-            <p className="text-zinc-500 font-medium uppercase tracking-[0.2em] text-sm mb-2">{product.store}</p>
+            {product.storeSlug ? (
+              <Link href={`/vendeur/${product.storeSlug}`} className="inline-flex items-center gap-2 text-blue-500 hover:text-blue-400 transition-colors font-black uppercase tracking-widest text-sm mb-3 bg-blue-500/10 hover:bg-blue-500/20 px-3 py-1.5 rounded-full w-fit">
+                <Store className="h-4 w-4" />
+                {product.store}
+              </Link>
+            ) : (
+              <p className="text-zinc-500 font-medium uppercase tracking-[0.2em] text-sm mb-3 flex items-center gap-2">
+                <Store className="h-4 w-4" /> {product.store}
+              </p>
+            )}
             <h1 className="text-4xl lg:text-5xl font-black text-white mb-4 tracking-tight">{product.model}</h1>
             <div className="flex items-center gap-4">
               <div className="flex items-baseline gap-1">
