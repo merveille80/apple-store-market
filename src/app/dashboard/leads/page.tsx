@@ -85,6 +85,26 @@ export default function LeadsPage() {
     fetchLeads()
   }, [router])
 
+  const toggleLeadStatus = async (leadId: string, currentStatus: string) => {
+    const newStatus = currentStatus === 'new' ? 'contacted' : 'new'
+    
+    // Mise à jour optimiste
+    setLeads(leads.map(l => l.id === leadId ? { ...l, status: newStatus } : l))
+
+    const supabase = createClient()
+    if (!supabase) return
+
+    const { error } = await supabase
+      .from('leads')
+      .update({ status: newStatus })
+      .eq('id', leadId)
+      
+    if (error) {
+      // Revert en cas d'erreur
+      setLeads(leads.map(l => l.id === leadId ? { ...l, status: currentStatus } : l))
+    }
+  }
+
   const filteredLeads = leads.filter(l => 
     l.customerName.toLowerCase().includes(search.toLowerCase()) ||
     l.product.toLowerCase().includes(search.toLowerCase())
@@ -159,19 +179,24 @@ export default function LeadsPage() {
                     </div>
                   </div>
 
-                  <Badge 
-                    className={cn(
-                      "rounded-full px-4 py-1.5",
-                      lead.status === 'new' ? 'bg-blue-500 text-white border-none' : 'bg-transparent text-zinc-500 border-white/10'
-                    )}
-                    variant="outline"
+                  <button 
+                    onClick={() => toggleLeadStatus(lead.id, lead.status)}
+                    className="flex items-center gap-2 group cursor-pointer transition-all hover:opacity-80 active:scale-95"
                   >
-                    {lead.status === 'new' ? 'Nouveau' : 'Contacté'}
-                  </Badge>
+                    <Badge 
+                      className={cn(
+                        "rounded-full px-4 py-1.5 transition-colors",
+                        lead.status === 'new' ? 'bg-blue-500 text-white border-none' : 'bg-zinc-800 text-zinc-400 border-none'
+                      )}
+                      variant="outline"
+                    >
+                      {lead.status === 'new' ? 'Nouveau' : 'Contacté'}
+                    </Badge>
 
-                  <Button variant="ghost" size="icon" className="text-zinc-500 hover:text-white">
-                    <ChevronRight className="h-6 w-6" />
-                  </Button>
+                    <ChevronRight className={cn(
+                      "h-5 w-5 transition-transform group-hover:translate-x-1 text-zinc-600"
+                    )} />
+                  </button>
                 </div>
               </CardContent>
             </Card>
