@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect } from "react"
+import Link from "next/link"
 
 function LoginContent() {
   const [email, setEmail] = useState("")
@@ -185,7 +186,12 @@ function LoginContent() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-zinc-400">Mot de passe</label>
+                  <div className="flex items-center justify-between">
+                    <label className="text-sm font-medium text-zinc-400">Mot de passe</label>
+                    <Link href="/reset-password" className="text-sm font-medium text-blue-500 hover:text-blue-400 transition-colors">
+                      Oublié ?
+                    </Link>
+                  </div>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-600" />
                     <Input 
