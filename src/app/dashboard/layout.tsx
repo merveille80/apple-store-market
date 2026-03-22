@@ -38,9 +38,9 @@ export default function DashboardLayout({
   ]
 
   return (
-    <div className="flex min-h-screen bg-black text-white">
-      {/* Sidebar */}
-      <aside className="w-64 border-r border-white/5 flex flex-col bg-zinc-950/50 backdrop-blur-xl">
+    <div className="flex flex-col md:flex-row min-h-screen bg-black text-white">
+      {/* Sidebar (Desktop) */}
+      <aside className="hidden md:flex w-64 border-r border-white/5 flex-col bg-zinc-950/50 backdrop-blur-xl">
         <div className="p-6">
           <Link href="/" className="flex items-center gap-2 font-black text-xl tracking-tighter">
             <div className="h-8 w-8 bg-blue-600 rounded-lg flex items-center justify-center text-xs">ASK</div>
@@ -83,11 +83,40 @@ export default function DashboardLayout({
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto bg-black p-8 lg:p-12">
+      <main className="flex-1 overflow-y-auto bg-black p-4 md:p-8 pb-32 md:pb-8">
         <div className="max-w-6xl mx-auto">
+          {/* Mobile Header */}
+          <div className="md:hidden flex items-center justify-between mb-8 pb-4 border-b border-white/5">
+            <Link href="/" className="flex items-center gap-2 font-black text-xl tracking-tighter">
+              <div className="h-8 w-8 bg-blue-600 rounded-lg flex items-center justify-center text-xs">ASK</div>
+              <span>DASHBOARD</span>
+            </Link>
+            <Button variant="ghost" size="icon" onClick={handleLogout} className="text-zinc-500 hover:text-red-400">
+               <LogOut className="h-5 w-5" />
+            </Button>
+          </div>
           {children}
         </div>
       </main>
+
+      {/* Mobile Bottom Nav */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 border-t border-white/5 bg-black/95 backdrop-blur-xl z-50">
+        <nav className="flex items-center justify-around p-2 pb-safe">
+          {navItems.map((item) => {
+             const isActive = pathname === item.href || (pathname.startsWith(item.href + "/") && item.href !== "/dashboard")
+             return (
+               <Link key={item.href} href={item.href} className="flex flex-col items-center gap-1 p-2 w-full">
+                 <div className={cn("p-2 rounded-xl transition-all", isActive ? "bg-blue-600/20 text-blue-500" : "text-zinc-500")}>
+                   <item.icon className="h-5 w-5" />
+                 </div>
+                 <span className={cn("text-[10px] font-medium truncate w-full text-center", isActive ? "text-blue-500" : "text-zinc-500")}>
+                   {item.name.replace("WhatsApp", "W.App")}
+                 </span>
+               </Link>
+             )
+          })}
+        </nav>
+      </div>
     </div>
   )
 }
