@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Slider } from "@/components/ui/slider"
+import { ProductCardSkeleto } from "@/components/ui/skeletons"
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
 import { useSearchParams } from "next/navigation"
@@ -23,12 +24,17 @@ function CatalogContent() {
   const searchParams = useSearchParams()
   const storeFilter = searchParams.get('store')
 
+  const STORAGE_OPTIONS = ["64GB", "128GB", "256GB", "512GB", "1TB"]
+  const COLOR_OPTIONS = ["Natural Titanium", "Blue Titanium", "White Titanium", "Black Titanium", "Deep Purple", "Space Black", "Silver", "Gold", "Midnight", "Starlight", "Blue", "Pink", "Yellow"]
+
   const [products, setProducts] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [isConfigured, setIsConfigured] = useState(true)
   const [searchQuery, setSearchQuery] = useState("")
   const [priceRange, setPriceRange] = useState([0, 2000])
   const [selectedConditions, setSelectedConditions] = useState<string[]>([])
+  const [selectedStorages, setSelectedStorages] = useState<string[]>([])
+  const [selectedColors, setSelectedColors] = useState<string[]>([])
   const [sortBy, setSortBy] = useState("recent")
 
   useEffect(() => {
@@ -66,7 +72,8 @@ function CatalogContent() {
           color: p.color,
           image: p.product_images?.[0]?.image_url || "/placeholder.svg",
           battery: p.battery_health,
-          storeId: p.store_id
+          storeId: p.store_id,
+          createdAt: p.created_at
         }))
         setProducts(formattedData)
       }
@@ -76,20 +83,25 @@ function CatalogContent() {
     fetchProducts()
   }, [])
 
-  const filteredProducts = products.filter(product => {
-    const matchesSearch = product.model.toLowerCase().includes(searchQuery.toLowerCase())
-    const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1]
-    const matchesCondition = selectedConditions.length === 0 || selectedConditions.includes(product.condition)
-    const matchesStore = !storeFilter || product.storeId === storeFilter
-    return matchesSearch && matchesPrice && matchesCondition && matchesStore
-  })
+  const filteredProducts = products
+    .filter(product => {
+      const matchesSearch = product.model.toLowerCase().includes(searchQuery.toLowerCase())
+      const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1]
+      const matchesCondition = selectedConditions.length === 0 || selectedConditions.includes(product.condition)
+      const matchesStorage = selectedStorages.length === 0 || selectedStorages.includes(product.storage)
+      const matchesColor = selectedColors.length === 0 || selectedColors.includes(product.color)
+      const matchesStore = !storeFilter || product.storeId === storeFilter
+      return matchesSearch && matchesPrice && matchesCondition && matchesStore && matchesStorage && matchesColor
+    })
+    .sort((a, b) => {
+      if (sortBy === "price-low") return a.price - b.price
+      if (sortBy === "price-high") return b.price - a.price
+      if (sortBy === "recent") return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      return 0
+    })
 
-  const toggleCondition = (condition: string) => {
-    setSelectedConditions(prev =>
-      prev.includes(condition)
-        ? prev.filter(c => c !== condition)
-        : [...prev, condition]
-    )
+  const toggleFilter = (list: string[], setList: (val: string[]) => void, item: string) => {
+    setList(list.includes(item) ? list.filter(i => i !== item) : [...list, item])
   }
 
   return (
@@ -157,7 +169,7 @@ function CatalogContent() {
                     <Checkbox
                       id="box"
                       checked={selectedConditions.includes("box")}
-                      onCheckedChange={() => toggleCondition("box")}
+                      onCheckedChange={() => toggleFilter(selectedConditions, setSelectedConditions, "box")}
                     />
                     <label htmlFor="box" className="text-sm font-medium">Box / Neuf</label>
                   </div>
@@ -165,10 +177,54 @@ function CatalogContent() {
                     <Checkbox
                       id="pre-owned"
                       checked={selectedConditions.includes("pre-owned")}
-                      onCheckedChange={() => toggleCondition("pre-owned")}
+                      onCheckedChange={() => toggleFilter(selectedConditions, setSelectedConditions, "pre-owned")}
                     />
                     <label htmlFor="pre-owned" className="text-sm font-medium">Occasion</label>
                   </div>
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger render={
+                <Button variant="outline" className="border-white/10 bg-black/50 rounded-xl">
+                  {selectedStorages.length === 0 ? "Stockage" : `${selectedStorages.length} Sélectionné(s)`} <ChevronDown className="ml-2 h-4 w-4" />
+                </Button>
+              } />
+              <DropdownMenuContent className="w-56 bg-zinc-900 border-white/10 text-white p-2 max-h-80 overflow-y-auto">
+                <div className="space-y-1 p-1">
+                  {STORAGE_OPTIONS.map(opt => (
+                    <div key={opt} className="flex items-center space-x-2 p-2 hover:bg-white/5 rounded-lg transition-colors">
+                      <Checkbox
+                        id={`storage-${opt}`}
+                        checked={selectedStorages.includes(opt)}
+                        onCheckedChange={() => toggleFilter(selectedStorages, setSelectedStorages, opt)}
+                      />
+                      <label htmlFor={`storage-${opt}`} className="text-sm font-medium w-full cursor-pointer">{opt}</label>
+                    </div>
+                  ))}
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger render={
+                <Button variant="outline" className="border-white/10 bg-black/50 rounded-xl">
+                  {selectedColors.length === 0 ? "Couleur" : `${selectedColors.length} Sélectionné(e)s`} <ChevronDown className="ml-2 h-4 w-4" />
+                </Button>
+              } />
+              <DropdownMenuContent className="w-56 bg-zinc-900 border-white/10 text-white p-2 max-h-80 overflow-y-auto">
+                <div className="grid grid-cols-1 gap-1 p-1">
+                  {COLOR_OPTIONS.map(opt => (
+                    <div key={opt} className="flex items-center space-x-2 p-2 hover:bg-white/5 rounded-lg transition-colors">
+                      <Checkbox
+                        id={`color-${opt}`}
+                        checked={selectedColors.includes(opt)}
+                        onCheckedChange={() => toggleFilter(selectedColors, setSelectedColors, opt)}
+                      />
+                      <label htmlFor={`color-${opt}`} className="text-sm font-medium w-full cursor-pointer">{opt}</label>
+                    </div>
+                  ))}
                 </div>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -190,9 +246,10 @@ function CatalogContent() {
 
         {/* Products Grid */}
         {loading ? (
-          <div className="flex flex-col items-center justify-center py-20 gap-4">
-            <Loader2 className="h-12 w-12 text-blue-500 animate-spin" />
-            <p className="text-zinc-400 animate-pulse">Chargement des iPhones...</p>
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+              <ProductCardSkeleton key={i} />
+            ))}
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
@@ -257,6 +314,9 @@ function CatalogContent() {
               setSearchQuery("")
               setPriceRange([0, 2000])
               setSelectedConditions([])
+              setSelectedStorages([])
+              setSelectedColors([])
+              setSortBy("recent")
             }}>
               Réinitialiser les filtres
             </Button>

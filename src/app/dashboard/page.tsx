@@ -12,6 +12,8 @@ import {
   Loader2,
   Calendar
 } from "lucide-react"
+import { Skeleton } from "@/components/ui/skeleton"
+import { StatsSkeleton } from "@/components/ui/skeletons"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
@@ -109,33 +111,33 @@ export default function DashboardOverview() {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {stats.map((stat, i) => (
-          <motion.div
-            key={stat.name}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
-          >
-            <Card className="bg-zinc-900 border-white/5 rounded-3xl group hover:border-white/10 transition-colors">
-              <CardContent className="p-6">
-                <div className="flex justify-between items-start mb-4">
-                  <div className={`p-3 rounded-2xl ${stat.bg} ${stat.color}`}>
-                    <stat.icon className="h-6 w-6" />
+        {loading ? (
+          [1, 2, 3, 4].map((i) => <StatsSkeleton key={i} />)
+        ) : (
+          stats.map((stat, i) => (
+            <motion.div
+              key={stat.name}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+            >
+              <Card className="bg-zinc-900 border-white/5 rounded-3xl group hover:border-white/10 transition-colors">
+                <CardContent className="p-6">
+                  <div className="flex justify-between items-start mb-4">
+                    <div className={`p-3 rounded-2xl ${stat.bg} ${stat.color}`}>
+                      <stat.icon className="h-6 w-6" />
+                    </div>
+                    <ArrowUpRight className="h-4 w-4 text-zinc-700 group-hover:text-zinc-400 transition-colors" />
                   </div>
-                  <ArrowUpRight className="h-4 w-4 text-zinc-700 group-hover:text-zinc-400 transition-colors" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-zinc-500">{stat.name}</p>
-                  {loading ? (
-                    <div className="h-9 w-12 bg-zinc-800 animate-pulse rounded-md mt-1" />
-                  ) : (
+                  <div>
+                    <p className="text-sm font-medium text-zinc-500">{stat.name}</p>
                     <p className="text-3xl font-black text-white mt-1">{stat.value}</p>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))
+        )}
       </div>
 
       {/* Recent Activity / Quick Actions */}
@@ -147,7 +149,10 @@ export default function DashboardOverview() {
           <CardContent className="p-0">
             <div className="divide-y divide-white/5">
               {loading ? (
-                <div className="p-12 flex justify-center"><Loader2 className="animate-spin h-8 w-8 text-blue-500" /></div>
+                <div className="p-8 space-y-4">
+                  <Skeleton className="h-20 w-full rounded-2xl" />
+                  <Skeleton className="h-20 w-full rounded-2xl" />
+                </div>
               ) : recentProducts.length === 0 ? (
                 <div className="p-12 text-center text-zinc-500">Aucune activité pour le moment.</div>
               ) : (

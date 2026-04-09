@@ -204,7 +204,8 @@ export default function EditProductPage() {
       
       const urlParts = img.image_url.split('/public/products/')
       if (urlParts.length === 2) {
-        await supabase.storage.from('products').remove([urlParts[1]])
+        const pathToRemove = urlParts[1].split('?')[0] // Remove any query parameters like ?t=123
+        await supabase.storage.from('products').remove([pathToRemove])
       }
     }
 

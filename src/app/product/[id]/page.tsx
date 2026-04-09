@@ -19,6 +19,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
+import { ProductDetailsSkeleton } from "@/components/ui/skeletons"
 import {
   Dialog,
   DialogContent,
@@ -32,6 +33,7 @@ import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import { useParams } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
+import { toast } from "sonner"
 
 export default function ProductDetailPage() {
   const params = useParams()
@@ -130,6 +132,9 @@ Lien : ${window.location.href}`
     const encodedMessage = encodeURIComponent(message)
     const cleanWhatsApp = product.whatsapp.replace(/\D/g, '')
     const whatsappUrl = `https://wa.me/${cleanWhatsApp}?text=${encodedMessage}`
+    
+    toast.success("Ouverture de WhatsApp...")
+    
     // Use location.href instead of window.open — Safari iOS blocks window.open in async functions
     window.location.href = whatsappUrl
     setIsDialogOpen(false)
@@ -137,9 +142,11 @@ Lien : ${window.location.href}`
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-4">
-        <Loader2 className="h-12 w-12 text-blue-500 animate-spin" />
-        <p className="text-zinc-400 animate-pulse">Chargement des détails...</p>
+      <div className="container mx-auto px-4 py-8 lg:py-16">
+        <div className="inline-flex items-center text-zinc-400 mb-8">
+          <ChevronLeft className="mr-1 h-4 w-4" /> Retour au catalogue
+        </div>
+        <ProductDetailsSkeleton />
       </div>
     )
   }

@@ -12,6 +12,8 @@ import {
   Loader2
 } from "lucide-react"
 import { motion } from "framer-motion"
+import { Skeleton } from "@/components/ui/skeleton"
+import { StatsSkeleton } from "@/components/ui/skeletons"
 import { createClient } from "@/lib/supabase/client"
 import { toast } from "sonner"
 
@@ -97,26 +99,30 @@ export default function AdminDashboard() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {stats.map((stat, i) => (
-          <motion.div
-            key={stat.name}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
-          >
-            <Card className="bg-zinc-900 border-white/5 rounded-3xl">
-              <CardContent className="p-6">
-                <div className="flex justify-between items-center mb-4">
-                  <div className={`p-2 rounded-lg bg-white/5 ${stat.color}`}>
-                    <stat.icon className="h-6 w-6" />
+        {loading ? (
+          [1, 2, 3, 4].map((i) => <StatsSkeleton key={i} />)
+        ) : (
+          stats.map((stat, i) => (
+            <motion.div
+              key={stat.name}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+            >
+              <Card className="bg-zinc-900 border-white/5 rounded-3xl">
+                <CardContent className="p-6">
+                  <div className="flex justify-between items-center mb-4">
+                    <div className={`p-2 rounded-lg bg-white/5 ${stat.color}`}>
+                      <stat.icon className="h-6 w-6" />
+                    </div>
                   </div>
-                </div>
-                <p className="text-sm font-medium text-zinc-500">{stat.name}</p>
-                <p className="text-3xl font-black text-white mt-1">{stat.value}</p>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
+                  <p className="text-sm font-medium text-zinc-500">{stat.name}</p>
+                  <p className="text-3xl font-black text-white mt-1">{stat.value}</p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))
+        )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -129,7 +135,10 @@ export default function AdminDashboard() {
           <CardContent className="p-0">
              <div className="divide-y divide-white/5">
                 {loading ? (
-                  <div className="p-10 flex justify-center"><Loader2 className="animate-spin h-6 w-6 text-zinc-700" /></div>
+                  <div className="p-6 space-y-4">
+                    <Skeleton className="h-16 w-full rounded-2xl" />
+                    <Skeleton className="h-16 w-full rounded-2xl" />
+                  </div>
                 ) : pendingStores.length === 0 ? (
                   <p className="p-10 text-center text-zinc-500 text-sm">Aucun vendeur en attente.</p>
                 ) : (
@@ -168,7 +177,10 @@ export default function AdminDashboard() {
           <CardContent className="p-0">
              <div className="divide-y divide-white/5">
                 {loading ? (
-                  <div className="p-10 flex justify-center"><Loader2 className="animate-spin h-6 w-6 text-zinc-700" /></div>
+                  <div className="p-6 space-y-4">
+                     <Skeleton className="h-16 w-full rounded-2xl" />
+                     <Skeleton className="h-16 w-full rounded-2xl" />
+                  </div>
                 ) : recentProducts.length === 0 ? (
                   <p className="p-10 text-center text-zinc-500 text-sm">Aucune annonce récente.</p>
                 ) : (

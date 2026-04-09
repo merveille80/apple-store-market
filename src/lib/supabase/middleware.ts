@@ -34,8 +34,28 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  // refreshing the auth token
-  await supabase.auth.getUser()
+  // refreshing the auth token and checking user session
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  const { pathname } = request.nextUrl
+  const isProtectedRoute = pathname.startsWith('/dashboard') || pathname.startsWith('/admin')
+
+  if (isProtectedRoute && !user) {
+    // Rediriger vers la page de login en gardant l'URL demandée en mémoire (facultatif)
+    const loginUrl = request.nextUrl.clone()
+    loginUrl.pathname = '/login'
+    return NextResponse.redirect(loginUrl)
+  }
+
+  // Si on est connecté et qu'on essaie d'aller sur /login, on redirige vers /dashboard
+  const isAuthRoute = pathname.startsWith('/login') || pathname.startsWith('/register')
+  if (isAuthRoute && user) {
+    const dashboardUrl = request.nextUrl.clone()
+    dashboardUrl.pathname = '/dashboard'
+    return NextResponse.redirect(dashboardUrl)
+  }
 
   return supabaseResponse
 }

@@ -36,7 +36,8 @@ export default function StoreSettingsPage() {
     city: "Kolwezi",
     address: "",
     description: "",
-    logo_url: ""
+    logo_url: "",
+    is_verified: false
   })
 
   useEffect(() => {
@@ -68,7 +69,8 @@ export default function StoreSettingsPage() {
           city: store.city || "Kolwezi",
           address: store.address || "",
           description: store.description || "",
-          logo_url: store.logo_url || ""
+          logo_url: store.logo_url || "",
+          is_verified: store.is_verified || false
         })
       }
       setIsPageLoading(false)
@@ -296,10 +298,17 @@ export default function StoreSettingsPage() {
           </Card>
 
           <Card className="bg-zinc-900 border-white/5 rounded-3xl p-8 space-y-4">
-             <div className="flex items-center gap-3 p-4 bg-emerald-500/5 rounded-2xl border border-emerald-500/10">
-                <ShieldCheck className="h-5 w-5 text-emerald-500 shrink-0" />
-                <span className="text-xs text-zinc-400 font-medium">Votre store est actullement en cours de vérification.</span>
-             </div>
+             {formData.is_verified ? (
+               <div className="flex items-center gap-3 p-4 bg-emerald-500/10 rounded-2xl border border-emerald-500/20">
+                  <ShieldCheck className="h-5 w-5 text-emerald-500 shrink-0" />
+                  <span className="text-sm text-emerald-400 font-bold">Votre store est vérifié et certifié !</span>
+               </div>
+             ) : (
+               <div className="flex items-center gap-3 p-4 bg-orange-500/10 rounded-2xl border border-orange-500/20">
+                  <Shield className="h-5 w-5 text-orange-500 shrink-0" />
+                  <span className="text-sm text-orange-400 font-bold">Votre store est actuellement en cours de vérification.</span>
+               </div>
+             )}
              <Button 
               type="submit" 
               className="w-full h-14 bg-white text-black hover:bg-zinc-200 font-black rounded-2xl text-lg shadow-xl shadow-white/5"

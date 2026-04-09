@@ -11,6 +11,7 @@ import { createClient } from "@/lib/supabase/client"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect } from "react"
 import Link from "next/link"
+import { toast } from "sonner"
 
 function LoginContent() {
   const [email, setEmail] = useState("")
@@ -51,8 +52,10 @@ function LoginContent() {
 
     if (error) {
       setError(error.message)
+      toast.error("Échec de la connexion : " + error.message)
       setIsLoading(false)
     } else {
+      toast.success("Bon retour !")
       router.push("/dashboard")
     }
   }
@@ -106,10 +109,12 @@ function LoginContent() {
         if (errorCode === "PGRST204") {
           setError(`La table 'stores' est manquante. Avez-vous exécuté le script SQL dans Supabase ?`)
         } else {
-          setError(`Erreur lors de la création du store : ${errorMessage} (Code: ${errorCode}). Assurez-vous d'avoir exécuté le script schema.sql.`)
+          setError(`Erreur lors de la création du store : ${errorMessage} (Code: ${errorCode}).`)
         }
+        toast.error("Erreur lors de l'inscription.")
         setIsLoading(false)
       } else {
+        toast.success("Compte et Store créés avec succès !")
         router.push("/dashboard")
       }
     }

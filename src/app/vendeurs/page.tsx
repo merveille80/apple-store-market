@@ -6,6 +6,8 @@ import { ShieldCheck, MapPin, Phone, MessageSquare, Store, Loader2, ArrowRight, 
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { Skeleton } from "@/components/ui/skeleton"
+import { StoreCardSkeleton } from "@/components/ui/skeletons"
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
 
@@ -58,9 +60,16 @@ export default function VendeursPage() {
 
   if (loading) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4">
-        <Loader2 className="h-10 w-10 text-blue-500 animate-spin" />
-        <p className="text-zinc-500 animate-pulse font-medium">Recherche des meilleurs vendeurs...</p>
+      <div className="container mx-auto px-4 py-16 lg:py-24">
+        <div className="max-w-3xl mb-16">
+          <Skeleton className="h-12 w-64 mb-4" />
+          <Skeleton className="h-6 w-full max-w-lg" />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {[1, 2, 3].map((i) => (
+            <StoreCardSkeleton key={i} />
+          ))}
+        </div>
       </div>
     )
   }
