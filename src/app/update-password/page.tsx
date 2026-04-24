@@ -82,34 +82,34 @@ function UpdatePasswordContent() {
           <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-600/10 text-emerald-500 mb-6 font-black text-2xl">
             ASK
           </div>
-          <h1 className="text-3xl font-black text-white tracking-tight">Nouveau Mot de Passe</h1>
-          <p className="text-zinc-500 mt-2">Créez un nouveau mot de passe pour accéder à votre boutique.</p>
+          <h1 className="text-3xl font-black text-black tracking-tight">Nouveau Mot de Passe</h1>
+          <p className="text-black/60 mt-2">Créez un nouveau mot de passe pour accéder à votre boutique.</p>
         </div>
 
-        <Card className="bg-zinc-900 border-emerald-500/20 rounded-3xl overflow-hidden shadow-2xl shadow-emerald-500/5">
+        <Card className="bg-white border-black/10 rounded-3xl overflow-hidden shadow-lg">
           <form onSubmit={handleUpdate}>
             <CardHeader>
-              <CardTitle className="text-xl">Sécurisez votre compte</CardTitle>
+              <CardTitle className="text-xl text-black">Sécurisez votre compte</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {message && (
                 <div className={`p-3 rounded-lg border text-sm ${
                   message.type === 'error' 
-                    ? 'bg-red-500/10 border-red-500/20 text-red-400' 
-                    : 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
+                    ? 'bg-red-500/10 border-red-500/20 text-red-600' 
+                    : 'bg-emerald-500/10 border-emerald-500/20 text-emerald-700'
                 }`}>
                   {message.text}
                 </div>
               )}
               
               <div className="space-y-2">
-                <label className="text-sm font-medium text-zinc-400">Nouveau mot de passe</label>
+                <label className="text-sm font-bold text-black/60">Nouveau mot de passe</label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-600" />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black/40" />
                   <Input 
                     type="password" 
                     placeholder="••••••••" 
-                    className="pl-10 bg-black border-white/5 h-12 rounded-xl"
+                    className="pl-10 bg-zinc-50 border-black/10 h-12 rounded-xl text-black"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -117,13 +117,13 @@ function UpdatePasswordContent() {
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-zinc-400">Confirmer le mot de passe</label>
+                <label className="text-sm font-bold text-black/60">Confirmer le mot de passe</label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-600" />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black/40" />
                   <Input 
                     type="password" 
                     placeholder="••••••••" 
-                    className="pl-10 bg-black border-white/5 h-12 rounded-xl"
+                    className="pl-10 bg-zinc-50 border-black/10 h-12 rounded-xl text-black"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required

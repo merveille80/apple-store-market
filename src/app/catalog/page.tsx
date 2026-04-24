@@ -2,10 +2,7 @@
 
 import { useState, useEffect, Suspense } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Search, Filter, SlidersHorizontal, ChevronDown, Check, Loader2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
+import { Search, ChevronDown, X } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import {
   DropdownMenu,
@@ -13,9 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Checkbox } from "@/components/ui/checkbox"
 import { Slider } from "@/components/ui/slider"
-import { ProductCardSkeleto } from "@/components/ui/skeletons"
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
 import { useSearchParams } from "next/navigation"
@@ -26,10 +21,14 @@ function CatalogContent() {
 
   const STORAGE_OPTIONS = ["64GB", "128GB", "256GB", "512GB", "1TB"]
   const COLOR_OPTIONS = ["Natural Titanium", "Blue Titanium", "White Titanium", "Black Titanium", "Deep Purple", "Space Black", "Silver", "Gold", "Midnight", "Starlight", "Blue", "Pink", "Yellow"]
+  const SORT_LABELS: Record<string, string> = {
+    recent: "Plus récents",
+    "price-low": "Prix croissant",
+    "price-high": "Prix décroissant",
+  }
 
   const [products, setProducts] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
-  const [isConfigured, setIsConfigured] = useState(true)
   const [searchQuery, setSearchQuery] = useState("")
   const [priceRange, setPriceRange] = useState([0, 2000])
   const [selectedConditions, setSelectedConditions] = useState<string[]>([])
@@ -41,287 +40,329 @@ function CatalogContent() {
     async function fetchProducts() {
       setLoading(true)
       const supabase = createClient()
-
-      if (!supabase) {
-        setIsConfigured(false)
-        setProducts([])
-        setLoading(false)
-        return
-      }
+      if (!supabase) { setLoading(false); return }
 
       const { data, error } = await supabase
         .from('products')
-        .select(`
-          *,
-          stores (name, city),
-          product_images (image_url)
-        `)
+        .select(`*, stores (name, city), product_images (image_url)`)
         .eq('status', 'available')
         .order('created_at', { ascending: false })
 
-      if (error || !data || data.length === 0) {
-        setProducts([])
-      } else {
-        // Map DB data to UI structure
-        const formattedData = data.map(p => ({
+      if (!error && data) {
+        setProducts(data.map(p => ({
           id: p.id,
           model: p.model_name,
           price: Number(p.price_usd),
           storage: `${p.storage_gb}GB`,
           condition: p.condition,
+          isNew: p.condition === 'box',
           color: p.color,
           image: p.product_images?.[0]?.image_url || "/placeholder.svg",
           battery: p.battery_health,
           storeId: p.store_id,
-          createdAt: p.created_at
-        }))
-        setProducts(formattedData)
+          createdAt: p.created_at,
+        })))
       }
       setLoading(false)
     }
-
     fetchProducts()
   }, [])
 
   const filteredProducts = products
-    .filter(product => {
-      const matchesSearch = product.model.toLowerCase().includes(searchQuery.toLowerCase())
-      const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1]
-      const matchesCondition = selectedConditions.length === 0 || selectedConditions.includes(product.condition)
-      const matchesStorage = selectedStorages.length === 0 || selectedStorages.includes(product.storage)
-      const matchesColor = selectedColors.length === 0 || selectedColors.includes(product.color)
-      const matchesStore = !storeFilter || product.storeId === storeFilter
-      return matchesSearch && matchesPrice && matchesCondition && matchesStore && matchesStorage && matchesColor
+    .filter(p => {
+      const matchSearch = p.model.toLowerCase().includes(searchQuery.toLowerCase())
+      const matchPrice = p.price >= priceRange[0] && p.price <= priceRange[1]
+      const matchCond = selectedConditions.length === 0 || selectedConditions.includes(p.condition)
+      const matchStore = selectedStorages.length === 0 || selectedStorages.includes(p.storage)
+      const matchColor = selectedColors.length === 0 || selectedColors.includes(p.color)
+      const matchShop = !storeFilter || p.storeId === storeFilter
+      return matchSearch && matchPrice && matchCond && matchStore && matchColor && matchShop
     })
     .sort((a, b) => {
       if (sortBy === "price-low") return a.price - b.price
       if (sortBy === "price-high") return b.price - a.price
-      if (sortBy === "recent") return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      return 0
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     })
 
-  const toggleFilter = (list: string[], setList: (val: string[]) => void, item: string) => {
+  const toggleFilter = (list: string[], setList: (v: string[]) => void, item: string) =>
     setList(list.includes(item) ? list.filter(i => i !== item) : [...list, item])
+
+  const activeFiltersCount = selectedConditions.length + selectedStorages.length + selectedColors.length +
+    (priceRange[0] > 0 || priceRange[1] < 2000 ? 1 : 0)
+
+  const resetFilters = () => {
+    setSearchQuery("")
+    setPriceRange([0, 2000])
+    setSelectedConditions([])
+    setSelectedStorages([])
+    setSelectedColors([])
+    setSortBy("recent")
   }
 
   return (
-    <div className="container mx-auto px-4 py-12 lg:py-20">
-      <div className="flex flex-col gap-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-          <div>
-            <h1 className="text-4xl font-extrabold tracking-tight text-white mb-2">Catalogue iPhone</h1>
-            <p className="text-zinc-400">Trouvez le compagnon idéal parmi notre sélection à Kolwezi.</p>
-          </div>
-          {!isConfigured && (
-            <Badge variant="outline" className="border-amber-500/50 text-amber-500 px-4 py-2 text-xs bg-amber-500/5 w-fit h-fit">
-              Mode Démo activé (Données fictives)
-            </Badge>
+    <div className="min-h-screen bg-[#F5F5F7]">
+      <div className="container mx-auto px-5 py-12 md:py-16">
+
+        {/* Page header */}
+        <div className="mb-10">
+          <p className="text-[11px] font-semibold text-black/40 uppercase tracking-[0.15em] mb-2">Kolwezi, RDC</p>
+          <h1 className="text-[clamp(2rem,5vw,3.5rem)] font-bold text-black tracking-[-0.03em] leading-tight">
+            Catalogue iPhone
+          </h1>
+          {!loading && (
+            <p className="text-[14px] text-black/50 mt-2">
+              {filteredProducts.length} produit{filteredProducts.length !== 1 ? "s" : ""} disponible{filteredProducts.length !== 1 ? "s" : ""}
+            </p>
           )}
         </div>
 
-        {/* Search and Filters Bar */}
-        <div className="flex flex-col lg:flex-row gap-4 items-center justify-between bg-zinc-900/50 p-4 rounded-2xl border border-white/10 backdrop-blur-sm sticky top-20 z-40">
-          <div className="relative w-full lg:max-w-md">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
-            <Input
-              placeholder="Rechercher un modèle..."
-              className="pl-10 bg-black/50 border-white/10 rounded-xl"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
+        {/* ── Sticky filter bar ── */}
+        <div className="sticky top-[56px] md:top-[60px] z-40 -mx-5 px-5 py-3 bg-white/90 backdrop-blur-2xl border-b border-black/5 mb-8">
+          <div className="flex gap-2.5 items-center overflow-x-auto scrollbar-hide">
+            
+            {/* Search */}
+            <div className="relative flex-shrink-0">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-black/40 pointer-events-none" />
+              <input
+                type="text"
+                placeholder="Rechercher..."
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                className="h-9 pl-9 pr-4 bg-black/5 border border-black/10 rounded-full text-[13px] text-black placeholder:text-black/40 outline-none focus:border-black/20 focus:bg-black/10 transition-all w-[160px] sm:w-[200px]"
+              />
+            </div>
 
-          <div className="flex gap-2 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 scrollbar-hide">
+            <div className="w-[1px] h-5 bg-black/10 flex-shrink-0" />
+
+            {/* Prix */}
             <DropdownMenu>
               <DropdownMenuTrigger render={
-                <Button variant="outline" className="border-white/10 bg-black/50 rounded-xl">
-                  Prix: {priceRange[0]}$ - {priceRange[1]}$ <ChevronDown className="ml-2 h-4 w-4" />
-                </Button>
+                <button className={`pill-filter flex-shrink-0 ${priceRange[0] > 0 || priceRange[1] < 2000 ? "active" : ""}`}>
+                  Prix
+                  <ChevronDown className="h-3 w-3 opacity-50" />
+                </button>
               } />
-              <DropdownMenuContent className="w-80 p-6 bg-zinc-900 border-white/10 text-white">
-                <div className="space-y-4">
-                  <h4 className="font-bold">Tranche de prix</h4>
-                  <Slider
-                    defaultValue={[0, 2000]}
-                    max={2000}
-                    step={50}
-                    value={priceRange}
-                    onValueChange={(val) => setPriceRange(Array.isArray(val) ? val : [val, val])}
-                    className="py-4"
-                  />
-                  <div className="flex justify-between text-sm text-zinc-400">
-                    <span>{priceRange[0]}$</span>
-                    <span>{priceRange[1]}$</span>
-                  </div>
+              <DropdownMenuContent className="w-72 p-5 bg-white border-black/10 text-black rounded-2xl shadow-2xl">
+                <p className="text-[12px] font-semibold text-black/50 uppercase tracking-wider mb-4">Tranche de prix</p>
+                <Slider
+                  max={2000} step={50}
+                  value={priceRange}
+                  onValueChange={val => setPriceRange(Array.isArray(val) ? val : [val, val])}
+                  className="py-3"
+                />
+                <div className="flex justify-between mt-2">
+                  <span className="text-[13px] font-semibold text-black">{priceRange[0]}$</span>
+                  <span className="text-[13px] font-semibold text-black">{priceRange[1]}$</span>
                 </div>
               </DropdownMenuContent>
             </DropdownMenu>
 
+            {/* État */}
             <DropdownMenu>
               <DropdownMenuTrigger render={
-                <Button variant="outline" className="border-white/10 bg-black/50 rounded-xl">
-                  État <ChevronDown className="ml-2 h-4 w-4" />
-                </Button>
+                <button className={`pill-filter flex-shrink-0 ${selectedConditions.length > 0 ? "active" : ""}`}>
+                  {selectedConditions.length > 0 ? (selectedConditions.includes("box") && selectedConditions.includes("pre-owned") ? "Tous états" : selectedConditions.includes("box") ? "Neuf" : "Occasion") : "État"}
+                  <ChevronDown className="h-3 w-3 opacity-50" />
+                </button>
               } />
-              <DropdownMenuContent className="w-56 bg-zinc-900 border-white/10 text-white p-2">
-                <div className="space-y-2 p-2">
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="box"
-                      checked={selectedConditions.includes("box")}
-                      onCheckedChange={() => toggleFilter(selectedConditions, setSelectedConditions, "box")}
-                    />
-                    <label htmlFor="box" className="text-sm font-medium">Box / Neuf</label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="pre-owned"
-                      checked={selectedConditions.includes("pre-owned")}
-                      onCheckedChange={() => toggleFilter(selectedConditions, setSelectedConditions, "pre-owned")}
-                    />
-                    <label htmlFor="pre-owned" className="text-sm font-medium">Occasion</label>
-                  </div>
-                </div>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <DropdownMenu>
-              <DropdownMenuTrigger render={
-                <Button variant="outline" className="border-white/10 bg-black/50 rounded-xl">
-                  {selectedStorages.length === 0 ? "Stockage" : `${selectedStorages.length} Sélectionné(s)`} <ChevronDown className="ml-2 h-4 w-4" />
-                </Button>
-              } />
-              <DropdownMenuContent className="w-56 bg-zinc-900 border-white/10 text-white p-2 max-h-80 overflow-y-auto">
-                <div className="space-y-1 p-1">
-                  {STORAGE_OPTIONS.map(opt => (
-                    <div key={opt} className="flex items-center space-x-2 p-2 hover:bg-white/5 rounded-lg transition-colors">
-                      <Checkbox
-                        id={`storage-${opt}`}
-                        checked={selectedStorages.includes(opt)}
-                        onCheckedChange={() => toggleFilter(selectedStorages, setSelectedStorages, opt)}
-                      />
-                      <label htmlFor={`storage-${opt}`} className="text-sm font-medium w-full cursor-pointer">{opt}</label>
+              <DropdownMenuContent className="bg-white border-black/10 text-black p-2 rounded-2xl shadow-2xl">
+                {[{ id: "box", label: "Neuf / Box" }, { id: "pre-owned", label: "Occasion" }].map(opt => (
+                  <DropdownMenuItem
+                    key={opt.id}
+                    onClick={() => toggleFilter(selectedConditions, setSelectedConditions, opt.id)}
+                    className="flex items-center gap-3 rounded-xl focus:bg-black/5 py-2.5 cursor-pointer"
+                  >
+                    <div className={`h-4 w-4 rounded-full border-2 flex items-center justify-center transition-all ${
+                      selectedConditions.includes(opt.id) ? "border-blue-600 bg-blue-600" : "border-black/20"
+                    }`}>
+                      {selectedConditions.includes(opt.id) && <div className="h-2 w-2 rounded-full bg-white" />}
                     </div>
-                  ))}
-                </div>
+                    <span className="text-[13px] font-medium">{opt.label}</span>
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
 
+            {/* Stockage */}
             <DropdownMenu>
               <DropdownMenuTrigger render={
-                <Button variant="outline" className="border-white/10 bg-black/50 rounded-xl">
-                  {selectedColors.length === 0 ? "Couleur" : `${selectedColors.length} Sélectionné(e)s`} <ChevronDown className="ml-2 h-4 w-4" />
-                </Button>
+                <button className={`pill-filter flex-shrink-0 ${selectedStorages.length > 0 ? "active" : ""}`}>
+                  {selectedStorages.length > 0 ? `${selectedStorages.length} Stockage` : "Stockage"}
+                  <ChevronDown className="h-3 w-3 opacity-50" />
+                </button>
               } />
-              <DropdownMenuContent className="w-56 bg-zinc-900 border-white/10 text-white p-2 max-h-80 overflow-y-auto">
-                <div className="grid grid-cols-1 gap-1 p-1">
-                  {COLOR_OPTIONS.map(opt => (
-                    <div key={opt} className="flex items-center space-x-2 p-2 hover:bg-white/5 rounded-lg transition-colors">
-                      <Checkbox
-                        id={`color-${opt}`}
-                        checked={selectedColors.includes(opt)}
-                        onCheckedChange={() => toggleFilter(selectedColors, setSelectedColors, opt)}
-                      />
-                      <label htmlFor={`color-${opt}`} className="text-sm font-medium w-full cursor-pointer">{opt}</label>
+              <DropdownMenuContent className="bg-white border-black/10 text-black p-2 rounded-2xl shadow-2xl">
+                {STORAGE_OPTIONS.map(opt => (
+                  <DropdownMenuItem
+                    key={opt}
+                    onClick={() => toggleFilter(selectedStorages, setSelectedStorages, opt)}
+                    className="flex items-center gap-3 rounded-xl focus:bg-black/5 py-2.5 cursor-pointer"
+                  >
+                    <div className={`h-4 w-4 rounded-full border-2 flex items-center justify-center transition-all ${
+                      selectedStorages.includes(opt) ? "border-blue-600 bg-blue-600" : "border-black/20"
+                    }`}>
+                      {selectedStorages.includes(opt) && <div className="h-2 w-2 rounded-full bg-white" />}
                     </div>
-                  ))}
-                </div>
+                    <span className="text-[13px] font-medium">{opt}</span>
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
 
+            {/* Couleur */}
             <DropdownMenu>
               <DropdownMenuTrigger render={
-                <Button variant="outline" className="border-white/10 bg-black/50 rounded-xl">
-                  Trier par <ChevronDown className="ml-2 h-4 w-4" />
-                </Button>
+                <button className={`pill-filter flex-shrink-0 ${selectedColors.length > 0 ? "active" : ""}`}>
+                  {selectedColors.length > 0 ? `${selectedColors.length} Couleur` : "Couleur"}
+                  <ChevronDown className="h-3 w-3 opacity-50" />
+                </button>
               } />
-              <DropdownMenuContent className="bg-zinc-900 border-white/10 text-white">
-                <DropdownMenuItem onClick={() => setSortBy("recent")}>Plus récents</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setSortBy("price-low")}>Prix: Croissant</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setSortBy("price-high")}>Prix: Décroissant</DropdownMenuItem>
+              <DropdownMenuContent className="bg-white border-black/10 text-black p-2 rounded-2xl shadow-2xl max-h-72 overflow-y-auto">
+                {COLOR_OPTIONS.map(opt => (
+                  <DropdownMenuItem
+                    key={opt}
+                    onClick={() => toggleFilter(selectedColors, setSelectedColors, opt)}
+                    className="flex items-center gap-3 rounded-xl focus:bg-black/5 py-2.5 cursor-pointer"
+                  >
+                    <div className={`h-4 w-4 rounded-full border-2 flex items-center justify-center transition-all ${
+                      selectedColors.includes(opt) ? "border-blue-600 bg-blue-600" : "border-black/20"
+                    }`}>
+                      {selectedColors.includes(opt) && <div className="h-2 w-2 rounded-full bg-white" />}
+                    </div>
+                    <span className="text-[13px] font-medium">{opt}</span>
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
+
+            <div className="w-[1px] h-5 bg-black/10 flex-shrink-0" />
+
+            {/* Tri */}
+            <DropdownMenu>
+              <DropdownMenuTrigger render={
+                <button className="pill-filter flex-shrink-0 text-black/50">
+                  {SORT_LABELS[sortBy]}
+                  <ChevronDown className="h-3 w-3 opacity-50" />
+                </button>
+              } />
+              <DropdownMenuContent className="bg-white border-black/10 text-black rounded-2xl shadow-2xl p-1.5">
+                {Object.entries(SORT_LABELS).map(([key, label]) => (
+                  <DropdownMenuItem
+                    key={key}
+                    onClick={() => setSortBy(key)}
+                    className={`rounded-xl focus:bg-black/5 py-2.5 px-4 text-[13px] cursor-pointer ${
+                      sortBy === key ? "text-blue-600 font-semibold" : "text-black/60"
+                    }`}
+                  >
+                    {label}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Reset */}
+            {activeFiltersCount > 0 && (
+              <button
+                onClick={resetFilters}
+                className="flex-shrink-0 flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[12px] font-semibold text-black/50 hover:text-black bg-black/5 hover:bg-black/10 border border-black/10 transition-all"
+              >
+                <X className="h-3 w-3" />
+                Reset ({activeFiltersCount})
+              </button>
+            )}
           </div>
         </div>
 
-        {/* Products Grid */}
+        {/* ── Product Grid ── */}
         {loading ? (
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-              <ProductCardSkeleton key={i} />
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
+            {[...Array(10)].map((_, i) => (
+              <div key={i} className="rounded-3xl overflow-hidden bg-white shadow-sm border border-black/5">
+                <div className="aspect-[3/4] skeleton bg-black/5" />
+                <div className="p-4 space-y-2">
+                  <div className="h-2.5 w-2/3 skeleton bg-black/5 rounded-full" />
+                  <div className="h-3.5 w-full skeleton bg-black/5 rounded-full" />
+                  <div className="h-4 w-1/2 skeleton bg-black/5 rounded-full" />
+                </div>
+              </div>
             ))}
           </div>
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
+        ) : filteredProducts.length > 0 ? (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
             <AnimatePresence mode="popLayout">
               {filteredProducts.map((product) => (
                 <motion.div
                   key={product.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.9 }}
+                  initial={{ opacity: 0, scale: 0.94 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.3 }}
+                  exit={{ opacity: 0, scale: 0.94 }}
+                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <Card className="bg-zinc-900 border-white/10 overflow-hidden group hover:border-blue-500/50 transition-colors h-full flex flex-col">
-                    <div className="aspect-square relative overflow-hidden bg-zinc-800">
-                      <img
-                        src={product.image}
-                        alt={product.model}
-                        className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-                      />
-                      <Badge className={`absolute top-2 right-2 font-black text-white text-[10px] sm:text-xs px-2 sm:px-2.5 py-0.5 border-0 shadow-lg ${product.condition === 'box' ? 'bg-blue-600' : 'bg-zinc-700'
-                        }`}>
-                        {product.condition === 'box' ? '✦ Neuf' : 'Occasion'}
-                      </Badge>
-                    </div>
-                    <CardContent className="p-3 sm:p-5 flex-1">
-                      <div className="mb-2">
-                        <h3 className="text-sm sm:text-lg font-bold text-white group-hover:text-blue-400 transition-colors uppercase tracking-tight leading-tight truncate">
+                  <Link href={`/product/${product.id}`}>
+                    <div className="bg-white rounded-3xl overflow-hidden border border-black/5 shadow-sm group">
+                      {/* Image */}
+                      <div className="aspect-[3/4] relative overflow-hidden bg-zinc-100 p-5 flex flex-col justify-between">
+                        <img
+                          src={product.image}
+                          alt={product.model}
+                          className="absolute inset-0 object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
+                        />
+                        {/* Condition badge */}
+                        <div className="flex justify-between items-start z-10 relative">
+                          <span className={`text-[10px] font-bold px-2.5 py-1 rounded-md tracking-wider uppercase ${
+                            product.isNew
+                              ? "bg-blue-600 text-white"
+                              : "bg-white/90 text-black/80 backdrop-blur-md"
+                          }`}>
+                            {product.isNew ? "Neuf" : "Occasion"}
+                          </span>
+                        </div>
+                      </div>
+                      {/* Info */}
+                      <div className="p-4">
+                        <p className="text-[10px] text-black/40 uppercase tracking-wider truncate mb-1">
+                          {product.color} · {product.storage}
+                        </p>
+                        <h3 className="text-[13px] font-semibold text-black truncate leading-snug">
                           {product.model}
                         </h3>
-                        <p className="text-[10px] sm:text-xs text-zinc-500 truncate">{product.color} • {product.storage}</p>
+                        <div className="flex items-center justify-between mt-3">
+                          <p className="text-[16px] font-bold text-black">
+                            {product.price}$
+                            <span className="text-[11px] font-normal text-black/40 ml-1">USD</span>
+                          </p>
+                          <div className="h-7 w-7 rounded-full bg-black/5 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-all duration-200">
+                            <svg className="h-3.5 w-3.5 text-black/40 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex items-baseline gap-0.5">
-                        <span className="text-lg sm:text-2xl font-black text-white">{product.price}$</span>
-                        <span className="text-[10px] sm:text-xs text-zinc-500 font-medium">USD</span>
-                      </div>
-                    </CardContent>
-                    <CardFooter className="p-3 pt-0 sm:p-5 sm:pt-0">
-                      <Link href={`/product/${product.id}`} className="w-full">
-                        <Button className="w-full bg-white text-black hover:bg-zinc-200 rounded-xl font-bold text-sm h-10 sm:h-12">
-                          Commander
-                        </Button>
-                      </Link>
-                    </CardFooter>
-                  </Card>
+                    </div>
+                  </Link>
                 </motion.div>
               ))}
             </AnimatePresence>
           </div>
-        )}
-
-        {filteredProducts.length === 0 && (
-          <div className="py-20 text-center space-y-4">
-            <div className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-zinc-900 border border-white/10">
-              <Search className="h-8 w-8 text-zinc-500" />
+        ) : (
+          <div className="py-28 text-center">
+            <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-black/5 border border-black/10 mb-5">
+              <Search className="h-6 w-6 text-black/40" />
             </div>
-            <h3 className="text-xl font-bold text-white">Aucun produit trouvé</h3>
-            <p className="text-zinc-400 max-w-sm mx-auto">
-              Essayez de modifier vos filtres ou votre recherche pour trouver ce que vous cherchez.
+            <h3 className="text-[18px] font-semibold text-black mb-2">Aucun produit trouvé</h3>
+            <p className="text-[14px] text-black/50 max-w-sm mx-auto mb-6">
+              Modifiez vos filtres ou réinitialisez pour voir tous les iPhones disponibles.
             </p>
-            <Button variant="link" className="text-blue-500" onClick={() => {
-              setSearchQuery("")
-              setPriceRange([0, 2000])
-              setSelectedConditions([])
-              setSelectedStorages([])
-              setSelectedColors([])
-              setSortBy("recent")
-            }}>
+            <button
+              onClick={resetFilters}
+              className="h-10 px-6 text-[13px] font-semibold text-black border border-black/15 rounded-full hover:bg-black/5 transition-all"
+            >
               Réinitialiser les filtres
-            </Button>
+            </button>
           </div>
         )}
+
       </div>
     </div>
   )
@@ -330,8 +371,8 @@ function CatalogContent() {
 export default function CatalogPage() {
   return (
     <Suspense fallback={
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="h-8 w-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+      <div className="flex items-center justify-center min-h-screen bg-[#F5F5F7]">
+        <div className="h-6 w-6 border-2 border-black/20 border-t-black rounded-full animate-spin" />
       </div>
     }>
       <CatalogContent />

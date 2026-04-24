@@ -94,8 +94,8 @@ export default function AdminDashboard() {
   return (
     <div className="space-y-10">
       <div>
-        <h1 className="text-3xl font-black text-white tracking-tight italic">Platform Overview</h1>
-        <p className="text-zinc-500">Statistiques globales et activités récentes sur ASK Market.</p>
+        <h1 className="text-3xl font-black text-black tracking-tight italic">Platform Overview</h1>
+        <p className="text-black/60">Statistiques globales et activités récentes sur ASK Market.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -109,15 +109,15 @@ export default function AdminDashboard() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
             >
-              <Card className="bg-zinc-900 border-white/5 rounded-3xl">
+              <Card className="bg-white border-black/5 shadow-sm rounded-3xl">
                 <CardContent className="p-6">
                   <div className="flex justify-between items-center mb-4">
-                    <div className={`p-2 rounded-lg bg-white/5 ${stat.color}`}>
+                    <div className={`p-2 rounded-lg bg-black/5 ${stat.color}`}>
                       <stat.icon className="h-6 w-6" />
                     </div>
                   </div>
-                  <p className="text-sm font-medium text-zinc-500">{stat.name}</p>
-                  <p className="text-3xl font-black text-white mt-1">{stat.value}</p>
+                  <p className="text-sm font-medium text-black/50">{stat.name}</p>
+                  <p className="text-3xl font-black text-black mt-1">{stat.value}</p>
                 </CardContent>
               </Card>
             </motion.div>
@@ -126,31 +126,31 @@ export default function AdminDashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <Card className="bg-zinc-900 border-white/5 rounded-3xl">
+        <Card className="bg-white border-black/5 shadow-sm rounded-3xl">
           <CardHeader>
-            <CardTitle className="text-lg font-bold flex items-center gap-2">
-              <Clock className="h-5 w-5 text-blue-500" /> Vendeurs à valider
+            <CardTitle className="text-lg font-bold flex items-center gap-2 text-black">
+              <Clock className="h-5 w-5 text-blue-600" /> Vendeurs à valider
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
-             <div className="divide-y divide-white/5">
+             <div className="divide-y divide-black/5">
                 {loading ? (
                   <div className="p-6 space-y-4">
                     <Skeleton className="h-16 w-full rounded-2xl" />
                     <Skeleton className="h-16 w-full rounded-2xl" />
                   </div>
                 ) : pendingStores.length === 0 ? (
-                  <p className="p-10 text-center text-zinc-500 text-sm">Aucun vendeur en attente.</p>
+                  <p className="p-10 text-center text-black/50 text-sm">Aucun vendeur en attente.</p>
                 ) : (
                   pendingStores.map((store) => (
                     <div key={store.id} className="p-6 flex items-center justify-between">
                       <div className="flex items-center gap-4">
-                        <div className="h-10 w-10 rounded-full bg-zinc-800 border border-white/5 flex items-center justify-center">
-                          <Users className="h-4 w-4 text-zinc-600" />
+                        <div className="h-10 w-10 rounded-full bg-zinc-50 border border-black/5 flex items-center justify-center">
+                          <Users className="h-4 w-4 text-zinc-400" />
                         </div>
                         <div>
-                          <p className="font-bold text-white leading-none mb-1">{store.name}</p>
-                          <p className="text-xs text-zinc-500">{store.city || "Kolwezi"}</p>
+                          <p className="font-bold text-black leading-none mb-1">{store.name}</p>
+                          <p className="text-xs text-black/50">{store.city || "Kolwezi"}</p>
                         </div>
                       </div>
                       <div className="flex gap-2">
@@ -168,34 +168,34 @@ export default function AdminDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="bg-zinc-900 border-white/5 rounded-3xl">
+        <Card className="bg-white border-black/5 shadow-sm rounded-3xl">
           <CardHeader>
-            <CardTitle className="text-lg font-bold flex items-center gap-2">
-              <CheckCircle2 className="h-5 w-5 text-emerald-500" /> Annonces Récentes
+            <CardTitle className="text-lg font-bold flex items-center gap-2 text-black">
+              <CheckCircle2 className="h-5 w-5 text-emerald-600" /> Annonces Récentes
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
-             <div className="divide-y divide-white/5">
+             <div className="divide-y divide-black/5">
                 {loading ? (
                   <div className="p-6 space-y-4">
                      <Skeleton className="h-16 w-full rounded-2xl" />
                      <Skeleton className="h-16 w-full rounded-2xl" />
                   </div>
                 ) : recentProducts.length === 0 ? (
-                  <p className="p-10 text-center text-zinc-500 text-sm">Aucune annonce récente.</p>
+                  <p className="p-10 text-center text-black/50 text-sm">Aucune annonce récente.</p>
                 ) : (
                   recentProducts.map((product) => (
-                    <div key={product.id} className="p-6 flex items-center justify-between hover:bg-white/5 transition-colors">
+                    <div key={product.id} className="p-6 flex items-center justify-between hover:bg-black/5 transition-colors">
                       <div className="flex items-center gap-4">
-                        <div className="h-10 w-10 rounded-lg bg-zinc-800 border border-white/5 flex items-center justify-center">
-                          <Smartphone className="h-5 w-5 text-zinc-600" />
+                        <div className="h-10 w-10 rounded-lg bg-zinc-50 border border-black/5 flex items-center justify-center">
+                          <Smartphone className="h-5 w-5 text-zinc-400" />
                         </div>
                         <div>
-                          <p className="font-bold text-white leading-none mb-1 uppercase text-sm tracking-tight">{product.model_name}</p>
-                          <p className="text-[10px] text-zinc-500 font-medium">Par {product.stores?.name || "Vendeur"}</p>
+                          <p className="font-bold text-black leading-none mb-1 uppercase text-sm tracking-tight">{product.model_name}</p>
+                          <p className="text-[10px] text-black/50 font-medium">Par {product.stores?.name || "Vendeur"}</p>
                         </div>
                       </div>
-                      <span className="text-[10px] font-bold text-zinc-600 uppercase">
+                      <span className="text-[10px] font-bold text-black/40 uppercase">
                         {new Date(product.created_at).toLocaleDateString()}
                       </span>
                     </div>

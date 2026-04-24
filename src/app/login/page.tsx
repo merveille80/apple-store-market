@@ -132,19 +132,19 @@ function LoginContent() {
           <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-600/10 text-blue-500 mb-6 font-black text-2xl">
             ASK
           </div>
-          <h1 className="text-3xl font-black text-white tracking-tight">Espace Vendeur</h1>
-          <p className="text-zinc-500 mt-2">Gérez vos listings et boosts sur Apple Store Kolwezi.</p>
+          <h1 className="text-3xl font-black text-black tracking-tight">Espace Vendeur</h1>
+          <p className="text-black/60 mt-2">Gérez vos listings et boosts sur Apple Store Kolwezi.</p>
         </div>
 
         {/* Custom Tab Toggle */}
-        <div className="flex bg-zinc-900 border border-white/8 p-1 rounded-2xl mb-8 gap-1">
+        <div className="flex bg-zinc-50 border border-black/5 p-1 rounded-2xl mb-8 gap-1 shadow-sm">
           <button
             type="button"
             onClick={() => setActiveTab('login')}
             className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all duration-200 ${
               activeTab === 'login'
                 ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25'
-                : 'text-zinc-500 hover:text-white'
+                : 'text-black/50 hover:text-black'
             }`}
           >
             Connexion
@@ -155,7 +155,7 @@ function LoginContent() {
             className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all duration-200 ${
               activeTab === 'register'
                 ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25'
-                : 'text-zinc-500 hover:text-white'
+                : 'text-black/50 hover:text-black'
             }`}
           >
             Inscription
@@ -164,26 +164,26 @@ function LoginContent() {
 
         {/* Login Panel */}
         {activeTab === 'login' && (
-          <Card className="bg-zinc-900 border-white/10 rounded-3xl overflow-hidden">
+          <Card className="bg-white border-black/10 shadow-lg rounded-3xl overflow-hidden">
             <form onSubmit={handleLogin}>
               <CardHeader>
-                <CardTitle className="text-xl">Bon retour !</CardTitle>
-                <CardDescription className="text-zinc-500">Connectez-vous à votre compte store.</CardDescription>
+                <CardTitle className="text-xl text-black">Bon retour !</CardTitle>
+                <CardDescription className="text-black/60">Connectez-vous à votre compte store.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 {error && (
-                  <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+                  <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-600 text-sm">
                     {error}
                   </div>
                 )}
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-zinc-400">Email</label>
+                  <label className="text-sm font-bold text-black/60">Email</label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-600" />
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black/40" />
                     <Input 
                       type="email" 
                       placeholder="votre@email.com" 
-                      className="pl-10 bg-black border-white/5 h-12 rounded-xl"
+                      className="pl-10 bg-zinc-50 border-black/10 h-12 rounded-xl text-black"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
@@ -192,17 +192,17 @@ function LoginContent() {
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <label className="text-sm font-medium text-zinc-400">Mot de passe</label>
-                    <Link href="/reset-password" className="text-sm font-medium text-blue-500 hover:text-blue-400 transition-colors">
+                    <label className="text-sm font-bold text-black/60">Mot de passe</label>
+                    <Link href="/reset-password" className="text-sm font-medium text-blue-600 hover:text-blue-500 transition-colors">
                       Oublié ?
                     </Link>
                   </div>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-600" />
+                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black/40" />
                     <Input 
                       type="password" 
                       placeholder="••••••••" 
-                      className="pl-10 bg-black border-white/5 h-12 rounded-xl"
+                      className="pl-10 bg-zinc-50 border-black/10 h-12 rounded-xl text-black"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
@@ -213,7 +213,7 @@ function LoginContent() {
               <CardFooter>
                 <Button 
                   type="submit" 
-                  className="w-full h-12 bg-white text-black hover:bg-zinc-200 font-bold rounded-xl"
+                  className="w-full h-12 bg-blue-600 text-white hover:bg-blue-700 font-bold rounded-xl shadow-lg shadow-blue-600/20"
                   disabled={isLoading}
                 >
                   {isLoading ? "Connexion..." : "Se Connecter"}
@@ -225,34 +225,34 @@ function LoginContent() {
 
         {/* Register Panel */}
         {activeTab === 'register' && (
-          <Card className="bg-zinc-900 border-white/10 rounded-3xl overflow-hidden">
+          <Card className="bg-white border-black/10 shadow-lg rounded-3xl overflow-hidden">
             <form onSubmit={handleRegister}>
               <CardHeader>
-                <CardTitle className="text-xl">Devenir Vendeur</CardTitle>
-                <CardDescription className="text-zinc-500">Créez votre boutique en quelques secondes.</CardDescription>
+                <CardTitle className="text-xl text-black">Devenir Vendeur</CardTitle>
+                <CardDescription className="text-black/60">Créez votre boutique en quelques secondes.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 {error && (
-                  <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+                  <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-600 text-sm">
                     {error}
                   </div>
                 )}
                 <div className="space-y-4">
                   <div className="relative group">
-                    <Store className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-500 group-focus-within:text-blue-500 transition-colors" />
+                    <Store className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-black/40 group-focus-within:text-blue-600 transition-colors" />
                     <Input 
                       placeholder="Nom du Store" 
-                      className="pl-12 bg-white/5 border-white/10 h-14 rounded-2xl text-white placeholder:text-zinc-600 focus:border-blue-500/50 transition-all"
+                      className="pl-12 bg-zinc-50 border-black/10 h-14 rounded-2xl text-black placeholder:text-black/40 focus:border-blue-500/50 transition-all"
                       value={storeName}
                       onChange={(e) => setStoreName(e.target.value)}
                       required
                     />
                   </div>
                   <div className="relative group">
-                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-500 group-focus-within:text-blue-500 transition-colors" />
+                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-black/40 group-focus-within:text-blue-600 transition-colors" />
                     <Input 
                       placeholder="Numéro WhatsApp (ex: +243...)" 
-                      className="pl-12 bg-white/5 border-white/10 h-14 rounded-2xl text-white placeholder:text-zinc-600 focus:border-blue-500/50 transition-all"
+                      className="pl-12 bg-zinc-50 border-black/10 h-14 rounded-2xl text-black placeholder:text-black/40 focus:border-blue-500/50 transition-all"
                       value={whatsappNumber}
                       onChange={(e) => setWhatsappNumber(e.target.value)}
                       required
@@ -260,13 +260,13 @@ function LoginContent() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-zinc-400">Email</label>
+                  <label className="text-sm font-bold text-black/60">Email</label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-600" />
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black/40" />
                     <Input 
                       type="email" 
                       placeholder="contact@store.com" 
-                      className="pl-10 bg-black border-white/5 h-12 rounded-xl"
+                      className="pl-10 bg-zinc-50 border-black/10 h-12 rounded-xl text-black"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
@@ -274,13 +274,13 @@ function LoginContent() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-zinc-400">Mot de passe</label>
+                  <label className="text-sm font-bold text-black/60">Mot de passe</label>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-600" />
+                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black/40" />
                     <Input 
                       type="password" 
                       placeholder="Minimum 6 caractères" 
-                      className="pl-10 bg-black border-white/5 h-12 rounded-xl"
+                      className="pl-10 bg-zinc-50 border-black/10 h-12 rounded-xl text-black"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
@@ -309,7 +309,7 @@ function LoginContent() {
 export default function LoginPage() {
   return (
     <Suspense fallback={
-      <div className="flex items-center justify-center min-h-screen bg-black">
+      <div className="flex items-center justify-center min-h-screen bg-[#F5F5F7]">
         <div className="h-8 w-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
       </div>
     }>

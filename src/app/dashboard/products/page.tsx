@@ -114,8 +114,8 @@ export default function MyProductsPage() {
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
         <div>
-          <h1 className="text-3xl font-black text-white tracking-tight">Mes Annonces</h1>
-          <p className="text-zinc-500">Gérez vos iPhones listés sur la plateforme.</p>
+          <h1 className="text-3xl font-black text-black tracking-tight">Mes Annonces</h1>
+          <p className="text-black/60">Gérez vos iPhones listés sur la plateforme.</p>
         </div>
         <Link href="/dashboard/products/new">
           <Button className="bg-blue-600 hover:bg-blue-700 text-white rounded-xl h-12 px-6 font-bold w-full sm:w-auto">
@@ -126,15 +126,15 @@ export default function MyProductsPage() {
 
       <div className="flex flex-col md:flex-row gap-4 items-center">
         <div className="relative flex-1 w-full">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black/40" />
           <Input 
             placeholder="Rechercher une annonce..." 
-            className="pl-10 bg-zinc-900 border-white/5 h-12 rounded-xl text-white"
+            className="pl-10 bg-white border-black/10 h-12 rounded-xl text-black shadow-sm"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <Button variant="outline" className="border-white/5 bg-zinc-900 h-12 rounded-xl px-4 text-zinc-400">
+        <Button variant="outline" className="border-black/10 bg-white shadow-sm h-12 rounded-xl px-4 text-black/60 hover:text-black">
           <Filter className="mr-2 h-4 w-4" /> Filtres
         </Button>
       </div>
@@ -142,23 +142,23 @@ export default function MyProductsPage() {
       <div className="grid grid-cols-1 gap-4">
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20 gap-4">
-            <Loader2 className="h-10 w-10 text-blue-500 animate-spin" />
-            <p className="text-zinc-500 animate-pulse">Chargement de vos annonces...</p>
+            <Loader2 className="h-10 w-10 text-blue-600 animate-spin" />
+            <p className="text-black/50 animate-pulse">Chargement de vos annonces...</p>
           </div>
         ) : filteredProducts.length === 0 ? (
-          <div className="text-center py-20 bg-zinc-900/30 rounded-3xl border border-dashed border-white/5">
-            <Smartphone className="h-12 w-12 text-zinc-700 mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">Aucune annonce trouvée</h3>
-            <p className="text-zinc-500 mb-6">Commencez par ajouter votre premier iPhone à vendre.</p>
+          <div className="text-center py-20 bg-zinc-50 rounded-3xl border border-dashed border-black/10">
+            <Smartphone className="h-12 w-12 text-black/20 mx-auto mb-4" />
+            <h3 className="text-xl font-bold text-black mb-2">Aucune annonce trouvée</h3>
+            <p className="text-black/50 mb-6">Commencez par ajouter votre premier iPhone à vendre.</p>
             <Link href="/dashboard/products/new">
               <Button className="bg-blue-600">Ajouter un iPhone</Button>
             </Link>
           </div>
         ) : (
           filteredProducts.map((product) => (
-            <Card key={product.id} className="bg-zinc-900 border-white/5 rounded-2xl overflow-hidden hover:border-white/10 transition-colors">
+            <Card key={product.id} className="bg-white border-black/5 shadow-sm rounded-2xl overflow-hidden hover:border-blue-500/30 transition-colors">
               <CardContent className="p-4 flex items-center gap-4">
-                <div className="h-16 w-16 bg-black rounded-xl border border-white/5 flex items-center justify-center text-zinc-700 overflow-hidden">
+                <div className="h-16 w-16 bg-zinc-50 rounded-xl border border-black/5 flex items-center justify-center text-black/20 overflow-hidden">
                   {product.image ? (
                     <img src={product.image} className="w-full h-full object-cover" />
                   ) : (
@@ -167,23 +167,23 @@ export default function MyProductsPage() {
                 </div>
                 
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-white truncate uppercase tracking-tight">{product.model}</h3>
+                  <h3 className="font-bold text-black truncate uppercase tracking-tight">{product.model}</h3>
                   <div className="flex items-center gap-3 mt-1">
-                    <span className="text-blue-500 font-black">{product.price}$</span>
-                    <span className="text-zinc-600 text-[10px] tracking-widest uppercase font-bold">{product.date}</span>
+                    <span className="text-blue-600 font-black">{product.price}$</span>
+                    <span className="text-black/40 text-[10px] tracking-widest uppercase font-bold">{product.date}</span>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-6">
                   <div className="hidden md:block text-right">
-                    <p className="text-[10px] text-zinc-500 uppercase font-black tracking-tighter mb-0.5">Performance</p>
-                    <p className="text-xs font-bold text-white">{product.views} vues • {product.clicks} clics</p>
+                    <p className="text-[10px] text-black/50 uppercase font-black tracking-tighter mb-0.5">Performance</p>
+                    <p className="text-xs font-bold text-black">{product.views} vues • {product.clicks} clics</p>
                   </div>
 
                   <Badge 
                     className={cn(
                       "rounded-full px-3 py-1 font-bold text-[10px] uppercase tracking-wider",
-                      product.status === 'available' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-red-500/10 text-red-400 border-red-500/20'
+                      product.status === 'available' ? 'bg-emerald-500/10 text-emerald-700 border-emerald-500/20' : 'bg-red-500/10 text-red-700 border-red-500/20'
                     )}
                     variant="outline"
                   >
@@ -191,25 +191,25 @@ export default function MyProductsPage() {
                   </Badge>
 
                   <DropdownMenu>
-                    <DropdownMenuTrigger render={
-                      <Button variant="ghost" size="icon" className="text-zinc-500 hover:text-white hover:bg-white/5 rounded-xl">
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" size="icon" className="text-black/50 hover:text-black hover:bg-black/5 rounded-xl">
                         <MoreVertical className="h-5 w-5" />
                       </Button>
-                    } />
-                    <DropdownMenuContent align="end" className="bg-zinc-900 border-white/10 text-white rounded-2xl p-2 min-w-[180px]">
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="bg-white border-black/10 shadow-lg text-black rounded-2xl p-2 min-w-[180px]">
                       <Link href={`/dashboard/products/${product.id}/edit`}>
-                        <DropdownMenuItem className="gap-2 rounded-xl focus:bg-white/5 cursor-pointer">
+                        <DropdownMenuItem className="gap-2 rounded-xl focus:bg-black/5 cursor-pointer">
                           <Edit2 className="h-4 w-4" /> Modifier
                         </DropdownMenuItem>
                       </Link>
                       <DropdownMenuItem 
-                        className="gap-2 rounded-xl focus:bg-white/5 cursor-pointer"
+                        className="gap-2 rounded-xl focus:bg-black/5 cursor-pointer"
                         onClick={() => handleStatusChange(product.id, product.status === 'available' ? 'sold' : 'available')}
                       >
                          <Smartphone className="h-4 w-4" /> {product.status === 'available' ? 'Marquer comme vendu' : 'Remettre en vente'}
                       </DropdownMenuItem>
                       <DropdownMenuItem 
-                        className="gap-2 rounded-xl focus:bg-red-500/10 focus:text-red-400 text-red-400 cursor-pointer"
+                        className="gap-2 rounded-xl focus:bg-red-500/10 focus:text-red-600 text-red-600 cursor-pointer"
                         onClick={() => handleDelete(product.id)}
                       >
                         <Trash2 className="h-4 w-4" /> Supprimer

@@ -1,50 +1,43 @@
 "use client"
 
 import Link from "next/link"
-import { ShoppingCart, User, Menu, X, AlertTriangle } from "lucide-react"
+import { User, Menu, X, AlertTriangle } from "lucide-react"
 import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
 import { createClient } from "@/lib/supabase/client"
+import { motion, AnimatePresence } from "framer-motion"
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isConfigured, setIsConfigured] = useState(true)
   const [session, setSession] = useState<any>(null)
   const [storeName, setStoreName] = useState<string | null>(null)
+  const [scrolled, setScrolled] = useState(false)
   const supabase = createClient()
 
   useEffect(() => {
-    if (!supabase) {
-      setIsConfigured(false)
-      return
-    }
+    const onScroll = () => setScrolled(window.scrollY > 12)
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
 
-    // Check initial session
+  useEffect(() => {
+    if (!supabase) { setIsConfigured(false); return }
+
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
-      if (session?.user) {
-        fetchStoreName(session.user.id)
-      }
+      if (session?.user) fetchStoreName(session.user.id)
     })
 
-    // Listen for changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
-      if (session?.user) {
-        fetchStoreName(session.user.id)
-      } else {
-        setStoreName(null)
-      }
+      if (session?.user) fetchStoreName(session.user.id)
+      else setStoreName(null)
     })
 
     async function fetchStoreName(userId: string) {
       if (!supabase) return
       const { data } = await supabase
-        .from('stores')
-        .select('name')
-        .eq('profile_id', userId)
-        .single()
-      
+        .from('stores').select('name').eq('profile_id', userId).single()
       if (data) setStoreName(data.name)
     }
 
@@ -52,10 +45,7 @@ export function Navbar() {
   }, [supabase])
 
   const handleLogout = async () => {
-    if (supabase) {
-      await supabase.auth.signOut()
-      window.location.href = "/"
-    }
+    if (supabase) { await supabase.auth.signOut(); window.location.href = "/" }
   }
 
   return (
@@ -63,124 +53,140 @@ export function Navbar() {
       {!isConfigured && (
         <div className="bg-amber-500/10 border-b border-amber-500/20 py-2 px-4 flex items-center justify-center gap-2">
           <AlertTriangle className="h-4 w-4 text-amber-500" />
-          <p className="text-[10px] md:text-xs font-bold text-amber-500 uppercase tracking-widest text-center">
-            Attention : Base de données non configurée. Vérifiez votre clé Supabase dans .env.local
+          <p className="text-[10px] md:text-xs font-semibold text-amber-500 text-center">
+            Base de données non configurée — Vérifiez votre clé Supabase dans .env.local
           </p>
         </div>
       )}
-      <nav className="sticky top-0 z-50 w-full border-b border-white/10 bg-black/80 backdrop-blur-md">
-      <div className="container mx-auto flex h-14 md:h-16 items-center justify-between px-4">
-        <div className="flex items-center gap-6">
-          <Link href="/" className="text-base md:text-xl font-black tracking-tight text-white">
-            <span className="md:hidden">ASK <span className="text-blue-500">●</span></span>
-            <span className="hidden md:inline italic">APPLE STORE <span className="text-blue-500">KOLWEZI</span></span>
-          </Link>
+
+      <nav className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+        scrolled
+          ? "bg-white/85 backdrop-blur-2xl border-b border-black/5 shadow-xl shadow-black/5"
+          : "bg-white/60 backdrop-blur-xl border-b border-black/5"
+      }`}>
+        <div className="container mx-auto flex h-14 md:h-[60px] items-center justify-between px-5 md:px-6">
           
-          <div className="hidden md:flex items-center gap-6">
-            <Link href="/catalog" className="text-sm font-bold text-zinc-400 hover:text-white transition-colors">
-              Catalogue
-            </Link>
-            <Link href="/vendeurs" className="text-sm font-bold text-zinc-400 hover:text-white transition-colors">
-              Vendeurs
-            </Link>
-            <Link href="/a-propos" className="text-sm font-bold text-zinc-400 hover:text-white transition-colors">
-              À Propos
-            </Link>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-2">
-          {/* Mobile: quick catalogue button */}
-          <Link href="/catalog" className="md:hidden">
-            <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl h-8 px-3 text-xs">
-              Catalogue
-            </Button>
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <div className="h-7 w-7 rounded-lg bg-black flex items-center justify-center shadow-sm group-hover:scale-95 transition-transform duration-200">
+              <svg viewBox="0 0 24 24" className="h-4 w-4 fill-white" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+              </svg>
+            </div>
+            <div className="hidden md:block">
+              <span className="text-[15px] font-semibold text-black tracking-tight leading-none">
+                Apple Store <span className="text-black/50">Kolwezi</span>
+              </span>
+            </div>
+            <span className="md:hidden text-[15px] font-bold text-black tracking-tight">ASK</span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-2">
+          {/* Desktop nav links */}
+          <div className="hidden md:flex items-center gap-7">
+            <Link href="/catalog" className="nav-link">Catalogue</Link>
+            <Link href="/vendeurs" className="nav-link">Vendeurs</Link>
+            <Link href="/a-propos" className="nav-link">À Propos</Link>
+          </div>
+
+          {/* Desktop CTA */}
+          <div className="hidden md:flex items-center gap-3">
             {session ? (
               <>
                 <Link href="/dashboard">
-                  <Button variant="ghost" className="text-white hover:bg-white/5 font-bold italic text-sm">
-                    {storeName ? `Store: ${storeName}` : "Mon Dashboard"}
-                  </Button>
+                  <button className="text-[13px] font-medium text-black/70 hover:text-black transition-colors px-3 py-1.5 rounded-lg hover:bg-black/5">
+                    {storeName ? storeName : "Dashboard"}
+                  </button>
                 </Link>
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
+                <button
                   onClick={handleLogout}
-                  className="text-zinc-500 hover:text-red-400 font-bold text-[10px] uppercase"
+                  className="text-[12px] font-medium text-black/40 hover:text-red-500 transition-colors"
                 >
                   Déconnexion
-                </Button>
-              </>
-            ) : (
-              <Link href="/login">
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl px-6 h-10 shadow-lg shadow-blue-500/20">
-                  Devenir Vendeur
-                </Button>
-              </Link>
-            )}
-          </div>
-          
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden text-zinc-400 hover:bg-white/10 h-8 w-8"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden border-t border-white/5 bg-zinc-950/98 backdrop-blur-xl px-4 py-5 space-y-1 animate-in slide-in-from-top duration-200">
-          {[
-            { href: "/catalog", label: "🛍️  Catalogue" },
-            { href: "/vendeurs", label: "🏪  Vendeurs" },
-            { href: "/a-propos", label: "ℹ️  À Propos" },
-          ].map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className="flex items-center text-base font-bold text-white py-3 px-3 rounded-xl hover:bg-white/5 active:bg-white/10 transition-colors"
-              onClick={() => setIsOpen(false)}
-            >
-              {label}
-            </Link>
-          ))}
-          <div className="pt-3 mt-2 border-t border-white/5">
-            {session ? (
-              <>
-                <Link 
-                  href="/dashboard"
-                  className="flex items-center text-base font-bold text-blue-400 py-3 px-3 rounded-xl hover:bg-blue-500/10 transition-colors"
-                  onClick={() => setIsOpen(false)}
-                >
-                  📊  {storeName ? `Store: ${storeName}` : "Mon Dashboard"}
-                </Link>
-                <button 
-                  onClick={() => { handleLogout(); setIsOpen(false) }}
-                  className="w-full text-left flex items-center text-base font-bold text-red-400 py-3 px-3 rounded-xl hover:bg-red-500/10 transition-colors"
-                >
-                  🚪  Se Déconnecter
                 </button>
               </>
             ) : (
-              <Link 
-                href="/login"
-                className="flex items-center text-base font-bold text-blue-400 py-3 px-3 rounded-xl hover:bg-blue-500/10 transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                🔑  Devenir Vendeur
+              <Link href="/login">
+                <button className="h-9 px-5 text-[13px] font-semibold text-white bg-black rounded-full hover:bg-black/90 transition-all duration-200 shadow-sm shadow-black/10 hover:shadow-black/20">
+                  Devenir Vendeur
+                </button>
               </Link>
             )}
           </div>
+
+          {/* Mobile right side */}
+          <div className="flex md:hidden items-center gap-2">
+            <Link href="/catalog">
+              <button className="h-8 px-4 text-[12px] font-semibold text-white bg-black rounded-full hover:bg-black/90 transition-colors">
+                Catalogue
+              </button>
+            </Link>
+            <button
+              className="h-8 w-8 flex items-center justify-center rounded-full text-black/60 hover:text-black hover:bg-black/5 transition-all"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            </button>
+          </div>
         </div>
-      )}
-    </nav>
-  </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              className="md:hidden overflow-hidden border-t border-black/5 bg-white/95 backdrop-blur-2xl"
+            >
+              <div className="px-5 py-4 space-y-0.5">
+                {[
+                  { href: "/catalog", label: "Catalogue" },
+                  { href: "/vendeurs", label: "Vendeurs" },
+                  { href: "/a-propos", label: "À Propos" },
+                ].map(({ href, label }) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    className="flex items-center text-[15px] font-medium text-black/75 hover:text-black py-3 px-3 rounded-xl hover:bg-black/5 transition-colors"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {label}
+                  </Link>
+                ))}
+                <div className="pt-3 mt-2 border-t border-black/5 space-y-1">
+                  {session ? (
+                    <>
+                      <Link
+                        href="/dashboard"
+                        className="flex items-center text-[15px] font-medium text-black py-3 px-3 rounded-xl hover:bg-black/5 transition-colors"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        <User className="h-4 w-4 mr-2.5 text-black/40" />
+                        {storeName ? `Mon Store · ${storeName}` : "Dashboard"}
+                      </Link>
+                      <button
+                        onClick={() => { handleLogout(); setIsOpen(false) }}
+                        className="w-full text-left text-[15px] font-medium text-red-500/80 hover:text-red-500 py-3 px-3 rounded-xl hover:bg-red-500/10 transition-colors"
+                      >
+                        Se déconnecter
+                      </button>
+                    </>
+                  ) : (
+                    <Link
+                      href="/login"
+                      className="flex items-center justify-center text-[15px] font-semibold text-white bg-black py-3 px-3 rounded-2xl mt-2 active:scale-[0.98] transition-transform"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Devenir Vendeur
+                    </Link>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
+    </div>
   )
 }

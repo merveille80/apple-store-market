@@ -78,14 +78,14 @@ export default function VendeursPage() {
     <div className="container mx-auto px-4 py-16 lg:py-24">
       <div className="max-w-3xl mb-16">
         <div className="flex items-center gap-3 mb-4">
-          <h1 className="text-4xl lg:text-5xl font-black text-white tracking-tight italic">Nos Vendeurs</h1>
+          <h1 className="text-4xl lg:text-5xl font-black text-black tracking-tight italic">Nos Vendeurs</h1>
           {!isConfigured && (
             <Badge variant="outline" className="border-amber-500/50 text-amber-500 px-3 py-1 text-[10px] uppercase bg-amber-500/5">
               Mode Démo
             </Badge>
           )}
         </div>
-        <p className="text-xl text-zinc-400 leading-relaxed">
+        <p className="text-xl text-black/60 leading-relaxed">
           Travailler avec des professionnels certifiés. Découvrez les meilleurs vendeurs d'iPhones à Kolwezi.
         </p>
       </div>
@@ -98,14 +98,14 @@ export default function VendeursPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
           >
-            <Card className="bg-zinc-900 border-white/5 rounded-[2.5rem] overflow-hidden group hover:border-blue-500/30 transition-all duration-500">
+            <Card className="bg-white border-black/5 shadow-sm rounded-[2.5rem] overflow-hidden group hover:border-blue-500/30 transition-all duration-500">
               <CardContent className="p-8">
                 <div className="flex justify-between items-start mb-6">
-                  <div className="h-16 w-16 rounded-2xl bg-black border border-white/5 flex items-center justify-center text-zinc-700 overflow-hidden shadow-2xl">
+                  <div className="h-16 w-16 rounded-2xl bg-zinc-50 border border-black/5 flex items-center justify-center text-zinc-400 overflow-hidden shadow-sm">
                     {store.logo ? (
                       <img src={store.logo} alt={store.name} className="w-full h-full object-cover" />
                     ) : (
-                      <Store className="h-8 w-8 text-zinc-600" />
+                      <Store className="h-8 w-8 text-zinc-400" />
                     )}
                   </div>
                   {store.verified ? (
@@ -113,26 +113,26 @@ export default function VendeursPage() {
                       <ShieldCheck className="h-3 w-3" /> Vérifié
                     </Badge>
                   ) : (
-                    <Badge variant="outline" className="text-zinc-500 border-zinc-800 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wider">
+                    <Badge variant="outline" className="text-black/50 border-black/10 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wider">
                       En attente
                     </Badge>
                   )}
                 </div>
 
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors uppercase tracking-tight italic">
+                <h3 className="text-xl font-bold text-black mb-2 group-hover:text-blue-600 transition-colors uppercase tracking-tight italic">
                   {store.name}
                 </h3>
 
                 <div className="space-y-3 mb-8">
-                  <div className="flex items-center gap-2 text-sm text-zinc-500">
-                    <MapPin className="h-4 w-4 text-zinc-700" /> {store.city}, RDC
+                  <div className="flex items-center gap-2 text-sm text-black/50">
+                    <MapPin className="h-4 w-4 text-black/30" /> {store.city}, RDC
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-zinc-500">
-                    <Smartphone className="h-4 w-4 text-zinc-700" /> {store.listings} Annonces actives
+                  <div className="flex items-center gap-2 text-sm text-black/50">
+                    <Smartphone className="h-4 w-4 text-black/30" /> {store.listings} Annonces actives
                   </div>
                 </div>
 
-                <div className="pt-6 border-t border-white/5 flex items-center justify-between">
+                <div className="pt-6 border-t border-black/5 flex items-center justify-between">
                    <div className="flex gap-2">
                     <a 
                       href={`https://wa.me/${store.whatsapp.replace(/\D/g, '')}`} 
@@ -143,7 +143,7 @@ export default function VendeursPage() {
                     </a>
                   </div>
                   <Link href={`/vendeur/${store.slug}`}>
-                    <Button variant="ghost" className="text-white hover:bg-white/5 group/btn rounded-xl font-bold italic text-sm">
+                    <Button variant="ghost" className="text-black hover:bg-black/5 group/btn rounded-xl font-bold italic text-sm">
                       Voir Boutique <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
                     </Button>
                   </Link>
@@ -156,7 +156,7 @@ export default function VendeursPage() {
 
       {stores.length === 0 && !loading && (
         <div className="py-20 text-center">
-          <p className="text-zinc-500">Aucun vendeur certifié pour le moment.</p>
+          <p className="text-black/50">Aucun vendeur certifié pour le moment.</p>
         </div>
       )}
     </div>

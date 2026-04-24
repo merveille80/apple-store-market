@@ -168,8 +168,8 @@ export default function StoreSettingsPage() {
   if (isPageLoading) {
     return (
       <div className="min-h-[400px] flex flex-col items-center justify-center gap-4">
-        <Loader2 className="h-10 w-10 text-blue-500 animate-spin" />
-        <p className="text-zinc-500 animate-pulse">Chargement de votre boutique...</p>
+        <Loader2 className="h-10 w-10 text-blue-600 animate-spin" />
+        <p className="text-black/50 animate-pulse">Chargement de votre boutique...</p>
       </div>
     )
   }
@@ -177,61 +177,61 @@ export default function StoreSettingsPage() {
   return (
     <div className="space-y-10 pb-20">
       <div>
-        <h1 className="text-3xl font-black text-white tracking-tight">Paramètres du Store</h1>
-        <p className="text-zinc-500">Gérez l'identité de votre boutique et vos informations de contact.</p>
+        <h1 className="text-3xl font-black text-black tracking-tight">Paramètres du Store</h1>
+        <p className="text-black/60">Gérez l'identité de votre boutique et vos informations de contact.</p>
       </div>
 
       <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Column: Identité */}
         <div className="lg:col-span-2 space-y-8">
-          <Card className="bg-zinc-900 border-white/5 rounded-3xl p-8">
+          <Card className="bg-white border-black/5 shadow-sm rounded-3xl p-8">
             <CardHeader className="p-0 mb-6">
-              <CardTitle className="text-xl font-bold">Identité de la Boutique</CardTitle>
-              <CardDescription className="text-zinc-500">Ces informations seront visibles par vos clients sur vos fiches produits.</CardDescription>
+              <CardTitle className="text-xl font-bold text-black">Identité de la Boutique</CardTitle>
+              <CardDescription className="text-black/50">Ces informations seront visibles par vos clients sur vos fiches produits.</CardDescription>
             </CardHeader>
             <CardContent className="p-0 space-y-6">
               <div className="space-y-2">
-                <Label className="text-zinc-400">Nom du Store</Label>
+                <Label className="text-black/60 font-bold">Nom du Store</Label>
                 <div className="relative">
-                  <Store className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-600" />
+                  <Store className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black/40" />
                   <Input 
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    className="pl-10 bg-black border-white/5 h-12 rounded-xl"
+                    className="pl-10 bg-zinc-50 border-black/10 h-12 rounded-xl text-black"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label className="text-zinc-400">Description</Label>
+                <Label className="text-black/60 font-bold">Description</Label>
                 <Textarea 
                   value={formData.description}
                   onChange={(e) => setFormData({...formData, description: e.target.value})}
-                  className="bg-black border-white/5 min-h-[120px] rounded-xl p-4"
+                  className="bg-zinc-50 border-black/10 min-h-[120px] rounded-xl p-4 text-black"
                   placeholder="Décrivez votre store..."
                 />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label className="text-zinc-400">Ville</Label>
+                  <Label className="text-black/60 font-bold">Ville</Label>
                   <div className="relative">
-                    <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-600" />
+                    <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black/40" />
                     <Input 
                       value={formData.city}
                       onChange={(e) => setFormData({...formData, city: e.target.value})}
-                      className="pl-10 bg-black border-white/5 h-12 rounded-xl"
+                      className="pl-10 bg-zinc-50 border-black/10 h-12 rounded-xl text-black"
                     />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-zinc-400">Adresse Physique</Label>
+                  <Label className="text-black/60 font-bold">Adresse Physique</Label>
                   <div className="relative">
-                    <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-600" />
+                    <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black/40" />
                     <Input 
                       value={formData.address}
                       onChange={(e) => setFormData({...formData, address: e.target.value})}
-                      className="pl-10 bg-black border-white/5 h-12 rounded-xl"
+                      className="pl-10 bg-zinc-50 border-black/10 h-12 rounded-xl text-black"
                     />
                   </div>
                 </div>
@@ -239,21 +239,21 @@ export default function StoreSettingsPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-zinc-900 border-white/5 rounded-3xl p-8">
+          <Card className="bg-white border-black/5 shadow-sm rounded-3xl p-8">
             <CardHeader className="p-0 mb-6">
-              <CardTitle className="text-xl font-bold">Contact WhatsApp</CardTitle>
-              <CardDescription className="text-zinc-500">Le numéro utilisé pour recevoir les commandes clients.</CardDescription>
+              <CardTitle className="text-xl font-bold text-black">Contact WhatsApp</CardTitle>
+              <CardDescription className="text-black/50">Le numéro utilisé pour recevoir les commandes clients.</CardDescription>
             </CardHeader>
             <CardContent className="p-0">
               <div className="space-y-2">
-                <Label className="text-zinc-400">Numéro WhatsApp (avec code pays)</Label>
+                <Label className="text-black/60 font-bold">Numéro WhatsApp (avec code pays)</Label>
                 <div className="relative">
-                  <MessageSquare className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-emerald-500" />
+                  <MessageSquare className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-emerald-600" />
                   <Input 
                     value={formData.whatsapp}
                     onChange={(e) => setFormData({...formData, whatsapp: e.target.value})}
                     placeholder="+243..."
-                    className="pl-10 bg-black border-white/5 h-12 rounded-xl text-emerald-400 font-bold"
+                    className="pl-10 bg-emerald-50/50 border-emerald-500/20 h-12 rounded-xl text-emerald-700 font-bold focus-visible:ring-emerald-500"
                   />
                 </div>
               </div>
@@ -263,20 +263,20 @@ export default function StoreSettingsPage() {
 
         {/* Right Column: Logo & Save */}
         <div className="space-y-8">
-          <Card className="bg-zinc-900 border-white/5 rounded-3xl p-8 text-center">
-            <h3 className="font-bold mb-6">Logo du Store</h3>
+          <Card className="bg-white border-black/5 shadow-sm rounded-3xl p-8 text-center">
+            <h3 className="font-bold mb-6 text-black">Logo du Store</h3>
             <div 
               className="relative inline-block group cursor-pointer"
               onClick={() => document.getElementById('logo-upload')?.click()}
             >
-              <div className="h-32 w-32 rounded-3xl bg-black border border-white/5 flex items-center justify-center text-zinc-700 overflow-hidden shadow-xl">
+              <div className="h-32 w-32 rounded-3xl bg-zinc-50 border border-black/10 flex items-center justify-center text-black/20 overflow-hidden shadow-sm">
                 {formData.logo_url ? (
                   <img src={formData.logo_url} className="w-full h-full object-cover" />
                 ) : (
                   <Store className="h-12 w-12" />
                 )}
               </div>
-              <div className="absolute inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity">
                 {isUploading ? (
                   <Loader2 className="h-8 w-8 text-white animate-spin" />
                 ) : (
@@ -292,26 +292,26 @@ export default function StoreSettingsPage() {
                 disabled={isUploading}
               />
             </div>
-            <p className="text-xs text-zinc-500 mt-4 leading-relaxed">
+            <p className="text-xs text-black/50 mt-4 leading-relaxed">
               Format carré recommandé. JPG ou PNG. <br /> Max 2MB.
             </p>
           </Card>
 
-          <Card className="bg-zinc-900 border-white/5 rounded-3xl p-8 space-y-4">
+          <Card className="bg-white border-black/5 shadow-sm rounded-3xl p-8 space-y-4">
              {formData.is_verified ? (
                <div className="flex items-center gap-3 p-4 bg-emerald-500/10 rounded-2xl border border-emerald-500/20">
-                  <ShieldCheck className="h-5 w-5 text-emerald-500 shrink-0" />
-                  <span className="text-sm text-emerald-400 font-bold">Votre store est vérifié et certifié !</span>
+                  <ShieldCheck className="h-5 w-5 text-emerald-600 shrink-0" />
+                  <span className="text-sm text-emerald-700 font-bold">Votre store est vérifié et certifié !</span>
                </div>
              ) : (
                <div className="flex items-center gap-3 p-4 bg-orange-500/10 rounded-2xl border border-orange-500/20">
-                  <Shield className="h-5 w-5 text-orange-500 shrink-0" />
-                  <span className="text-sm text-orange-400 font-bold">Votre store est actuellement en cours de vérification.</span>
+                  <Shield className="h-5 w-5 text-orange-600 shrink-0" />
+                  <span className="text-sm text-orange-700 font-bold">Votre store est actuellement en cours de vérification.</span>
                </div>
              )}
              <Button 
               type="submit" 
-              className="w-full h-14 bg-white text-black hover:bg-zinc-200 font-black rounded-2xl text-lg shadow-xl shadow-white/5"
+              className="w-full h-14 bg-blue-600 text-white hover:bg-blue-700 font-black rounded-2xl text-lg shadow-xl shadow-blue-600/20"
               disabled={isLoading || isUploading}
             >
               {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Save className="mr-2 h-5 w-5" />}

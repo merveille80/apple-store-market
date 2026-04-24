@@ -143,7 +143,7 @@ Lien : ${window.location.href}`
   if (loading) {
     return (
       <div className="container mx-auto px-4 py-8 lg:py-16">
-        <div className="inline-flex items-center text-zinc-400 mb-8">
+        <div className="inline-flex items-center text-black/50 mb-8">
           <ChevronLeft className="mr-1 h-4 w-4" /> Retour au catalogue
         </div>
         <ProductDetailsSkeleton />
@@ -153,8 +153,8 @@ Lien : ${window.location.href}`
 
   if (!product) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-6">
-        <h1 className="text-2xl font-bold text-white">Produit non trouvé</h1>
+      <div className="min-h-screen flex flex-col items-center justify-center gap-6 bg-[#F5F5F7]">
+        <h1 className="text-2xl font-bold text-black">Produit non trouvé</h1>
         <Link href="/catalog">
           <Button className="bg-blue-600">Retour au catalogue</Button>
         </Link>
@@ -164,7 +164,7 @@ Lien : ${window.location.href}`
 
   return (
     <div className="container mx-auto px-4 py-8 lg:py-16">
-      <Link href="/catalog" className="inline-flex items-center text-zinc-400 hover:text-white mb-8 transition-colors">
+      <Link href="/catalog" className="inline-flex items-center text-black/50 hover:text-black mb-8 transition-colors">
         <ChevronLeft className="mr-1 h-4 w-4" /> Retour au catalogue
       </Link>
 
@@ -174,14 +174,14 @@ Lien : ${window.location.href}`
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="aspect-square relative overflow-hidden rounded-3xl bg-zinc-900 border border-white/5"
+            className="aspect-square relative overflow-hidden rounded-3xl bg-zinc-100 border border-black/5"
           >
             <img 
               src={activeImage} 
               alt={product.model}
               className="object-cover w-full h-full"
             />
-            <Badge className={`absolute top-4 right-4 font-black text-white text-xs px-3 py-1 border-0 shadow-lg shadow-blue-600/30 ${product.condition === 'box' ? 'bg-blue-600' : 'bg-zinc-700'}`}>
+            <Badge className={`absolute top-4 right-4 font-black text-white text-xs px-3 py-1 border-0 shadow-lg shadow-blue-600/30 ${product.condition === 'box' ? 'bg-blue-600' : 'bg-black/60 backdrop-blur-md'}`}>
               {product.condition === 'box' ? '✦ Box / Neuf' : 'Occasion'}
             </Badge>
           </motion.div>
@@ -209,15 +209,15 @@ Lien : ${window.location.href}`
                 {product.store}
               </Link>
             ) : (
-              <p className="text-zinc-500 font-medium uppercase tracking-[0.2em] text-sm mb-3 flex items-center gap-2">
+              <p className="text-black/50 font-medium uppercase tracking-[0.2em] text-sm mb-3 flex items-center gap-2">
                 <Store className="h-4 w-4" /> {product.store}
               </p>
             )}
-            <h1 className="text-4xl lg:text-5xl font-black text-white mb-4 tracking-tight">{product.model}</h1>
+            <h1 className="text-4xl lg:text-5xl font-black text-black mb-4 tracking-tight">{product.model}</h1>
             <div className="flex items-center gap-4">
               <div className="flex items-baseline gap-1">
-                <span className="text-4xl font-black text-blue-500">{product.price}$</span>
-                <span className="text-sm font-bold text-zinc-500 uppercase">USD</span>
+                <span className="text-4xl font-black text-blue-600">{product.price}$</span>
+                <span className="text-sm font-bold text-black/40 uppercase">USD</span>
               </div>
               <Badge variant="outline" className="border-emerald-500/50 text-emerald-400 py-1">
                 En Stock
@@ -226,55 +226,55 @@ Lien : ${window.location.href}`
           </div>
 
           <div className="grid grid-cols-2 gap-4 mb-8">
-            <Card className="bg-zinc-900/50 border-white/5 p-4 flex items-center gap-3">
-              <Battery className="h-5 w-5 text-blue-500" />
+            <Card className="bg-white border-black/5 shadow-sm p-4 flex items-center gap-3">
+              <Battery className="h-5 w-5 text-blue-600" />
               <div>
-                <p className="text-xs text-zinc-500">Batterie</p>
-                <p className="text-sm font-bold text-white">{product.battery}%</p>
+                <p className="text-xs text-black/50">Batterie</p>
+                <p className="text-sm font-bold text-black">{product.battery}%</p>
               </div>
             </Card>
-            <Card className="bg-zinc-900/50 border-white/5 p-4 flex items-center gap-3">
-              <Smartphone className="h-5 w-5 text-blue-500" />
+            <Card className="bg-white border-black/5 shadow-sm p-4 flex items-center gap-3">
+              <Smartphone className="h-5 w-5 text-blue-600" />
               <div>
-                <p className="text-xs text-zinc-500">Capacité</p>
-                <p className="text-sm font-bold text-white">{product.storage}</p>
+                <p className="text-xs text-black/50">Capacité</p>
+                <p className="text-sm font-bold text-black">{product.storage}</p>
               </div>
             </Card>
-            <Card className="bg-zinc-900/50 border-white/5 p-4 flex items-center gap-3">
-              <CheckCircle2 className="h-5 w-5 text-blue-500" />
+            <Card className="bg-white border-black/5 shadow-sm p-4 flex items-center gap-3">
+              <CheckCircle2 className="h-5 w-5 text-blue-600" />
               <div>
-                <p className="text-xs text-zinc-500">Face ID</p>
-                <p className="text-sm font-bold text-white">{product.faceId ? 'Fonctionnel' : 'N/A'}</p>
+                <p className="text-xs text-black/50">Face ID</p>
+                <p className="text-sm font-bold text-black">{product.faceId ? 'Fonctionnel' : 'N/A'}</p>
               </div>
             </Card>
-            <Card className="bg-zinc-900/50 border-white/5 p-4 flex items-center gap-3">
-              <MapPin className="h-5 w-5 text-blue-500" />
+            <Card className="bg-white border-black/5 shadow-sm p-4 flex items-center gap-3">
+              <MapPin className="h-5 w-5 text-blue-600" />
               <div>
-                <p className="text-xs text-zinc-500">Ville</p>
-                <p className="text-sm font-bold text-white">{product.city}</p>
+                <p className="text-xs text-black/50">Ville</p>
+                <p className="text-sm font-bold text-black">{product.city}</p>
               </div>
             </Card>
           </div>
 
           <div className="space-y-6 mb-10">
             <div>
-              <h3 className="text-zinc-400 font-bold text-sm uppercase tracking-wider mb-3">Accessoires inclus</h3>
+              <h3 className="text-black/40 font-bold text-sm uppercase tracking-wider mb-3">Accessoires inclus</h3>
               <div className="flex flex-wrap gap-2">
                 {product.accessories.split(',').map((acc: string, i: number) => (
-                  <Badge key={i} variant="secondary" className="bg-zinc-800 text-zinc-300 font-normal">
+                  <Badge key={i} variant="secondary" className="bg-black/5 text-black/70 font-medium">
                     <Check className="h-3 w-3 mr-1 text-emerald-500" /> {acc.trim()}
                   </Badge>
                 ))}
               </div>
             </div>
             
-            <div className="p-6 bg-zinc-900/80 rounded-3xl border border-white/5 space-y-4">
+            <div className="p-6 bg-zinc-50 rounded-3xl border border-black/5 space-y-4 text-black">
               <div className="flex items-center gap-3">
-                <Shield className="h-5 w-5 text-emerald-500" />
+                <Shield className="h-5 w-5 text-emerald-600" />
                 <span className="text-sm font-medium">Authenticité & Qualité Garantie par le Vendeur</span>
               </div>
               <div className="flex items-center gap-3">
-                <Zap className="h-5 w-5 text-yellow-500" />
+                <Zap className="h-5 w-5 text-yellow-600" />
                 <span className="text-sm font-medium">Remise en main propre possible à Kolwezi</span>
               </div>
             </div>
@@ -287,30 +287,30 @@ Lien : ${window.location.href}`
                 <MessageCircle className="mr-2 h-6 w-6" /> Commander via WhatsApp
               </Button>
             } />
-            <DialogContent className="bg-zinc-900 border-white/10 text-white sm:max-w-[425px] rounded-3xl">
+            <DialogContent className="bg-white border-black/10 text-black sm:max-w-[425px] rounded-3xl">
               <DialogHeader>
                 <DialogTitle className="text-2xl font-black">Finaliser la commande</DialogTitle>
-                <DialogDescription className="text-zinc-400">
+                <DialogDescription className="text-black/60">
                   Remplissez ces informations pour générer votre commande personnalisée sur WhatsApp.
                 </DialogDescription>
               </DialogHeader>
               <div className="grid gap-6 py-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-zinc-400 ml-1">Nom complet</label>
+                  <label className="text-sm font-bold text-black/60 ml-1">Nom complet</label>
                   <Input 
                     placeholder="Votre nom" 
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
-                    className="bg-black border-white/10 h-12 rounded-xl"
+                    className="bg-zinc-50 border-black/10 h-12 rounded-xl text-black"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-zinc-400 ml-1">Numéro de téléphone</label>
+                  <label className="text-sm font-bold text-black/60 ml-1">Numéro de téléphone</label>
                   <Input 
                     placeholder="+243..." 
                     value={customerPhone}
                     onChange={(e) => setCustomerPhone(e.target.value)}
-                    className="bg-black border-white/10 h-12 rounded-xl"
+                    className="bg-zinc-50 border-black/10 h-12 rounded-xl text-black"
                   />
                 </div>
               </div>

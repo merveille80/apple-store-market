@@ -21,8 +21,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="fr" className="dark">
-      <body className={`${inter.className} bg-black text-white antialiased`}>
+    <html lang="fr" className="light">
+      <body className={`${inter.className} bg-[#F5F5F7] text-zinc-900 antialiased`}>
         <div className="flex min-h-screen flex-col">
           <Navbar />
           <main className="flex-1 pb-20 md:pb-0">{children}</main>
