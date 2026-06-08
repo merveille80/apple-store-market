@@ -94,8 +94,8 @@ export default function AdminDashboard() {
   return (
     <div className="space-y-10">
       <div>
-        <h1 className="text-3xl font-black text-black tracking-tight italic">Platform Overview</h1>
-        <p className="text-black/60">Statistiques globales et activités récentes sur ASK Market.</p>
+        <h1 className="font-sf-display text-[clamp(1.75rem,4vw,2.25rem)] font-semibold text-[#1d1d1f] tracking-[-0.03em]">Vue d&apos;ensemble</h1>
+        <p className="text-[#6e6e73] text-[15px] mt-1">Statistiques globales et activités récentes.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -117,7 +117,7 @@ export default function AdminDashboard() {
                     </div>
                   </div>
                   <p className="text-sm font-medium text-black/50">{stat.name}</p>
-                  <p className="text-3xl font-black text-black mt-1">{stat.value}</p>
+                  <p className="font-sf-display text-3xl font-semibold text-[#1d1d1f] mt-1 tracking-[-0.02em]">{stat.value}</p>
                 </CardContent>
               </Card>
             </motion.div>
@@ -128,8 +128,8 @@ export default function AdminDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <Card className="bg-white border-black/5 shadow-sm rounded-3xl">
           <CardHeader>
-            <CardTitle className="text-lg font-bold flex items-center gap-2 text-black">
-              <Clock className="h-5 w-5 text-blue-600" /> Vendeurs à valider
+            <CardTitle className="text-[17px] font-semibold flex items-center gap-2 text-[#1d1d1f]">
+              <Clock className="h-5 w-5 text-[#0071e3]" /> Vendeurs à valider
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
@@ -156,7 +156,7 @@ export default function AdminDashboard() {
                       <div className="flex gap-2">
                         <button 
                           onClick={() => approveStore(store.id)}
-                          className="text-xs font-bold px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-colors"
+                          className="text-xs font-medium px-4 py-2 bg-[#0071e3] hover:bg-[#0077ed] text-white rounded-full transition-colors"
                         >
                           Approuver
                         </button>
@@ -191,11 +191,11 @@ export default function AdminDashboard() {
                           <Smartphone className="h-5 w-5 text-zinc-400" />
                         </div>
                         <div>
-                          <p className="font-bold text-black leading-none mb-1 uppercase text-sm tracking-tight">{product.model_name}</p>
+                          <p className="font-medium text-[#1d1d1f] leading-none mb-1 text-sm tracking-tight">{product.model_name}</p>
                           <p className="text-[10px] text-black/50 font-medium">Par {product.stores?.name || "Vendeur"}</p>
                         </div>
                       </div>
-                      <span className="text-[10px] font-bold text-black/40 uppercase">
+                      <span className="text-[11px] font-medium text-[#86868b]">
                         {new Date(product.created_at).toLocaleDateString()}
                       </span>
                     </div>

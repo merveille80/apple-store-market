@@ -71,7 +71,7 @@ function UpdatePasswordContent() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-20 flex justify-center items-center min-h-[80vh]">
+    <div className="min-h-[80vh] bg-[#f5f5f7] flex justify-center items-center px-5 py-16">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -79,17 +79,14 @@ function UpdatePasswordContent() {
         className="w-full max-w-md space-y-6"
       >
         <div className="text-center mb-6">
-          <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-600/10 text-emerald-500 mb-6 font-black text-2xl">
-            ASK
-          </div>
-          <h1 className="text-3xl font-black text-black tracking-tight">Nouveau Mot de Passe</h1>
-          <p className="text-black/60 mt-2">Créez un nouveau mot de passe pour accéder à votre boutique.</p>
+          <h1 className="font-sf-display text-[28px] font-semibold text-[#1d1d1f] tracking-[-0.03em]">Nouveau mot de passe</h1>
+          <p className="text-[#6e6e73] text-[15px] mt-2">Créez un mot de passe pour accéder à votre boutique.</p>
         </div>
 
-        <Card className="bg-white border-black/10 rounded-3xl overflow-hidden shadow-lg">
+        <Card className="bg-white border-black/5 rounded-[28px] overflow-hidden shadow-sm">
           <form onSubmit={handleUpdate}>
             <CardHeader>
-              <CardTitle className="text-xl text-black">Sécurisez votre compte</CardTitle>
+              <CardTitle className="font-sf-display text-xl font-semibold text-[#1d1d1f]">Sécurisez votre compte</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {message && (
@@ -103,7 +100,7 @@ function UpdatePasswordContent() {
               )}
               
               <div className="space-y-2">
-                <label className="text-sm font-bold text-black/60">Nouveau mot de passe</label>
+                <label className="text-[13px] font-medium text-[#86868b]">Nouveau mot de passe</label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black/40" />
                   <Input 
@@ -117,7 +114,7 @@ function UpdatePasswordContent() {
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-black/60">Confirmer le mot de passe</label>
+                <label className="text-[13px] font-medium text-[#86868b]">Confirmer le mot de passe</label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black/40" />
                   <Input 
@@ -134,7 +131,7 @@ function UpdatePasswordContent() {
             <CardFooter>
               <Button 
                 type="submit" 
-                className="w-full h-12 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-600/20"
+                className="w-full h-11 bg-[#0071e3] hover:bg-[#0077ed] text-white font-medium rounded-full"
                 disabled={isLoading || !password || !confirmPassword || message?.type === 'success'}
               >
                 {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Sauvegarder"}

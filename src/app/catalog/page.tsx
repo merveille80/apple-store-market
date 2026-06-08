@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Slider } from "@/components/ui/slider"
 import Link from "next/link"
+import { ProductCard } from "@/components/product-card"
 import { createClient } from "@/lib/supabase/client"
 import { useSearchParams } from "next/navigation"
 
@@ -105,12 +106,12 @@ function CatalogContent() {
 
         {/* Page header */}
         <div className="mb-10">
-          <p className="text-[11px] font-semibold text-black/40 uppercase tracking-[0.15em] mb-2">Kolwezi, RDC</p>
-          <h1 className="text-[clamp(2rem,5vw,3.5rem)] font-bold text-black tracking-[-0.03em] leading-tight">
+          <p className="text-[13px] font-medium text-[#0071e3] tracking-tight mb-2">Kolwezi, RDC</p>
+          <h1 className="font-sf-display text-[clamp(2rem,5vw,3.5rem)] font-semibold text-[#1d1d1f] tracking-[-0.03em] leading-tight">
             Catalogue iPhone
           </h1>
           {!loading && (
-            <p className="text-[14px] text-black/50 mt-2">
+            <p className="text-[15px] text-[#6e6e73] mt-2">
               {filteredProducts.length} produit{filteredProducts.length !== 1 ? "s" : ""} disponible{filteredProducts.length !== 1 ? "s" : ""}
             </p>
           )}
@@ -143,7 +144,7 @@ function CatalogContent() {
                 </button>
               } />
               <DropdownMenuContent className="w-72 p-5 bg-white border-black/10 text-black rounded-2xl shadow-2xl">
-                <p className="text-[12px] font-semibold text-black/50 uppercase tracking-wider mb-4">Tranche de prix</p>
+                <p className="text-[13px] font-medium text-[#86868b] mb-4">Tranche de prix</p>
                 <Slider
                   max={2000} step={50}
                   value={priceRange}
@@ -173,7 +174,7 @@ function CatalogContent() {
                     className="flex items-center gap-3 rounded-xl focus:bg-black/5 py-2.5 cursor-pointer"
                   >
                     <div className={`h-4 w-4 rounded-full border-2 flex items-center justify-center transition-all ${
-                      selectedConditions.includes(opt.id) ? "border-blue-600 bg-blue-600" : "border-black/20"
+                      selectedConditions.includes(opt.id) ? "border-[#0071e3] bg-[#0071e3]" : "border-black/20"
                     }`}>
                       {selectedConditions.includes(opt.id) && <div className="h-2 w-2 rounded-full bg-white" />}
                     </div>
@@ -199,7 +200,7 @@ function CatalogContent() {
                     className="flex items-center gap-3 rounded-xl focus:bg-black/5 py-2.5 cursor-pointer"
                   >
                     <div className={`h-4 w-4 rounded-full border-2 flex items-center justify-center transition-all ${
-                      selectedStorages.includes(opt) ? "border-blue-600 bg-blue-600" : "border-black/20"
+                      selectedStorages.includes(opt) ? "border-[#0071e3] bg-[#0071e3]" : "border-black/20"
                     }`}>
                       {selectedStorages.includes(opt) && <div className="h-2 w-2 rounded-full bg-white" />}
                     </div>
@@ -225,7 +226,7 @@ function CatalogContent() {
                     className="flex items-center gap-3 rounded-xl focus:bg-black/5 py-2.5 cursor-pointer"
                   >
                     <div className={`h-4 w-4 rounded-full border-2 flex items-center justify-center transition-all ${
-                      selectedColors.includes(opt) ? "border-blue-600 bg-blue-600" : "border-black/20"
+                      selectedColors.includes(opt) ? "border-[#0071e3] bg-[#0071e3]" : "border-black/20"
                     }`}>
                       {selectedColors.includes(opt) && <div className="h-2 w-2 rounded-full bg-white" />}
                     </div>
@@ -251,7 +252,7 @@ function CatalogContent() {
                     key={key}
                     onClick={() => setSortBy(key)}
                     className={`rounded-xl focus:bg-black/5 py-2.5 px-4 text-[13px] cursor-pointer ${
-                      sortBy === key ? "text-blue-600 font-semibold" : "text-black/60"
+                      sortBy === key ? "text-[#0071e3] font-semibold" : "text-black/60"
                     }`}
                   >
                     {label}
@@ -299,48 +300,15 @@ function CatalogContent() {
                   exit={{ opacity: 0, scale: 0.94 }}
                   transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <Link href={`/product/${product.id}`}>
-                    <div className="bg-white rounded-3xl overflow-hidden border border-black/5 shadow-sm group">
-                      {/* Image */}
-                      <div className="aspect-[3/4] relative overflow-hidden bg-zinc-100 p-5 flex flex-col justify-between">
-                        <img
-                          src={product.image}
-                          alt={product.model}
-                          className="absolute inset-0 object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
-                        />
-                        {/* Condition badge */}
-                        <div className="flex justify-between items-start z-10 relative">
-                          <span className={`text-[10px] font-bold px-2.5 py-1 rounded-md tracking-wider uppercase ${
-                            product.isNew
-                              ? "bg-blue-600 text-white"
-                              : "bg-white/90 text-black/80 backdrop-blur-md"
-                          }`}>
-                            {product.isNew ? "Neuf" : "Occasion"}
-                          </span>
-                        </div>
-                      </div>
-                      {/* Info */}
-                      <div className="p-4">
-                        <p className="text-[10px] text-black/40 uppercase tracking-wider truncate mb-1">
-                          {product.color} · {product.storage}
-                        </p>
-                        <h3 className="text-[13px] font-semibold text-black truncate leading-snug">
-                          {product.model}
-                        </h3>
-                        <div className="flex items-center justify-between mt-3">
-                          <p className="text-[16px] font-bold text-black">
-                            {product.price}$
-                            <span className="text-[11px] font-normal text-black/40 ml-1">USD</span>
-                          </p>
-                          <div className="h-7 w-7 rounded-full bg-black/5 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-all duration-200">
-                            <svg className="h-3.5 w-3.5 text-black/40 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
+                  <ProductCard
+                    id={product.id}
+                    model={product.model}
+                    price={product.price}
+                    storage={product.storage}
+                    color={product.color}
+                    image={product.image}
+                    isNew={product.isNew}
+                  />
                 </motion.div>
               ))}
             </AnimatePresence>
@@ -350,13 +318,13 @@ function CatalogContent() {
             <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-black/5 border border-black/10 mb-5">
               <Search className="h-6 w-6 text-black/40" />
             </div>
-            <h3 className="text-[18px] font-semibold text-black mb-2">Aucun produit trouvé</h3>
-            <p className="text-[14px] text-black/50 max-w-sm mx-auto mb-6">
+            <h3 className="font-sf-display text-[20px] font-semibold text-[#1d1d1f] mb-2">Aucun produit trouvé</h3>
+            <p className="text-[15px] text-[#6e6e73] max-w-sm mx-auto mb-6">
               Modifiez vos filtres ou réinitialisez pour voir tous les iPhones disponibles.
             </p>
             <button
               onClick={resetFilters}
-              className="h-10 px-6 text-[13px] font-semibold text-black border border-black/15 rounded-full hover:bg-black/5 transition-all"
+              className="h-11 px-6 text-[14px] font-medium text-[#0071e3] border border-[#0071e3]/30 rounded-full hover:bg-[#0071e3]/5 transition-all"
             >
               Réinitialiser les filtres
             </button>

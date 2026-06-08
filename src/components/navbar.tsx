@@ -68,14 +68,17 @@ export function Navbar() {
           
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="h-7 w-7 rounded-lg bg-black flex items-center justify-center shadow-sm group-hover:scale-95 transition-transform duration-200">
-              <svg viewBox="0 0 24 24" className="h-4 w-4 fill-white" xmlns="http://www.w3.org/2000/svg">
-                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-              </svg>
-            </div>
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden
+              className="h-[22px] w-[22px] fill-[#1d1d1f] shrink-0 group-hover:opacity-75 transition-opacity duration-200"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+            </svg>
             <div className="hidden md:block">
-              <span className="text-[15px] font-semibold text-black tracking-tight leading-none">
-                Apple Store <span className="text-black/50">Kolwezi</span>
+              <span className="text-[15px] font-semibold text-[#1d1d1f] tracking-[-0.02em] leading-none">
+                Apple Store <span className="text-[#86868b]">Kolwezi</span>
               </span>
             </div>
             <span className="md:hidden text-[15px] font-bold text-black tracking-tight">ASK</span>
@@ -106,8 +109,8 @@ export function Navbar() {
               </>
             ) : (
               <Link href="/login">
-                <button className="h-9 px-5 text-[13px] font-semibold text-white bg-black rounded-full hover:bg-black/90 transition-all duration-200 shadow-sm shadow-black/10 hover:shadow-black/20">
-                  Devenir Vendeur
+                <button className="h-9 px-5 text-[13px] font-medium text-white bg-[#1d1d1f] rounded-full hover:bg-[#333336] transition-all duration-200">
+                  Devenir vendeur
                 </button>
               </Link>
             )}
@@ -116,7 +119,7 @@ export function Navbar() {
           {/* Mobile right side */}
           <div className="flex md:hidden items-center gap-2">
             <Link href="/catalog">
-              <button className="h-8 px-4 text-[12px] font-semibold text-white bg-black rounded-full hover:bg-black/90 transition-colors">
+              <button className="h-8 px-4 text-[12px] font-medium text-white bg-[#0071e3] rounded-full hover:bg-[#0077ed] transition-colors">
                 Catalogue
               </button>
             </Link>
@@ -175,7 +178,7 @@ export function Navbar() {
                   ) : (
                     <Link
                       href="/login"
-                      className="flex items-center justify-center text-[15px] font-semibold text-white bg-black py-3 px-3 rounded-2xl mt-2 active:scale-[0.98] transition-transform"
+                      className="flex items-center justify-center text-[15px] font-medium text-white bg-[#0071e3] py-3 px-3 rounded-full mt-2 active:scale-[0.98] transition-transform"
                       onClick={() => setIsOpen(false)}
                     >
                       Devenir Vendeur

@@ -30,13 +30,13 @@ export default function AdminLayout({
   ]
 
   return (
-    <div className="flex min-h-screen bg-[#F5F5F7] text-zinc-900">
+    <div className="font-sf flex min-h-screen bg-[#F5F5F7] text-zinc-900">
       {/* Admin Sidebar */}
       <aside className="w-64 border-r border-black/5 flex flex-col bg-white">
         <div className="p-8">
-          <Link href="/" className="flex items-center gap-3 font-black text-xl tracking-tighter text-blue-500">
-            <ShieldCheck className="h-8 w-8 text-blue-500" />
-            <span>ADMIN</span>
+          <Link href="/" className="flex items-center gap-2.5">
+            <ShieldCheck className="h-6 w-6 text-[#0071e3]" />
+            <span className="text-[14px] font-semibold text-[#1d1d1f] tracking-[-0.02em]">Administration</span>
           </Link>
         </div>
 
@@ -50,11 +50,11 @@ export default function AdminLayout({
                 className={cn(
                   "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all",
                   isActive 
-                    ? "bg-zinc-100 text-black" 
-                    : "text-zinc-500 hover:text-black hover:bg-black/5"
+                    ? "bg-[#0071e3] text-white" 
+                    : "text-[#86868b] hover:text-[#1d1d1f] hover:bg-black/5"
                 )}
               >
-                <item.icon className={cn("h-5 w-5", isActive ? "text-blue-500" : "text-zinc-400")} />
+                <item.icon className={cn("h-5 w-5", isActive ? "text-white" : "text-[#86868b]")} />
                 {item.name}
               </Link>
             )

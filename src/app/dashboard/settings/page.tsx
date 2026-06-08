@@ -168,7 +168,7 @@ export default function StoreSettingsPage() {
   if (isPageLoading) {
     return (
       <div className="min-h-[400px] flex flex-col items-center justify-center gap-4">
-        <Loader2 className="h-10 w-10 text-blue-600 animate-spin" />
+        <Loader2 className="h-10 w-10 text-[#0071e3] animate-spin" />
         <p className="text-black/50 animate-pulse">Chargement de votre boutique...</p>
       </div>
     )
@@ -177,7 +177,7 @@ export default function StoreSettingsPage() {
   return (
     <div className="space-y-10 pb-20">
       <div>
-        <h1 className="text-3xl font-black text-black tracking-tight">Paramètres du Store</h1>
+        <h1 className="font-sf-display text-[clamp(1.75rem,4vw,2.25rem)] font-semibold text-[#1d1d1f] tracking-[-0.03em]">Paramètres du store</h1>
         <p className="text-black/60">Gérez l'identité de votre boutique et vos informations de contact.</p>
       </div>
 
@@ -311,7 +311,7 @@ export default function StoreSettingsPage() {
              )}
              <Button 
               type="submit" 
-              className="w-full h-14 bg-blue-600 text-white hover:bg-blue-700 font-black rounded-2xl text-lg shadow-xl shadow-blue-600/20"
+              className="w-full h-11 bg-[#0071e3] text-white hover:bg-[#0077ed] font-medium rounded-full text-[15px]"
               disabled={isLoading || isUploading}
             >
               {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Save className="mr-2 h-5 w-5" />}

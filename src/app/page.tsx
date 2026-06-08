@@ -4,8 +4,10 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowRight, ShieldCheck, Zap, MessageCircle } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
 import { createClient } from "@/lib/supabase/client"
+import { HeroSection } from "@/components/home/hero-section"
+import { SellerStoreGuide } from "@/components/home/seller-store-guide"
+import { ProductCard } from "@/components/product-card"
 
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<any[]>([])
@@ -52,98 +54,22 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="flex flex-col bg-[#F5F5F7]">
+    <div className="flex flex-col bg-[#f5f5f7]">
 
-      {/* ── HERO ───────────────────────────── */}
-      <section className="relative min-h-[88svh] flex flex-col items-center justify-center text-center px-5 overflow-hidden">
-        
-        {/* Subtle radial glow */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-black/[0.03] rounded-full blur-[120px]" />
-        </div>
-
-        <div className="relative z-10 max-w-3xl mx-auto">
-          {/* Eyebrow */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 border border-black/10 bg-white/50 backdrop-blur-sm rounded-full px-4 py-1.5 mb-8 shadow-sm"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-            <span className="text-[11px] font-semibold text-black/50 tracking-[0.1em] uppercase">
-              Marketplace iPhone · Kolwezi, RDC
-            </span>
-          </motion.div>
-
-          {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.08 }}
-            className="text-[clamp(2.8rem,8vw,5.5rem)] font-bold text-black leading-[1.04] tracking-[-0.03em] mb-6"
-          >
-            L'iPhone de vos rêves,{" "}
-            <span className="text-black/40">
-              livré sur WhatsApp.
-            </span>
-          </motion.h1>
-
-          {/* Subline */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.16 }}
-            className="text-[clamp(1rem,2.5vw,1.25rem)] text-black/60 mb-10 max-w-xl mx-auto leading-relaxed"
-          >
-            iPhones neufs et d'occasion certifiés. Vendeurs vérifiés à Kolwezi. 
-            Commandez en quelques secondes.
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.24 }}
-            className="flex flex-col sm:flex-row gap-3 justify-center"
-          >
-            <Link href="/catalog">
-              <button className="h-12 px-8 text-[15px] font-semibold text-white bg-blue-600 rounded-full hover:bg-blue-700 active:scale-[0.97] transition-all duration-200 shadow-lg shadow-blue-600/20 flex items-center gap-2 w-full sm:w-auto justify-center">
-                Voir le Catalogue
-                <ArrowRight className="h-4 w-4" />
-              </button>
-            </Link>
-            <Link href="/login?tab=register">
-              <button className="h-12 px-8 text-[15px] font-semibold text-black/70 border border-black/15 bg-white rounded-full hover:text-black hover:border-black/30 hover:bg-zinc-50 active:scale-[0.97] transition-all duration-200 w-full sm:w-auto shadow-sm shadow-black/5">
-                Devenir Vendeur
-              </button>
-            </Link>
-          </motion.div>
-        </div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1"
-        >
-          <div className="w-[1px] h-8 bg-gradient-to-b from-black/0 via-black/20 to-black/0 animate-pulse" />
-        </motion.div>
-      </section>
+      <HeroSection />
 
       {/* ── TRUST BADGES ─────────────────── */}
-      <section className="bg-white border-y border-black/5">
-        <div className="container mx-auto px-6 py-6">
-          <div className="flex items-center justify-center gap-8 md:gap-16 flex-wrap">
+      <section className="bg-white border-y border-black/[0.04]">
+        <div className="container mx-auto px-6 py-5">
+          <div className="flex items-center justify-center gap-10 md:gap-20 flex-wrap">
             {[
-              { icon: ShieldCheck, label: "Vendeurs Vérifiés" },
-              { icon: MessageCircle, label: "WhatsApp Direct" },
-              { icon: Zap, label: "Commande Rapide" },
+              { icon: ShieldCheck, label: "Vendeurs vérifiés" },
+              { icon: MessageCircle, label: "WhatsApp direct" },
+              { icon: Zap, label: "Commande rapide" },
             ].map(({ icon: Icon, label }) => (
-              <div key={label} className="flex items-center gap-2.5 text-black/50 hover:text-black/80 transition-colors">
-                <Icon className="h-4 w-4" strokeWidth={1.5} />
-                <span className="text-[13px] font-medium">{label}</span>
+              <div key={label} className="flex items-center gap-2 text-[#86868b] hover:text-[#1d1d1f] transition-colors">
+                <Icon className="h-[15px] w-[15px]" strokeWidth={1.5} />
+                <span className="text-[13px] font-medium tracking-tight">{label}</span>
               </div>
             ))}
           </div>
@@ -151,20 +77,20 @@ export default function Home() {
       </section>
 
       {/* ── FEATURED PRODUCTS ────────────── */}
-      <section className="py-20 bg-[#F5F5F7]">
+      <section className="py-20 md:py-28 bg-[#f5f5f7]">
         <div className="container mx-auto px-5">
           
           {/* Section header */}
-          <div className="flex items-end justify-between mb-10">
+          <div className="flex items-end justify-between mb-12">
             <div>
-              <p className="text-[11px] font-semibold text-black/40 uppercase tracking-[0.15em] mb-2">
-                Sélection
+              <p className="text-[13px] font-medium text-[#0071e3] tracking-tight mb-2">
+                Sélection du moment
               </p>
-              <h2 className="text-[clamp(1.6rem,4vw,2.5rem)] font-bold text-black tracking-[-0.025em] leading-tight">
-                Arrivages Récents
+              <h2 className="font-display text-[clamp(1.75rem,4vw,2.75rem)] font-semibold text-[#1d1d1f] tracking-[-0.04em] leading-tight">
+                Arrivages récents
               </h2>
             </div>
-            <Link href="/catalog" className="flex items-center gap-1.5 text-[13px] font-medium text-black/50 hover:text-black transition-colors group pb-1">
+            <Link href="/catalog" className="link-apple flex items-center gap-1 text-[15px] group pb-1">
               Tout voir
               <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
@@ -197,33 +123,16 @@ export default function Home() {
                       transition={{ delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
                       className="flex-shrink-0 w-[175px] snap-start"
                     >
-                      <Link href={`/product/${product.id}`}>
-                        <div className="bg-white rounded-3xl overflow-hidden border border-black/5 shadow-sm active:scale-[0.97] transition-transform">
-                          <div className="aspect-[3/4] relative overflow-hidden bg-zinc-100 p-5 flex flex-col justify-between">
-                            <div className="flex justify-between items-start z-10 relative">
-                              <div className={`px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase ${
-                                product.condition === 'Neuf' 
-                                  ? 'bg-blue-600 text-white' 
-                                  : 'bg-white/90 text-black/80 backdrop-blur-md'
-                              }`}>
-                                {product.condition}
-                              </div>
-                            </div>
-                            <img src={product.image} alt={product.model} className="absolute inset-0 object-cover w-full h-full" />
-                          </div>
-                          <div className="p-4">
-                            <p className="text-[10px] text-black/30 uppercase tracking-wider truncate mb-1">
-                              {product.color} · {product.storage}
-                            </p>
-                            <h3 className="text-[13px] font-semibold text-black truncate leading-snug">
-                              {product.model}
-                            </h3>
-                            <p className="text-[16px] font-bold text-black mt-1.5">
-                              {product.price}$<span className="text-[11px] font-normal text-black/30 ml-1">USD</span>
-                            </p>
-                          </div>
-                        </div>
-                      </Link>
+                      <ProductCard
+                        id={product.id}
+                        model={product.model}
+                        price={product.price}
+                        storage={product.storage}
+                        color={product.color}
+                        image={product.image}
+                        isNew={product.isNew}
+                        conditionLabel={product.condition}
+                      />
                     </motion.div>
                   ))}
                   <div className="flex-shrink-0 w-[175px] snap-start">
@@ -252,33 +161,16 @@ export default function Home() {
                     transition={{ delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
                     whileHover={{ y: -6 }}
                   >
-                    <Link href={`/product/${product.id}`}>
-                      <div className="bg-white rounded-3xl overflow-hidden border border-black/5 shadow-sm group">
-                        <div className="aspect-[3/4] relative overflow-hidden bg-zinc-100 p-5 flex flex-col justify-between">
-                          <div className="flex justify-between items-start z-10 relative">
-                            <div className={`px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase ${
-                              product.condition === 'Neuf' 
-                                ? 'bg-blue-600 text-white' 
-                                : 'bg-white/90 text-black/80 backdrop-blur-md'
-                            }`}>
-                              {product.condition}
-                            </div>
-                          </div>
-                          <img src={product.image} alt={product.model} className="absolute inset-0 object-cover w-full h-full transition-transform duration-700 group-hover:scale-105" />
-                        </div>
-                        <div className="p-4">
-                          <p className="text-[10px] text-black/30 uppercase tracking-wider truncate mb-1">
-                            {product.color} · {product.storage}
-                          </p>
-                          <h3 className="text-[13px] font-semibold text-black truncate leading-snug">
-                            {product.model}
-                          </h3>
-                          <p className="text-[16px] font-bold text-black mt-1.5">
-                            {product.price}$<span className="text-[11px] font-normal text-black/30 ml-1">USD</span>
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
+                    <ProductCard
+                      id={product.id}
+                      model={product.model}
+                      price={product.price}
+                      storage={product.storage}
+                      color={product.color}
+                      image={product.image}
+                      isNew={product.isNew}
+                      conditionLabel={product.condition}
+                    />
                   </motion.div>
                 ))}
               </div>
@@ -292,55 +184,36 @@ export default function Home() {
       </section>
 
       {/* ── CTA SELLER ─────────────────────── */}
-      <section className="py-24 bg-white border-y border-black/5">
+      <section className="py-24 md:py-32 bg-white border-y border-black/[0.04]">
         <div className="container mx-auto px-5">
-          <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-12">
+          <div className="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center gap-12 md:gap-16">
             
-            <div className="flex-1 space-y-6 text-center md:text-left">
+            <div className="flex-1 space-y-7 text-center md:text-left">
               <div>
-                <p className="text-[11px] font-semibold text-blue-600 uppercase tracking-[0.15em] mb-3">
+                <p className="text-[13px] font-medium text-[#0071e3] tracking-tight mb-3">
                   Pour les professionnels
                 </p>
-                <h2 className="text-[clamp(2rem,5vw,3rem)] font-bold text-black tracking-[-0.02em] leading-[1.1]">
-                  Ouvrez votre store.<br />
-                  <span className="text-black/40">Vendez plus.</span>
+                <h2 className="font-display text-[clamp(2rem,5vw,3.25rem)] font-semibold text-[#1d1d1f] tracking-[-0.04em] leading-[1.08]">
+                  Ouvrez votre store.
+                  <br />
+                  <span className="text-[#86868b]">Vendez plus.</span>
                 </h2>
               </div>
               
-              <p className="text-[15px] text-black/60 leading-relaxed max-w-md mx-auto md:mx-0">
-                Rejoignez le premier marché digital d'iPhones à Kolwezi. 
-                Gérez votre inventaire, recevez les commandes directement sur WhatsApp et développez votre clientèle.
+              <p className="text-[17px] text-[#6e6e73] leading-[1.5] tracking-[-0.01em] max-w-md mx-auto md:mx-0">
+                Rejoignez le premier marché digital d'iPhones à Kolwezi.
+                Gérez votre inventaire et recevez les commandes sur WhatsApp.
               </p>
               
-              <div className="pt-2">
-                <Link href="/login?tab=register">
-                  <button className="h-12 px-8 text-[15px] font-semibold text-white bg-blue-600 rounded-full hover:bg-blue-700 active:scale-[0.97] transition-all duration-200 shadow-lg shadow-blue-600/20">
-                    Créer mon store gratuitement
-                  </button>
+              <div className="pt-1">
+                <Link href="/login?tab=register" className="btn-apple">
+                  Créer mon store
                 </Link>
               </div>
             </div>
             
-            <div className="flex-1 w-full max-w-sm">
-              <div className="aspect-square rounded-3xl bg-[#F5F5F7] border border-black/5 relative overflow-hidden flex items-center justify-center p-8 shadow-inner">
-                {/* Abstract illustration for seller dashboard */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/5 to-transparent" />
-                <div className="relative w-full h-full border border-black/10 rounded-xl bg-white shadow-sm flex flex-col overflow-hidden">
-                  <div className="h-10 border-b border-black/5 flex items-center px-4 gap-2">
-                    <div className="h-2.5 w-2.5 rounded-full bg-black/10" />
-                    <div className="h-2.5 w-2.5 rounded-full bg-black/10" />
-                    <div className="h-2.5 w-2.5 rounded-full bg-black/10" />
-                  </div>
-                  <div className="p-4 flex-1 flex flex-col gap-3">
-                    <div className="h-6 w-1/3 bg-black/5 rounded-md" />
-                    <div className="h-24 w-full bg-black/5 rounded-md mt-2" />
-                    <div className="flex gap-2 mt-auto">
-                      <div className="h-8 flex-1 bg-black/5 rounded-md" />
-                      <div className="h-8 flex-1 bg-black/5 rounded-md" />
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div className="flex-1 w-full flex justify-center md:justify-end">
+              <SellerStoreGuide />
             </div>
 
           </div>

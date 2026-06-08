@@ -78,9 +78,9 @@ export default function StoreDetailPage() {
   if (!store) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-6 bg-[#F5F5F7]">
-        <h1 className="text-2xl font-bold text-black">Boutique non trouvée</h1>
+        <h1 className="font-sf-display text-2xl font-semibold text-[#1d1d1f] tracking-[-0.02em]">Boutique non trouvée</h1>
         <Link href="/vendeurs">
-          <Button className="bg-blue-600 text-white font-bold rounded-xl h-12 px-6">Voir tous les vendeurs</Button>
+          <Button className="bg-[#0071e3] text-white font-medium rounded-full h-11 px-6 hover:bg-[#0077ed]">Voir tous les vendeurs</Button>
         </Link>
       </div>
     )
@@ -106,9 +106,9 @@ export default function StoreDetailPage() {
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
-                <h1 className="text-3xl md:text-4xl font-black tracking-tight text-black">{store.name}</h1>
+                <h1 className="font-sf-display text-[clamp(1.75rem,4vw,2.5rem)] font-semibold tracking-[-0.03em] text-[#1d1d1f]">{store.name}</h1>
                 {store.is_verified && (
-                  <Badge className="bg-blue-600 text-white border-none gap-1 px-3 py-1 rounded-full text-xs font-bold uppercase">
+                  <Badge className="bg-[#0071e3] text-white border-none gap-1 px-3 py-1 rounded-full text-[11px] font-medium">
                     <CheckCircle2 className="h-3 w-3" /> Vérifié
                   </Badge>
                 )}
@@ -129,8 +129,8 @@ export default function StoreDetailPage() {
               <MapPin className="h-6 w-6 text-black/50" />
             </div>
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-wider mb-0.5 text-black/40">Localisation</p>
-              <p className="font-bold text-sm text-black">{store.city || 'Kolwezi'}, RDC</p>
+              <p className="text-[11px] font-medium tracking-tight mb-0.5 text-[#86868b]">Localisation</p>
+              <p className="font-medium text-[15px] text-[#1d1d1f]">{store.city || 'Kolwezi'}, RDC</p>
             </div>
           </Card>
           
@@ -139,8 +139,8 @@ export default function StoreDetailPage() {
               <MessageSquare className="h-6 w-6 text-emerald-600" />
             </div>
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-wider mb-0.5 text-black/40">Contact Direct</p>
-              <p className="font-bold text-sm text-emerald-600">{store.whatsapp_number}</p>
+              <p className="text-[11px] font-medium tracking-tight mb-0.5 text-[#86868b]">Contact direct</p>
+              <p className="font-medium text-[15px] text-emerald-600">{store.whatsapp_number}</p>
             </div>
           </Card>
           
@@ -149,15 +149,15 @@ export default function StoreDetailPage() {
               <Smartphone className="h-6 w-6 text-blue-600" />
             </div>
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-wider mb-0.5 text-black/40">Stock Actuel</p>
-              <p className="font-bold text-sm text-black">{products.length} iPhones disponibles</p>
+              <p className="text-[11px] font-medium tracking-tight mb-0.5 text-[#86868b]">Stock actuel</p>
+              <p className="font-medium text-[15px] text-[#1d1d1f]">{products.length} iPhone{products.length !== 1 ? 's' : ''} disponible{products.length !== 1 ? 's' : ''}</p>
             </div>
           </Card>
         </div>
 
         <div className="space-y-8">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-black tracking-tight text-black">Le Catalogue de {store.name}</h2>
+            <h2 className="font-sf-display text-[clamp(1.5rem,3vw,2rem)] font-semibold tracking-[-0.03em] text-[#1d1d1f]">Catalogue de {store.name}</h2>
             <p className="text-sm text-black/50">{products.length} annonces</p>
           </div>
 
@@ -177,15 +177,15 @@ export default function StoreDetailPage() {
                         alt={product.model_name}
                         className="absolute inset-0 object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
                       />
-                      <Badge className={`absolute top-2 right-2 md:top-3 md:right-3 font-black text-white text-[10px] md:text-xs px-2 py-0.5 border-0 shadow-lg ${product.condition === 'box' ? 'bg-blue-600' : 'bg-black/60 backdrop-blur-md'}`}>
+                      <Badge className={`absolute top-2 right-2 md:top-3 md:right-3 font-medium text-white text-[10px] md:text-xs px-2 py-0.5 border-0 shadow-sm ${product.condition === 'box' ? 'bg-[#0071e3]' : 'bg-black/60 backdrop-blur-md'}`}>
                         {product.condition === 'box' ? '✦ Box / Neuf' : 'Occasion'}
                       </Badge>
                     </div>
                     <div className="p-3 md:p-5">
-                      <h3 className="font-bold text-sm md:text-base mb-1 truncate text-black">{product.model_name}</h3>
+                      <h3 className="font-medium text-[13px] md:text-[15px] mb-1 truncate text-[#1d1d1f]">{product.model_name}</h3>
                       <div className="flex justify-between items-center">
-                        <span className="text-blue-600 font-black text-lg md:text-xl">{product.price_usd}$</span>
-                        <span className="text-[10px] md:text-xs font-bold text-black/50">{product.storage_gb}GB</span>
+                        <span className="text-[#1d1d1f] font-semibold text-[16px] md:text-[18px]">{product.price_usd}$</span>
+                        <span className="text-[11px] md:text-xs font-medium text-[#86868b]">{product.storage_gb} Go</span>
                       </div>
                     </div>
                   </div>

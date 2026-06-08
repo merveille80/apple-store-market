@@ -114,11 +114,11 @@ export default function MyProductsPage() {
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
         <div>
-          <h1 className="text-3xl font-black text-black tracking-tight">Mes Annonces</h1>
+          <h1 className="font-sf-display text-[clamp(1.75rem,4vw,2.25rem)] font-semibold text-[#1d1d1f] tracking-[-0.03em]">Mes annonces</h1>
           <p className="text-black/60">Gérez vos iPhones listés sur la plateforme.</p>
         </div>
         <Link href="/dashboard/products/new">
-          <Button className="bg-blue-600 hover:bg-blue-700 text-white rounded-xl h-12 px-6 font-bold w-full sm:w-auto">
+          <Button className="bg-[#0071e3] hover:bg-[#0077ed] text-white rounded-full h-11 px-6 font-medium w-full sm:w-auto">
             <Plus className="mr-2 h-5 w-5" /> Nouvelle Annonce
           </Button>
         </Link>
@@ -142,7 +142,7 @@ export default function MyProductsPage() {
       <div className="grid grid-cols-1 gap-4">
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20 gap-4">
-            <Loader2 className="h-10 w-10 text-blue-600 animate-spin" />
+            <Loader2 className="h-10 w-10 text-[#0071e3] animate-spin" />
             <p className="text-black/50 animate-pulse">Chargement de vos annonces...</p>
           </div>
         ) : filteredProducts.length === 0 ? (
@@ -151,7 +151,7 @@ export default function MyProductsPage() {
             <h3 className="text-xl font-bold text-black mb-2">Aucune annonce trouvée</h3>
             <p className="text-black/50 mb-6">Commencez par ajouter votre premier iPhone à vendre.</p>
             <Link href="/dashboard/products/new">
-              <Button className="bg-blue-600">Ajouter un iPhone</Button>
+              <Button className="bg-[#0071e3] hover:bg-[#0077ed] rounded-full">Ajouter un iPhone</Button>
             </Link>
           </div>
         ) : (
@@ -167,22 +167,22 @@ export default function MyProductsPage() {
                 </div>
                 
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-black truncate uppercase tracking-tight">{product.model}</h3>
+                  <h3 className="font-medium text-[#1d1d1f] truncate">{product.model}</h3>
                   <div className="flex items-center gap-3 mt-1">
-                    <span className="text-blue-600 font-black">{product.price}$</span>
-                    <span className="text-black/40 text-[10px] tracking-widest uppercase font-bold">{product.date}</span>
+                    <span className="text-[#1d1d1f] font-semibold">{product.price}$</span>
+                    <span className="text-[#86868b] text-[11px] font-medium">{product.date}</span>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-6">
                   <div className="hidden md:block text-right">
-                    <p className="text-[10px] text-black/50 uppercase font-black tracking-tighter mb-0.5">Performance</p>
+                    <p className="text-[11px] text-[#86868b] font-medium mb-0.5">Statut</p>
                     <p className="text-xs font-bold text-black">{product.views} vues • {product.clicks} clics</p>
                   </div>
 
                   <Badge 
                     className={cn(
-                      "rounded-full px-3 py-1 font-bold text-[10px] uppercase tracking-wider",
+                      "rounded-full px-3 py-1 font-medium text-[11px]",
                       product.status === 'available' ? 'bg-emerald-500/10 text-emerald-700 border-emerald-500/20' : 'bg-red-500/10 text-red-700 border-red-500/20'
                     )}
                     variant="outline"

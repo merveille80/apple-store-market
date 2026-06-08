@@ -2,10 +2,8 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { ShieldCheck, MapPin, Phone, MessageSquare, Store, Loader2, ArrowRight, Smartphone } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
+import { ShieldCheck, MapPin, Phone, Store, ArrowRight, Smartphone } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import { StoreCardSkeleton } from "@/components/ui/skeletons"
 import Link from "next/link"
@@ -20,7 +18,7 @@ export default function VendeursPage() {
     async function fetchStores() {
       setLoading(true)
       const supabase = createClient()
-      
+
       if (!supabase) {
         setIsConfigured(false)
         setStores([])
@@ -29,18 +27,15 @@ export default function VendeursPage() {
       }
 
       const { data, error } = await supabase
-        .from('stores')
-        .select(`
-          *,
-          products (count)
-        `)
-        .order('is_verified', { ascending: false })
-        .order('name')
+        .from("stores")
+        .select(`*, products (count)`)
+        .order("is_verified", { ascending: false })
+        .order("name")
 
       if (error || !data) {
         setStores([])
       } else {
-        const formatted = data.map(s => ({
+        const formatted = data.map((s) => ({
           id: s.id,
           name: s.name,
           city: s.city || "Kolwezi",
@@ -48,7 +43,7 @@ export default function VendeursPage() {
           verified: s.is_verified,
           whatsapp: s.whatsapp_number,
           logo: s.logo_url || null,
-          slug: s.slug
+          slug: s.slug,
         }))
         setStores(formatted)
       }
@@ -60,105 +55,125 @@ export default function VendeursPage() {
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-16 lg:py-24">
-        <div className="max-w-3xl mb-16">
-          <Skeleton className="h-12 w-64 mb-4" />
-          <Skeleton className="h-6 w-full max-w-lg" />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[1, 2, 3].map((i) => (
-            <StoreCardSkeleton key={i} />
-          ))}
+      <div className="bg-[#f5f5f7] min-h-screen">
+        <div className="container mx-auto px-5 py-16 lg:py-24 max-w-[980px]">
+          <Skeleton className="h-10 w-56 mb-4 rounded-lg" />
+          <Skeleton className="h-5 w-full max-w-lg mb-12 rounded-lg" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[1, 2, 3].map((i) => (
+              <StoreCardSkeleton key={i} />
+            ))}
+          </div>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="container mx-auto px-4 py-16 lg:py-24">
-      <div className="max-w-3xl mb-16">
-        <div className="flex items-center gap-3 mb-4">
-          <h1 className="text-4xl lg:text-5xl font-black text-black tracking-tight italic">Nos Vendeurs</h1>
-          {!isConfigured && (
-            <Badge variant="outline" className="border-amber-500/50 text-amber-500 px-3 py-1 text-[10px] uppercase bg-amber-500/5">
-              Mode Démo
-            </Badge>
-          )}
+    <div className="bg-[#f5f5f7] min-h-screen pb-16">
+      <section className="pt-14 pb-10 md:pt-20 md:pb-12">
+        <div className="container mx-auto px-5 max-w-[980px]">
+          <div className="flex flex-wrap items-center gap-3 mb-3">
+            <p className="text-[13px] font-medium text-[#0071e3] tracking-tight">Vendeurs</p>
+            {!isConfigured && (
+              <Badge
+                variant="outline"
+                className="border-amber-500/40 text-amber-600 px-2.5 py-0.5 text-[11px] font-medium bg-amber-500/5 rounded-full"
+              >
+                Mode démo
+              </Badge>
+            )}
+          </div>
+          <h1 className="font-sf-display text-[clamp(2rem,5vw,3.25rem)] font-semibold text-[#1d1d1f] tracking-[-0.03em] leading-tight">
+            Nos vendeurs
+          </h1>
+          <p className="mt-4 text-[17px] text-[#6e6e73] leading-[1.5] max-w-2xl tracking-[-0.01em]">
+            Des professionnels certifiés à Kolwezi. Découvrez les boutiques qui proposent des
+            iPhones vérifiés et un contact WhatsApp direct.
+          </p>
         </div>
-        <p className="text-xl text-black/60 leading-relaxed">
-          Travailler avec des professionnels certifiés. Découvrez les meilleurs vendeurs d'iPhones à Kolwezi.
-        </p>
-      </div>
- 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {stores.map((store, index) => (
-          <motion.div
-            key={store.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-          >
-            <Card className="bg-white border-black/5 shadow-sm rounded-[2.5rem] overflow-hidden group hover:border-blue-500/30 transition-all duration-500">
-              <CardContent className="p-8">
+      </section>
+
+      <section className="container mx-auto px-5 max-w-[980px] pb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+          {stores.map((store, index) => (
+            <motion.div
+              key={store.id}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.06 }}
+            >
+              <div className="card-apple h-full flex flex-col p-7 md:p-8">
                 <div className="flex justify-between items-start mb-6">
-                  <div className="h-16 w-16 rounded-2xl bg-zinc-50 border border-black/5 flex items-center justify-center text-zinc-400 overflow-hidden shadow-sm">
+                  <div className="h-14 w-14 rounded-2xl bg-[#f5f5f7] border border-black/[0.04] flex items-center justify-center overflow-hidden">
                     {store.logo ? (
-                      <img src={store.logo} alt={store.name} className="w-full h-full object-cover" />
+                      <img
+                        src={store.logo}
+                        alt={store.name}
+                        className="w-full h-full object-cover"
+                      />
                     ) : (
-                      <Store className="h-8 w-8 text-zinc-400" />
+                      <Store className="h-6 w-6 text-[#86868b]" strokeWidth={1.5} />
                     )}
                   </div>
                   {store.verified ? (
-                    <Badge className="bg-blue-600 text-white border-none rounded-full px-3 py-1 flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider">
+                    <Badge className="bg-[#0071e3] text-white border-none rounded-full px-2.5 py-1 flex items-center gap-1 text-[11px] font-medium">
                       <ShieldCheck className="h-3 w-3" /> Vérifié
                     </Badge>
                   ) : (
-                    <Badge variant="outline" className="text-black/50 border-black/10 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wider">
+                    <Badge
+                      variant="outline"
+                      className="text-[#86868b] border-black/10 rounded-full px-2.5 py-1 text-[11px] font-medium"
+                    >
                       En attente
                     </Badge>
                   )}
                 </div>
 
-                <h3 className="text-xl font-bold text-black mb-2 group-hover:text-blue-600 transition-colors uppercase tracking-tight italic">
+                <h3 className="font-sf-display text-[18px] font-semibold text-[#1d1d1f] tracking-[-0.02em] mb-3 group-hover:text-[#0071e3] transition-colors">
                   {store.name}
                 </h3>
 
-                <div className="space-y-3 mb-8">
-                  <div className="flex items-center gap-2 text-sm text-black/50">
-                    <MapPin className="h-4 w-4 text-black/30" /> {store.city}, RDC
+                <div className="space-y-2 mb-8 flex-1">
+                  <div className="flex items-center gap-2 text-[14px] text-[#6e6e73]">
+                    <MapPin className="h-4 w-4 text-[#86868b]" strokeWidth={1.5} />
+                    {store.city}, RDC
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-black/50">
-                    <Smartphone className="h-4 w-4 text-black/30" /> {store.listings} Annonces actives
+                  <div className="flex items-center gap-2 text-[14px] text-[#6e6e73]">
+                    <Smartphone className="h-4 w-4 text-[#86868b]" strokeWidth={1.5} />
+                    {store.listings} annonce{store.listings !== 1 ? "s" : ""} active
                   </div>
                 </div>
 
-                <div className="pt-6 border-t border-black/5 flex items-center justify-between">
-                   <div className="flex gap-2">
-                    <a 
-                      href={`https://wa.me/${store.whatsapp.replace(/\D/g, '')}`} 
-                      target="_blank"
-                      className="h-10 w-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all shadow-lg shadow-emerald-500/5"
-                    >
-                      <Phone className="h-4 w-4" />
-                    </a>
-                  </div>
-                  <Link href={`/vendeur/${store.slug}`}>
-                    <Button variant="ghost" className="text-black hover:bg-black/5 group/btn rounded-xl font-bold italic text-sm">
-                      Voir Boutique <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                    </Button>
+                <div className="pt-5 border-t border-black/[0.06] flex items-center justify-between">
+                  <a
+                    href={`https://wa.me/${store.whatsapp.replace(/\D/g, "")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="h-10 w-10 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center hover:bg-emerald-600 hover:text-white transition-colors"
+                    aria-label={`WhatsApp ${store.name}`}
+                  >
+                    <Phone className="h-4 w-4" />
+                  </a>
+                  <Link
+                    href={`/vendeur/${store.slug}`}
+                    className="inline-flex items-center gap-1.5 text-[14px] font-medium text-[#0071e3] hover:underline underline-offset-4"
+                  >
+                    Voir la boutique
+                    <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
                 </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
-      </div>
-
-      {stores.length === 0 && !loading && (
-        <div className="py-20 text-center">
-          <p className="text-black/50">Aucun vendeur certifié pour le moment.</p>
+              </div>
+            </motion.div>
+          ))}
         </div>
-      )}
+
+        {stores.length === 0 && !loading && (
+          <div className="py-24 text-center">
+            <p className="text-[15px] text-[#86868b]">Aucun vendeur certifié pour le moment.</p>
+          </div>
+        )}
+      </section>
     </div>
   )
 }

@@ -121,30 +121,29 @@ function LoginContent() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-20 flex justify-center items-center min-h-[80vh]">
+    <div className="min-h-[80vh] bg-[#f5f5f7] flex justify-center items-center px-5 py-16">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="w-full max-w-md"
       >
-        <div className="text-center mb-10">
-          <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-600/10 text-blue-500 mb-6 font-black text-2xl">
-            ASK
-          </div>
-          <h1 className="text-3xl font-black text-black tracking-tight">Espace Vendeur</h1>
-          <p className="text-black/60 mt-2">Gérez vos listings et boosts sur Apple Store Kolwezi.</p>
+        <div className="text-center mb-8">
+          <svg viewBox="0 0 24 24" aria-hidden className="h-8 w-8 fill-[#1d1d1f] mx-auto mb-5">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+          </svg>
+          <h1 className="font-sf-display text-[28px] font-semibold text-[#1d1d1f] tracking-[-0.03em]">Espace vendeur</h1>
+          <p className="text-[#6e6e73] text-[15px] mt-2">Gérez vos annonces sur Apple Store Kolwezi.</p>
         </div>
 
-        {/* Custom Tab Toggle */}
-        <div className="flex bg-zinc-50 border border-black/5 p-1 rounded-2xl mb-8 gap-1 shadow-sm">
+        <div className="flex bg-white border border-black/5 p-1 rounded-full mb-8 gap-1">
           <button
             type="button"
             onClick={() => setActiveTab('login')}
-            className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all duration-200 ${
+            className={`flex-1 py-2.5 rounded-full font-medium text-[14px] transition-all duration-200 ${
               activeTab === 'login'
-                ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25'
-                : 'text-black/50 hover:text-black'
+                ? 'bg-[#0071e3] text-white'
+                : 'text-[#86868b] hover:text-[#1d1d1f]'
             }`}
           >
             Connexion
@@ -152,10 +151,10 @@ function LoginContent() {
           <button
             type="button"
             onClick={() => setActiveTab('register')}
-            className={`flex-1 py-3 rounded-xl font-bold text-sm transition-all duration-200 ${
+            className={`flex-1 py-2.5 rounded-full font-medium text-[14px] transition-all duration-200 ${
               activeTab === 'register'
-                ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25'
-                : 'text-black/50 hover:text-black'
+                ? 'bg-[#0071e3] text-white'
+                : 'text-[#86868b] hover:text-[#1d1d1f]'
             }`}
           >
             Inscription
@@ -164,11 +163,11 @@ function LoginContent() {
 
         {/* Login Panel */}
         {activeTab === 'login' && (
-          <Card className="bg-white border-black/10 shadow-lg rounded-3xl overflow-hidden">
+          <Card className="bg-white border-black/5 shadow-sm rounded-[28px] overflow-hidden">
             <form onSubmit={handleLogin}>
               <CardHeader>
-                <CardTitle className="text-xl text-black">Bon retour !</CardTitle>
-                <CardDescription className="text-black/60">Connectez-vous à votre compte store.</CardDescription>
+                <CardTitle className="font-sf-display text-xl font-semibold text-[#1d1d1f]">Bon retour</CardTitle>
+                <CardDescription className="text-[#6e6e73]">Connectez-vous à votre compte store.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 {error && (
@@ -177,7 +176,7 @@ function LoginContent() {
                   </div>
                 )}
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-black/60">Email</label>
+                  <label className="text-[13px] font-medium text-[#86868b]">Email</label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black/40" />
                     <Input 
@@ -192,8 +191,8 @@ function LoginContent() {
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <label className="text-sm font-bold text-black/60">Mot de passe</label>
-                    <Link href="/reset-password" className="text-sm font-medium text-blue-600 hover:text-blue-500 transition-colors">
+                    <label className="text-[13px] font-medium text-[#86868b]">Mot de passe</label>
+                    <Link href="/reset-password" className="text-[13px] font-medium text-[#0071e3] hover:text-[#0077ed] transition-colors">
                       Oublié ?
                     </Link>
                   </div>
@@ -213,7 +212,7 @@ function LoginContent() {
               <CardFooter>
                 <Button 
                   type="submit" 
-                  className="w-full h-12 bg-blue-600 text-white hover:bg-blue-700 font-bold rounded-xl shadow-lg shadow-blue-600/20"
+                  className="w-full h-11 bg-[#0071e3] text-white hover:bg-[#0077ed] font-medium rounded-full"
                   disabled={isLoading}
                 >
                   {isLoading ? "Connexion..." : "Se Connecter"}
@@ -225,11 +224,11 @@ function LoginContent() {
 
         {/* Register Panel */}
         {activeTab === 'register' && (
-          <Card className="bg-white border-black/10 shadow-lg rounded-3xl overflow-hidden">
+          <Card className="bg-white border-black/5 shadow-sm rounded-[28px] overflow-hidden">
             <form onSubmit={handleRegister}>
               <CardHeader>
-                <CardTitle className="text-xl text-black">Devenir Vendeur</CardTitle>
-                <CardDescription className="text-black/60">Créez votre boutique en quelques secondes.</CardDescription>
+                <CardTitle className="font-sf-display text-xl font-semibold text-[#1d1d1f]">Devenir vendeur</CardTitle>
+                <CardDescription className="text-[#6e6e73]">Créez votre boutique en quelques secondes.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 {error && (
@@ -260,7 +259,7 @@ function LoginContent() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-black/60">Email</label>
+                  <label className="text-[13px] font-medium text-[#86868b]">Email</label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black/40" />
                     <Input 
@@ -274,7 +273,7 @@ function LoginContent() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-black/60">Mot de passe</label>
+                  <label className="text-[13px] font-medium text-[#86868b]">Mot de passe</label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black/40" />
                     <Input 
@@ -291,7 +290,7 @@ function LoginContent() {
               <CardFooter>
                 <Button 
                   type="submit" 
-                  className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl"
+                  className="w-full h-11 bg-[#0071e3] hover:bg-[#0077ed] text-white font-medium rounded-full"
                   disabled={isLoading}
                 >
                   {isLoading ? "Création..." : "Créer mon Store"}

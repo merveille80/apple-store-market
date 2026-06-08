@@ -202,7 +202,7 @@ export default function NewProductPage() {
   if (isPageLoading) {
     return (
       <div className="min-h-[400px] flex flex-col items-center justify-center gap-4">
-        <Loader2 className="h-10 w-10 text-blue-600 animate-spin" />
+        <Loader2 className="h-10 w-10 text-[#0071e3] animate-spin" />
         <p className="text-black/50 animate-pulse">Chargement...</p>
       </div>
     )
@@ -215,7 +215,7 @@ export default function NewProductPage() {
           <ChevronLeft className="h-5 w-5" />
         </Link>
         <div>
-          <h1 className="text-3xl font-black text-black tracking-tight">Ajouter un iPhone</h1>
+          <h1 className="font-sf-display text-[clamp(1.75rem,4vw,2.25rem)] font-semibold text-[#1d1d1f] tracking-[-0.03em]">Ajouter un iPhone</h1>
           <p className="text-black/60">Remplissez les détails pour publier votre annonce.</p>
         </div>
       </div>
@@ -291,7 +291,7 @@ export default function NewProductPage() {
                     <Button 
                       type="button"
                       variant={formData.condition === 'box' ? 'default' : 'outline'}
-                      className={cn("flex-1 h-12 rounded-xl", formData.condition === 'box' ? 'bg-blue-600 text-white hover:bg-blue-700' : 'border-black/10 bg-white text-black hover:bg-black/5')}
+                      className={cn("flex-1 h-12 rounded-xl", formData.condition === 'box' ? 'bg-[#0071e3] text-white hover:bg-[#0077ed]' : 'border-black/10 bg-white text-black hover:bg-black/5')}
                       onClick={() => setFormData({...formData, condition: 'box'})}
                     >
                       Box / Neuf
@@ -299,7 +299,7 @@ export default function NewProductPage() {
                     <Button 
                       type="button"
                       variant={formData.condition === 'pre-owned' ? 'default' : 'outline'}
-                      className={cn("flex-1 h-12 rounded-xl", formData.condition === 'pre-owned' ? 'bg-blue-600 text-white hover:bg-blue-700' : 'border-black/10 bg-white text-black hover:bg-black/5')}
+                      className={cn("flex-1 h-12 rounded-xl", formData.condition === 'pre-owned' ? 'bg-[#0071e3] text-white hover:bg-[#0077ed]' : 'border-black/10 bg-white text-black hover:bg-black/5')}
                       onClick={() => setFormData({...formData, condition: 'pre-owned'})}
                     >
                       Occasion
@@ -324,7 +324,7 @@ export default function NewProductPage() {
 
               <div className="flex items-center justify-between p-4 bg-black/5 rounded-2xl border border-black/5">
                 <div className="flex items-center gap-3">
-                  <ShieldCheck className="h-5 w-5 text-blue-600" />
+                  <ShieldCheck className="h-5 w-5 text-[#0071e3]" />
                   <div>
                     <Label className="text-sm font-bold text-black">Face ID Fonctionnel</Label>
                     <p className="text-xs text-black/50">Désactiver si le Face ID est défectueux.</p>
@@ -378,7 +378,7 @@ export default function NewProductPage() {
               </div>
 
               <div className="p-4 bg-blue-500/10 rounded-2xl border border-blue-500/20 flex gap-3">
-                <Info className="h-5 w-5 text-blue-600 shrink-0" />
+                <Info className="h-5 w-5 text-[#0071e3] shrink-0" />
                 <p className="text-xs text-blue-900/70 font-medium leading-normal">
                   Ajoutez au moins 3 photos pour augmenter vos chances de vente (Devant, Arrière, Batterie).
                 </p>
@@ -386,7 +386,7 @@ export default function NewProductPage() {
 
               <Button 
                 type="submit" 
-                className="w-full h-14 bg-blue-600 text-white hover:bg-blue-700 font-black rounded-2xl text-lg mt-4 shadow-xl shadow-blue-600/20"
+                className="w-full h-11 bg-[#0071e3] text-white hover:bg-[#0077ed] font-medium rounded-full text-[15px] mt-4"
                 disabled={isLoading || !formData.model}
               >
                 {isLoading ? "Publication..." : "Publier l'Annonce"}

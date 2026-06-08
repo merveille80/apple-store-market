@@ -34,7 +34,7 @@ export default function ResetPasswordPage() {
     if (error) {
       setMessage({ type: 'error', text: error.message })
     } else {
-      setMessage({ type: 'success', text: "Lien envoyé ! Vérifiez votre boîte mail (et les spams)." })
+      setMessage({ type: 'success', text: "Lien envoyé. Vérifiez votre boîte mail (et les spams)." })
       setEmail("")
     }
     
@@ -42,34 +42,31 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-20 flex justify-center items-center min-h-[80vh]">
+    <div className="min-h-[80vh] bg-[#f5f5f7] flex justify-center items-center px-5 py-16">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="w-full max-w-md space-y-6"
       >
-        <Link href="/login" className="inline-flex items-center text-sm font-bold text-black/50 hover:text-black transition-colors">
-          <ArrowLeft className="mr-2 h-4 w-4" /> Retour à la connexion
+        <Link href="/login" className="inline-flex items-center text-[14px] font-medium text-[#0071e3] hover:text-[#0077ed] transition-colors">
+          <ArrowLeft className="mr-1.5 h-4 w-4" /> Retour à la connexion
         </Link>
         
         <div className="text-center mb-6">
-          <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-600/10 text-blue-500 mb-6 font-black text-2xl">
-            ASK
-          </div>
-          <h1 className="text-3xl font-black text-black tracking-tight">Mot de passe oublié</h1>
-          <p className="text-black/60 mt-2">Recevez un lien sécurisé pour créer un nouveau mot de passe.</p>
+          <h1 className="font-sf-display text-[28px] font-semibold text-[#1d1d1f] tracking-[-0.03em]">Mot de passe oublié</h1>
+          <p className="text-[#6e6e73] text-[15px] mt-2">Recevez un lien pour créer un nouveau mot de passe.</p>
         </div>
 
-        <Card className="bg-white border-black/10 shadow-lg rounded-3xl overflow-hidden">
+        <Card className="bg-white border-black/5 shadow-sm rounded-[28px] overflow-hidden">
           <form onSubmit={handleReset}>
             <CardHeader>
-              <CardTitle className="text-xl text-black">Réinitialisation</CardTitle>
-              <CardDescription className="text-black/60">Saisissez l'email associé à votre compte vendeur.</CardDescription>
+              <CardTitle className="font-sf-display text-xl font-semibold text-[#1d1d1f]">Réinitialisation</CardTitle>
+              <CardDescription className="text-[#6e6e73]">Saisissez l&apos;email de votre compte vendeur.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               {message && (
-                <div className={`p-3 rounded-lg border text-sm ${
+                <div className={`p-3 rounded-xl border text-[14px] ${
                   message.type === 'error' 
                     ? 'bg-red-500/10 border-red-500/20 text-red-600' 
                     : 'bg-emerald-500/10 border-emerald-500/20 text-emerald-700'
@@ -79,13 +76,13 @@ export default function ResetPasswordPage() {
               )}
               
               <div className="space-y-2">
-                <label className="text-sm font-bold text-black/60">Email</label>
+                <label className="text-[13px] font-medium text-[#86868b]">Email</label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black/40" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#86868b]" />
                   <Input 
                     type="email" 
                     placeholder="votre@email.com" 
-                    className="pl-10 bg-zinc-50 border-black/10 h-12 rounded-xl text-black"
+                    className="pl-10 bg-white border-black/10 h-12 rounded-xl text-[#1d1d1f]"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -96,10 +93,10 @@ export default function ResetPasswordPage() {
             <CardFooter>
               <Button 
                 type="submit" 
-                className="w-full h-12 bg-blue-600 text-white hover:bg-blue-700 font-bold rounded-xl shadow-lg shadow-blue-600/20"
+                className="w-full h-11 bg-[#0071e3] text-white hover:bg-[#0077ed] font-medium rounded-full"
                 disabled={isLoading || !email}
               >
-                {isLoading ? "Envoi en cours..." : "Envoyer le lien"}
+                {isLoading ? "Envoi en cours…" : "Envoyer le lien"}
               </Button>
             </CardFooter>
           </form>

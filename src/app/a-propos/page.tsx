@@ -2,18 +2,17 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { Apple, ShieldCheck, Zap, Heart, MapPin, MessageSquare, ArrowRight, Loader2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Apple, ShieldCheck, Zap, Heart, MapPin, MessageSquare, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
 
 export default function AboutPage() {
   const [loading, setLoading] = useState(true)
   const [stats, setStats] = useState([
-    { label: "Vendeurs Certifiés", value: "...", icon: ShieldCheck },
-    { label: "iPhones Disponibles", value: "...", icon: Apple },
-    { label: "Leads Générés", value: "...", icon: Zap },
-    { label: "Clients Satisfaits", value: "100%", icon: Heart },
+    { label: "Vendeurs certifiés", value: "...", icon: ShieldCheck },
+    { label: "iPhones disponibles", value: "...", icon: Apple },
+    { label: "Leads générés", value: "...", icon: Zap },
+    { label: "Clients satisfaits", value: "100%", icon: Heart },
   ])
 
   useEffect(() => {
@@ -26,24 +25,24 @@ export default function AboutPage() {
       }
 
       const { count: storesCount } = await supabase
-        .from('stores')
-        .select('*', { count: 'exact', head: true })
-        .eq('is_verified', true)
+        .from("stores")
+        .select("*", { count: "exact", head: true })
+        .eq("is_verified", true)
 
       const { count: productsCount } = await supabase
-        .from('products')
-        .select('*', { count: 'exact', head: true })
-        .eq('status', 'available')
+        .from("products")
+        .select("*", { count: "exact", head: true })
+        .eq("status", "available")
 
       const { count: leadsCount } = await supabase
-        .from('leads')
-        .select('*', { count: 'exact', head: true })
+        .from("leads")
+        .select("*", { count: "exact", head: true })
 
       setStats([
-        { label: "Vendeurs Certifiés", value: (storesCount || 0).toString(), icon: ShieldCheck },
-        { label: "iPhones Disponibles", value: (productsCount || 0).toString(), icon: Apple },
-        { label: "Leads Générés", value: (leadsCount || 0).toString(), icon: Zap },
-        { label: "Clients Satisfaits", value: "100%", icon: Heart },
+        { label: "Vendeurs certifiés", value: (storesCount || 0).toString(), icon: ShieldCheck },
+        { label: "iPhones disponibles", value: (productsCount || 0).toString(), icon: Apple },
+        { label: "Leads générés", value: (leadsCount || 0).toString(), icon: Zap },
+        { label: "Clients satisfaits", value: "100%", icon: Heart },
       ])
       setLoading(false)
     }
@@ -53,117 +52,131 @@ export default function AboutPage() {
 
   const values = [
     {
-      title: "Authenticité Garantie",
-      description: "Chaque iPhone listé par nos vendeurs vérifiés est soumis à une charte de qualité stricte.",
+      title: "Authenticité garantie",
+      description:
+        "Chaque iPhone listé par nos vendeurs vérifiés est soumis à une charte de qualité stricte.",
       icon: ShieldCheck,
-      color: "text-blue-500",
-      bg: "bg-blue-500/10"
     },
     {
       title: "Vitesse Kolwezi",
-      description: "Évitez l'attente des commandes internationales. Achetez localement et récupérez le jour même.",
+      description:
+        "Évitez l'attente des commandes internationales. Achetez localement et récupérez le jour même.",
       icon: Zap,
-      color: "text-yellow-500",
-      bg: "bg-yellow-500/10"
     },
     {
-      title: "Support Direct",
-      description: "Contactez directement le vendeur via WhatsApp pour négocier et finaliser l'achat.",
+      title: "Support direct",
+      description:
+        "Contactez directement le vendeur via WhatsApp pour négocier et finaliser l'achat.",
       icon: MessageSquare,
-      color: "text-emerald-500",
-      bg: "bg-emerald-500/10"
-    }
+    },
   ]
 
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative py-24 lg:py-32 overflow-hidden bg-black">
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="max-w-3xl"
-          >
-            <h1 className="text-5xl lg:text-7xl font-black text-white tracking-tight mb-8 italic">
-              L'excellence Apple, <br />
-              <span className="text-blue-500 flex items-center gap-4">
-                Origine Kolwezi <MapPin className="h-10 w-10 md:h-16 md:w-16" />
-              </span>
-            </h1>
-            <p className="text-xl text-zinc-400 leading-relaxed mb-10 max-w-2xl">
-              Apple Store Kolwezi n'est pas seulement une boutique, c'est la première marketplace haut de gamme du Lualaba dédiée exclusivement à l'écosystème Apple.
+    <div className="flex flex-col bg-[#f5f5f7]">
+      <section className="pt-16 pb-14 md:pt-24 md:pb-20">
+        <div className="container mx-auto px-5 max-w-[980px] text-center">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <p className="text-[13px] font-medium text-[#0071e3] tracking-tight mb-3">
+              À propos
             </p>
+            <h1 className="font-sf-display text-[clamp(2.25rem,5.5vw,3.5rem)] font-semibold text-[#1d1d1f] tracking-[-0.03em] leading-tight">
+              L&apos;excellence Apple,
+              <br />
+              <span className="text-[#6e6e73]">origine Kolwezi</span>
+            </h1>
+            <p className="mt-5 text-[17px] text-[#6e6e73] leading-[1.5] tracking-[-0.01em] max-w-2xl mx-auto">
+              Apple Store Kolwezi est la première marketplace du Lualaba dédiée à l&apos;écosystème
+              Apple — iPhones neufs et d&apos;occasion, vendeurs vérifiés, commande via WhatsApp.
+            </p>
+            <div className="mt-4 inline-flex items-center gap-2 text-[14px] text-[#86868b]">
+              <MapPin className="h-4 w-4" />
+              Kolwezi, République Démocratique du Congo
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Stats Grid */}
-      <section className="py-20 bg-zinc-950 border-y border-white/5">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+      <section className="bg-white border-y border-black/[0.04] py-14 md:py-16">
+        <div className="container mx-auto px-5 max-w-[980px]">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
             {stats.map((stat, i) => (
               <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                className="text-center space-y-2"
+                key={stat.label}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="text-center"
               >
-                <stat.icon className="h-6 w-6 text-blue-500 mx-auto mb-4" />
+                <stat.icon className="h-5 w-5 text-[#0071e3] mx-auto mb-3" strokeWidth={1.5} />
                 {loading && stat.value === "..." ? (
-                  <div className="h-10 w-16 bg-zinc-900 animate-pulse mx-auto rounded-lg" />
+                  <div className="h-9 w-14 skeleton rounded-lg mx-auto mb-2" />
                 ) : (
-                  <p className="text-4xl font-black text-white italic tracking-tighter">{stat.value}</p>
+                  <p className="font-sf-display text-[clamp(1.75rem,4vw,2.25rem)] font-semibold text-[#1d1d1f] tracking-[-0.03em]">
+                    {stat.value}
+                  </p>
                 )}
-                <p className="text-xs text-zinc-500 uppercase font-black tracking-widest">{stat.label}</p>
+                <p className="mt-1 text-[12px] text-[#86868b] font-medium tracking-tight">
+                  {stat.label}
+                </p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Values Section */}
-      <section className="py-24 bg-black">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-black text-white uppercase italic tracking-tight mb-4">Pourquoi nous choisir ?</h2>
-            <div className="h-1 w-20 bg-blue-600 mx-auto rounded-full" />
+      <section className="py-16 md:py-24">
+        <div className="container mx-auto px-5 max-w-[980px]">
+          <div className="text-center mb-12 md:mb-14">
+            <h2 className="font-sf-display text-[clamp(1.75rem,4vw,2.5rem)] font-semibold text-[#1d1d1f] tracking-[-0.03em]">
+              Pourquoi nous choisir ?
+            </h2>
+            <p className="mt-3 text-[17px] text-[#6e6e73] max-w-lg mx-auto">
+              Une expérience simple, locale et fiable pour acheter ou vendre un iPhone à Kolwezi.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
             {values.map((v, i) => (
               <motion.div
-                key={i}
-                whileHover={{ y: -10 }}
-                className="p-10 rounded-[2.5rem] bg-zinc-900 border border-white/5 space-y-6"
+                key={v.title}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="card-apple p-8 md:p-9 space-y-4"
               >
-                <div className={`h-14 w-14 rounded-2xl ${v.bg} flex items-center justify-center ${v.color}`}>
-                  <v.icon className="h-7 w-7" />
+                <div className="h-11 w-11 rounded-2xl bg-[#0071e3]/10 flex items-center justify-center text-[#0071e3]">
+                  <v.icon className="h-5 w-5" strokeWidth={1.5} />
                 </div>
-                <h3 className="text-xl font-bold text-white uppercase tracking-tight italic">{v.title}</h3>
-                <p className="text-zinc-500 leading-relaxed">{v.description}</p>
+                <h3 className="font-sf-display text-[19px] font-semibold text-[#1d1d1f] tracking-[-0.02em]">
+                  {v.title}
+                </h3>
+                <p className="text-[15px] text-[#6e6e73] leading-[1.5]">{v.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 bg-blue-600">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-5xl font-black text-white italic tracking-tight mb-8">
+      <section className="py-16 md:py-20 bg-white border-t border-black/[0.04]">
+        <div className="container mx-auto px-5 max-w-[980px] text-center">
+          <h2 className="font-sf-display text-[clamp(1.75rem,4vw,2.75rem)] font-semibold text-[#1d1d1f] tracking-[-0.03em] mb-6">
             Prêt à passer au niveau supérieur ?
           </h2>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/catalog">
-              <Button size="lg" className="bg-white text-blue-600 hover:bg-zinc-100 h-14 px-10 rounded-2xl font-black text-lg">
-                Découvrir le Catalogue
-              </Button>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link
+              href="/catalog"
+              className="inline-flex items-center justify-center h-[44px] px-6 text-[15px] font-medium text-white bg-[#0071e3] rounded-full hover:bg-[#0077ed] transition-colors"
+            >
+              Découvrir le catalogue
             </Link>
-            <Link href="/login?tab=register">
-              <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10 h-14 px-10 rounded-2xl font-black text-lg">
-                Vendre un iPhone <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+            <Link
+              href="/login?tab=register"
+              className="inline-flex items-center justify-center gap-2 h-[44px] px-6 text-[15px] font-medium text-[#0071e3] border border-[#0071e3] rounded-full hover:bg-[#0071e3]/5 transition-colors"
+            >
+              Vendre un iPhone
+              <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>

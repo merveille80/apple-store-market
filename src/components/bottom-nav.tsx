@@ -50,12 +50,12 @@ export function BottomNav() {
               )}>
                 <Icon className={cn(
                   "h-[22px] w-[22px] transition-all duration-200",
-                  isActive ? "text-blue-600 stroke-[2]" : "text-black/30 stroke-[1.5]"
+                  isActive ? "text-[#0071e3] stroke-[2]" : "text-black/30 stroke-[1.5]"
                 )} />
               </div>
               <span className={cn(
                 "text-[9.5px] font-semibold tracking-wide transition-all duration-200",
-                isActive ? "text-blue-600" : "text-black/30"
+                isActive ? "text-[#0071e3]" : "text-black/30"
               )}>
                 {label}
               </span>
