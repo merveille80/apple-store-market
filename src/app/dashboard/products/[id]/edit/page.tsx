@@ -286,12 +286,12 @@ export default function EditProductPage() {
             <CardContent className="p-0 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label className="text-black/60 font-bold">Modèle</Label>
+                  <Label>Modèle</Label>
                   <Select 
                     value={formData.model}
                     onValueChange={(val) => setFormData({...formData, model: val as string})}
                   >
-                    <SelectTrigger className="bg-zinc-50 border-black/10 h-12 rounded-xl w-full text-black">
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="Sélectionner le modèle" />
                     </SelectTrigger>
                     <SelectContent className="bg-white border-black/10 text-black shadow-lg">
@@ -302,12 +302,12 @@ export default function EditProductPage() {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-black/60 font-bold">Stockage</Label>
+                  <Label>Stockage</Label>
                   <Select 
                     value={formData.storage}
                     onValueChange={(val) => setFormData({...formData, storage: val as string})}
                   >
-                    <SelectTrigger className="bg-zinc-50 border-black/10 h-12 rounded-xl w-full text-black">
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="ex: 128GB" />
                     </SelectTrigger>
                     <SelectContent className="bg-white border-black/10 text-black shadow-lg">
@@ -321,12 +321,12 @@ export default function EditProductPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label className="text-black/60 font-bold">Couleur</Label>
+                  <Label>Couleur</Label>
                   <Select 
                     value={formData.color}
                     onValueChange={(val) => setFormData({...formData, color: val as string})}
                   >
-                    <SelectTrigger className="bg-zinc-50 border-black/10 h-12 rounded-xl w-full text-black">
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="Couleur de l'iPhone" />
                     </SelectTrigger>
                     <SelectContent className="bg-white border-black/10 text-black shadow-lg">
@@ -337,13 +337,13 @@ export default function EditProductPage() {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-black/60 font-bold">Prix (USD)</Label>
+                  <Label>Prix (USD)</Label>
                   <div className="relative">
                     <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black/40" />
                     <Input 
                       type="number" 
                       placeholder="950" 
-                      className="pl-10 bg-zinc-50 border-black/10 h-12 rounded-xl text-black"
+                      className="pl-10"
                       value={formData.price}
                       onChange={(e) => setFormData({...formData, price: e.target.value})}
                       required
@@ -354,7 +354,7 @@ export default function EditProductPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                  <div className="space-y-2">
-                  <Label className="text-black/60 font-bold">État</Label>
+                  <Label>État</Label>
                   <div className="flex gap-2">
                     <Button 
                       type="button"
@@ -375,14 +375,14 @@ export default function EditProductPage() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-black/60 font-bold">Santé Batterie (%)</Label>
+                  <Label>Santé Batterie (%)</Label>
                   <div className="relative">
                     <Battery className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black/40" />
                     <Input 
                       type="number" 
                       placeholder="100" 
                       max="100"
-                      className="pl-10 bg-zinc-50 border-black/10 h-12 rounded-xl text-black"
+                      className="pl-10"
                       value={formData.battery}
                       onChange={(e) => setFormData({...formData, battery: e.target.value})}
                     />
@@ -394,7 +394,7 @@ export default function EditProductPage() {
                 <div className="flex items-center gap-3">
                   <ShieldCheck className="h-5 w-5 text-[#0071e3]" />
                   <div>
-                    <Label className="text-sm font-bold text-black">Face ID Fonctionnel</Label>
+                    <Label className="text-[#1d1d1f]">Face ID fonctionnel</Label>
                     <p className="text-xs text-black/50">Désactiver si le Face ID est défectueux.</p>
                   </div>
                 </div>
@@ -405,10 +405,9 @@ export default function EditProductPage() {
               </div>
 
               <div className="space-y-2">
-                <Label className="text-black/60 font-bold">Accessoires inclus</Label>
+                <Label>Accessoires inclus</Label>
                 <Input 
                   placeholder="ex: Chargeur, Boîte, Adaptateur" 
-                  className="bg-zinc-50 border-black/10 h-12 rounded-xl text-black"
                   value={formData.accessories}
                   onChange={(e) => setFormData({...formData, accessories: e.target.value})}
                 />
@@ -421,7 +420,7 @@ export default function EditProductPage() {
         <div className="space-y-6">
           <Card className="bg-white border-black/5 shadow-sm rounded-3xl p-8">
             <CardContent className="p-0 space-y-6">
-              <h3 className="font-bold text-lg mb-4 text-black">Photos du produit</h3>
+              <h3 className="font-semibold text-[17px] mb-4 text-[#1d1d1f]">Photos du produit</h3>
               
               <div className="grid grid-cols-2 gap-4">
                 {previewUrls.map((url, i) => (
@@ -437,7 +436,7 @@ export default function EditProductPage() {
                   </div>
                 ))}
                 {previewUrls.length < 6 && (
-                  <label className="aspect-square rounded-2xl border-2 border-dashed border-black/10 bg-zinc-50 flex flex-col items-center justify-center cursor-pointer hover:border-blue-500/30 hover:bg-blue-50/50 transition-all">
+                  <label className="aspect-square rounded-2xl border-2 border-dashed border-black/10 bg-zinc-50 flex flex-col items-center justify-center cursor-pointer hover:border-[#0071e3]/30 hover:bg-[#0071e3]/5 transition-all">
                     <Upload className="h-6 w-6 text-black/40 mb-2" />
                     <span className="text-xs text-black/40">Ajouter</span>
                     <input type="file" className="hidden" onChange={handleImageUpload} accept="image/*" />
@@ -445,9 +444,9 @@ export default function EditProductPage() {
                 )}
               </div>
 
-              <div className="p-4 bg-blue-500/10 rounded-2xl border border-blue-500/20 flex gap-3">
+              <div className="p-4 bg-[#0071e3]/8 rounded-2xl border border-[#0071e3]/15 flex gap-3">
                 <Info className="h-5 w-5 text-[#0071e3] shrink-0" />
-                <p className="text-xs text-blue-900/70 font-medium leading-normal">
+                <p className="text-xs text-[#6e6e73] font-medium leading-normal">
                   Les modifications sont instantanées. Ajoutez des photos si nécessaire.
                 </p>
               </div>

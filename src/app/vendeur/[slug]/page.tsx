@@ -69,7 +69,7 @@ export default function StoreDetailPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-[#F5F5F7]">
-        <Loader2 className="h-12 w-12 text-blue-600 animate-spin" />
+        <Loader2 className="h-12 w-12 text-[#0071e3] animate-spin" />
         <p className="text-black/50 animate-pulse">Chargement de la boutique...</p>
       </div>
     )
@@ -90,9 +90,9 @@ export default function StoreDetailPage() {
     <div className="min-h-screen pb-20 bg-[#F5F5F7]">
       {/* Hero Header */}
       <div className="relative h-64 border-b border-black/5 overflow-hidden bg-white">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-600/10 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0071e3]/8 to-transparent" />
         <div className="container mx-auto px-4 h-full flex flex-col justify-end pb-8">
-           <Link href="/vendeurs" className="absolute top-8 left-4 inline-flex items-center transition-colors text-black/50 hover:text-blue-600">
+           <Link href="/vendeurs" className="absolute top-8 left-4 inline-flex items-center transition-colors text-[#86868b] hover:text-[#0071e3]">
             <ChevronLeft className="mr-1 h-4 w-4" /> Tous les vendeurs
           </Link>
           
@@ -145,8 +145,8 @@ export default function StoreDetailPage() {
           </Card>
           
           <Card className="border border-black/5 bg-white p-6 flex items-center gap-4 shadow-sm">
-            <div className="h-12 w-12 rounded-2xl bg-blue-600/10 flex items-center justify-center">
-              <Smartphone className="h-6 w-6 text-blue-600" />
+            <div className="h-12 w-12 rounded-2xl bg-[#0071e3]/10 flex items-center justify-center">
+              <Smartphone className="h-6 w-6 text-[#0071e3]" />
             </div>
             <div>
               <p className="text-[11px] font-medium tracking-tight mb-0.5 text-[#86868b]">Stock actuel</p>
@@ -170,7 +170,7 @@ export default function StoreDetailPage() {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
               {products.map((product) => (
                 <Link key={product.id} href={`/product/${product.id}`} className="group">
-                  <div className="bg-white border border-black/5 rounded-2xl md:rounded-3xl overflow-hidden hover:border-blue-500/30 transition-all duration-300 shadow-sm">
+                  <div className="bg-white border border-black/5 rounded-2xl md:rounded-3xl overflow-hidden hover:border-[#0071e3]/30 transition-all duration-300 shadow-sm">
                     <div className="aspect-square relative overflow-hidden bg-zinc-100">
                       <img 
                         src={product.product_images?.[0]?.image_url || "/placeholder.svg"} 

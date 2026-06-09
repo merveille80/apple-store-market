@@ -5,7 +5,7 @@ export function Footer({ className }: { className?: string }) {
 
   return (
     <footer className={`w-full bg-[#F5F5F7] border-t border-black/5 ${className ?? ""}`}>
-      <div className="container mx-auto px-6 py-16">
+      <div className="container-pro py-14 md:py-16">
         
         {/* Top section */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-12 mb-14">

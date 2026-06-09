@@ -182,7 +182,7 @@ function LoginContent() {
                     <Input 
                       type="email" 
                       placeholder="votre@email.com" 
-                      className="pl-10 bg-zinc-50 border-black/10 h-12 rounded-xl text-black"
+                      className="pl-10"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
@@ -201,7 +201,7 @@ function LoginContent() {
                     <Input 
                       type="password" 
                       placeholder="••••••••" 
-                      className="pl-10 bg-zinc-50 border-black/10 h-12 rounded-xl text-black"
+                      className="pl-10"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
@@ -238,20 +238,20 @@ function LoginContent() {
                 )}
                 <div className="space-y-4">
                   <div className="relative group">
-                    <Store className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-black/40 group-focus-within:text-blue-600 transition-colors" />
+                    <Store className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-[#86868b] group-focus-within:text-[#0071e3] transition-colors" />
                     <Input 
                       placeholder="Nom du Store" 
-                      className="pl-12 bg-zinc-50 border-black/10 h-14 rounded-2xl text-black placeholder:text-black/40 focus:border-blue-500/50 transition-all"
+                      className="pl-12"
                       value={storeName}
                       onChange={(e) => setStoreName(e.target.value)}
                       required
                     />
                   </div>
                   <div className="relative group">
-                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-black/40 group-focus-within:text-blue-600 transition-colors" />
+                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-[#86868b] group-focus-within:text-[#0071e3] transition-colors" />
                     <Input 
                       placeholder="Numéro WhatsApp (ex: +243...)" 
-                      className="pl-12 bg-zinc-50 border-black/10 h-14 rounded-2xl text-black placeholder:text-black/40 focus:border-blue-500/50 transition-all"
+                      className="pl-12"
                       value={whatsappNumber}
                       onChange={(e) => setWhatsappNumber(e.target.value)}
                       required
@@ -265,7 +265,7 @@ function LoginContent() {
                     <Input 
                       type="email" 
                       placeholder="contact@store.com" 
-                      className="pl-10 bg-zinc-50 border-black/10 h-12 rounded-xl text-black"
+                      className="pl-10"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
@@ -279,7 +279,7 @@ function LoginContent() {
                     <Input 
                       type="password" 
                       placeholder="Minimum 6 caractères" 
-                      className="pl-10 bg-zinc-50 border-black/10 h-12 rounded-xl text-black"
+                      className="pl-10"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
@@ -309,7 +309,7 @@ export default function LoginPage() {
   return (
     <Suspense fallback={
       <div className="flex items-center justify-center min-h-screen bg-[#F5F5F7]">
-        <div className="h-8 w-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+        <div className="h-8 w-8 border-4 border-[#0071e3] border-t-transparent rounded-full animate-spin" />
       </div>
     }>
       <LoginContent />

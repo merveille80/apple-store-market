@@ -19,7 +19,7 @@ import { toast } from "sonner"
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState([
-    { name: "Vendeurs", value: "0", icon: Users, color: "text-blue-500" },
+    { name: "Vendeurs", value: "0", icon: Users, color: "text-[#0071e3]" },
     { name: "Produits en Ligne", value: "0", icon: Smartphone, color: "text-purple-500" },
     { name: "Total Leads", value: "0", icon: MessageSquare, color: "text-emerald-500" },
     { name: "Ventes Estimées", value: "0$", icon: TrendingUp, color: "text-yellow-500" },
@@ -43,7 +43,7 @@ export default function AdminDashboard() {
       const { count: leadsCount } = await supabase.from('leads').select('*', { count: 'exact', head: true })
       
       setStats([
-        { name: "Vendeurs", value: (storesCount || 0).toString(), icon: Users, color: "text-blue-500" },
+        { name: "Vendeurs", value: (storesCount || 0).toString(), icon: Users, color: "text-[#0071e3]" },
         { name: "Produits en Ligne", value: (productsCount || 0).toString(), icon: Smartphone, color: "text-purple-500" },
         { name: "Total Leads", value: (leadsCount || 0).toString(), icon: MessageSquare, color: "text-emerald-500" },
         { name: "Ventes Estimées", value: `${(productsCount || 0) * 800}$`, icon: TrendingUp, color: "text-yellow-500" },

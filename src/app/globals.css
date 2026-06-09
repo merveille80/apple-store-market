@@ -59,14 +59,16 @@
   --apple-text-secondary: #6e6e73;
   --apple-text-tertiary: #86868b;
   --apple-blue: #0071e3;
+  --bottom-nav-h: 3.875rem;
+  --product-sticky-h: 3.5rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.09 0 0);
   --card: oklch(0.97 0 0);
   --card-foreground: oklch(0.09 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.09 0 0);
-  --primary: oklch(0.09 0 0);
-  --primary-foreground: oklch(1 0 0);
+  --primary: #0071e3;
+  --primary-foreground: #ffffff;
   --secondary: oklch(0.95 0 0);
   --secondary-foreground: oklch(0.09 0 0);
   --muted: oklch(0.95 0 0);
@@ -76,7 +78,7 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.88 0 0);
   --input: oklch(0.88 0 0);
-  --ring: oklch(0.4 0 0);
+  --ring: #0071e3;
   --chart-1: oklch(0.809 0.105 251.813);
   --chart-2: oklch(0.623 0.214 259.815);
   --chart-3: oklch(0.546 0.245 262.881);
@@ -241,33 +243,39 @@
   transform: translateY(-6px);
 }
 
-/* ── pill-filter button ──────────────────────────── */
+/* ── pill-filter button (catalog) ───────────────── */
 .pill-filter {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  height: 36px;
-  padding: 0 16px;
+  gap: 5px;
+  height: 40px;
+  padding: 0 14px;
   border-radius: 999px;
-  border: 1px solid rgba(0,0,0,0.1);
-  background: #fff;
-  color: rgba(0,0,0,0.65);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+  color: #1d1d1f;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
+  letter-spacing: -0.01em;
   white-space: nowrap;
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
   user-select: none;
 }
 .pill-filter:hover {
-  background: rgba(0,0,0,0.03);
-  border-color: rgba(0,0,0,0.2);
-  color: #000;
+  background: #f5f5f7;
+  border-color: rgba(0, 0, 0, 0.12);
 }
 .pill-filter.active {
-  background: #000;
-  border-color: #000;
-  color: #fff;
+  background: #0071e3;
+  border-color: #0071e3;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 113, 227, 0.25);
+}
+.pill-filter.active:hover {
+  background: #0077ed;
+  border-color: #0077ed;
 }
 
 /* ── Nav link underline Apple-style ─────────────── */
@@ -314,6 +322,129 @@
   text-decoration: underline;
   text-underline-offset: 4px;
 }
+
+/* ── Pro layout system ───────────────────────────── */
+.container-pro {
+  width: 100%;
+  max-width: 1060px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@media (min-width: 768px) {
+  .container-pro {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+.container-wide {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+.section-y {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+@media (min-width: 768px) {
+  .section-y {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+/* ── Mobile: typo, touch, safe areas ────────────── */
+.pb-bottom-nav {
+  padding-bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 0px));
+}
+.pb-product-mobile {
+  padding-bottom: calc(
+    var(--bottom-nav-h) + var(--product-sticky-h) + 1rem + env(safe-area-inset-bottom, 0px)
+  );
+}
+.sticky-above-nav {
+  bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 0px));
+}
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (max-width: 767px) {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .pill-filter {
+    height: 44px;
+    padding: 0 16px;
+    font-size: 14px;
+    gap: 6px;
+  }
+
+  .btn-buy {
+    min-height: 48px;
+    height: 48px;
+    font-size: 16px;
+  }
+
+  .btn-whatsapp {
+    min-height: 48px;
+    height: 48px;
+    font-size: 15px;
+  }
+}
+
+/* ── Conversion CTAs ─────────────────────────────── */
+.btn-buy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 44px;
+  padding: 0 24px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  border-radius: 980px;
+  background: var(--apple-blue);
+  color: #fff;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 14px rgba(0, 113, 227, 0.28);
+}
+.btn-buy:hover {
+  background: #0077ed;
+  box-shadow: 0 6px 20px rgba(0, 113, 227, 0.32);
+}
+.btn-buy:active { transform: scale(0.98); }
+.btn-buy-lg {
+  height: 52px;
+  padding: 0 28px;
+  font-size: 16px;
+  width: 100%;
+}
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 52px;
+  padding: 0 28px;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  border-radius: 980px;
+  background: #25d366;
+  color: #fff;
+  width: 100%;
+  transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+}
+.btn-whatsapp:hover { background: #20bd5a; }
+.btn-whatsapp:active { transform: scale(0.98); }
 
 /* ── Apple pill button ───────────────────────────── */
 .btn-apple {

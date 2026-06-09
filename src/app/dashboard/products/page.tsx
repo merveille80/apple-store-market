@@ -156,7 +156,7 @@ export default function MyProductsPage() {
           </div>
         ) : (
           filteredProducts.map((product) => (
-            <Card key={product.id} className="bg-white border-black/5 shadow-sm rounded-2xl overflow-hidden hover:border-blue-500/30 transition-colors">
+            <Card key={product.id} className="bg-white border-black/5 shadow-sm rounded-2xl overflow-hidden hover:border-[#0071e3]/30 transition-colors">
               <CardContent className="p-4 flex items-center gap-4">
                 <div className="h-16 w-16 bg-zinc-50 rounded-xl border border-black/5 flex items-center justify-center text-black/20 overflow-hidden">
                   {product.image ? (

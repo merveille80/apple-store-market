@@ -102,45 +102,52 @@ function CatalogContent() {
 
   return (
     <div className="min-h-screen bg-[#F5F5F7]">
-      <div className="container mx-auto px-5 py-12 md:py-16">
+      <div className="container-wide py-8 sm:py-10 md:py-14">
 
         {/* Page header */}
-        <div className="mb-10">
-          <p className="text-[13px] font-medium text-[#0071e3] tracking-tight mb-2">Kolwezi, RDC</p>
-          <h1 className="font-sf-display text-[clamp(2rem,5vw,3.5rem)] font-semibold text-[#1d1d1f] tracking-[-0.03em] leading-tight">
-            Catalogue iPhone
-          </h1>
-          {!loading && (
-            <p className="text-[15px] text-[#6e6e73] mt-2">
-              {filteredProducts.length} produit{filteredProducts.length !== 1 ? "s" : ""} disponible{filteredProducts.length !== 1 ? "s" : ""}
+        <div className="mb-8 md:mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+          <div>
+            <p className="text-[13px] font-medium text-[#0071e3] tracking-tight mb-2">Kolwezi, RDC</p>
+            <h1 className="font-sf-display text-[clamp(1.75rem,6vw,3rem)] font-semibold text-[#1d1d1f] tracking-[-0.03em] leading-tight">
+              Catalogue iPhone
+            </h1>
+            {!loading && (
+              <p className="text-[14px] sm:text-[15px] text-[#6e6e73] mt-2 leading-snug">
+                {filteredProducts.length} modèle{filteredProducts.length !== 1 ? "s" : ""} — commande WhatsApp en 1 clic
+              </p>
+            )}
+          </div>
+          {!loading && filteredProducts.length > 0 && (
+            <p className="text-[13px] text-[#86868b] md:text-right max-w-xs">
+              Prix affichés en USD. Cliquez sur un iPhone pour commander.
             </p>
           )}
         </div>
 
-        {/* ── Sticky filter bar ── */}
-        <div className="sticky top-[56px] md:top-[60px] z-40 -mx-5 px-5 py-3 bg-white/90 backdrop-blur-2xl border-b border-black/5 mb-8">
-          <div className="flex gap-2.5 items-center overflow-x-auto scrollbar-hide">
+        {/* ── Filter bar (scroll avec la page, pas sticky) ── */}
+        <div className="mb-8">
+          <div className="flex gap-2 sm:gap-2.5 items-center overflow-x-auto scrollbar-hide py-1 -mx-1 px-1">
             
             {/* Search */}
             <div className="relative flex-shrink-0">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-black/40 pointer-events-none" />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#86868b] pointer-events-none" strokeWidth={2} />
               <input
                 type="text"
                 placeholder="Rechercher..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="h-9 pl-9 pr-4 bg-black/5 border border-black/10 rounded-full text-[13px] text-black placeholder:text-black/40 outline-none focus:border-black/20 focus:bg-black/10 transition-all w-[160px] sm:w-[200px]"
+                className="h-11 pl-10 pr-4 bg-white border border-black/10 rounded-full text-[15px] sm:text-[14px] text-[#1d1d1f] placeholder:text-[#86868b] outline-none focus:border-[#0071e3]/40 focus:ring-2 focus:ring-[#0071e3]/15 transition-all w-[148px] sm:w-[200px]"
               />
             </div>
 
-            <div className="w-[1px] h-5 bg-black/10 flex-shrink-0" />
+            <div className="w-px h-6 bg-black/10 flex-shrink-0" />
 
             {/* Prix */}
             <DropdownMenu>
               <DropdownMenuTrigger render={
                 <button className={`pill-filter flex-shrink-0 ${priceRange[0] > 0 || priceRange[1] < 2000 ? "active" : ""}`}>
                   Prix
-                  <ChevronDown className="h-3 w-3 opacity-50" />
+                  <ChevronDown className="h-3.5 w-3.5 opacity-50" strokeWidth={2} />
                 </button>
               } />
               <DropdownMenuContent className="w-72 p-5 bg-white border-black/10 text-black rounded-2xl shadow-2xl">
@@ -163,7 +170,7 @@ function CatalogContent() {
               <DropdownMenuTrigger render={
                 <button className={`pill-filter flex-shrink-0 ${selectedConditions.length > 0 ? "active" : ""}`}>
                   {selectedConditions.length > 0 ? (selectedConditions.includes("box") && selectedConditions.includes("pre-owned") ? "Tous états" : selectedConditions.includes("box") ? "Neuf" : "Occasion") : "État"}
-                  <ChevronDown className="h-3 w-3 opacity-50" />
+                  <ChevronDown className="h-3.5 w-3.5 opacity-50" strokeWidth={2} />
                 </button>
               } />
               <DropdownMenuContent className="bg-white border-black/10 text-black p-2 rounded-2xl shadow-2xl">
@@ -189,7 +196,7 @@ function CatalogContent() {
               <DropdownMenuTrigger render={
                 <button className={`pill-filter flex-shrink-0 ${selectedStorages.length > 0 ? "active" : ""}`}>
                   {selectedStorages.length > 0 ? `${selectedStorages.length} Stockage` : "Stockage"}
-                  <ChevronDown className="h-3 w-3 opacity-50" />
+                  <ChevronDown className="h-3.5 w-3.5 opacity-50" strokeWidth={2} />
                 </button>
               } />
               <DropdownMenuContent className="bg-white border-black/10 text-black p-2 rounded-2xl shadow-2xl">
@@ -215,7 +222,7 @@ function CatalogContent() {
               <DropdownMenuTrigger render={
                 <button className={`pill-filter flex-shrink-0 ${selectedColors.length > 0 ? "active" : ""}`}>
                   {selectedColors.length > 0 ? `${selectedColors.length} Couleur` : "Couleur"}
-                  <ChevronDown className="h-3 w-3 opacity-50" />
+                  <ChevronDown className="h-3.5 w-3.5 opacity-50" strokeWidth={2} />
                 </button>
               } />
               <DropdownMenuContent className="bg-white border-black/10 text-black p-2 rounded-2xl shadow-2xl max-h-72 overflow-y-auto">
@@ -236,14 +243,14 @@ function CatalogContent() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <div className="w-[1px] h-5 bg-black/10 flex-shrink-0" />
+            <div className="w-px h-5 bg-black/10 flex-shrink-0" />
 
             {/* Tri */}
             <DropdownMenu>
               <DropdownMenuTrigger render={
-                <button className="pill-filter flex-shrink-0 text-black/50">
+                <button className="pill-filter flex-shrink-0 text-[#6e6e73]">
                   {SORT_LABELS[sortBy]}
-                  <ChevronDown className="h-3 w-3 opacity-50" />
+                  <ChevronDown className="h-3.5 w-3.5 opacity-50" strokeWidth={2} />
                 </button>
               } />
               <DropdownMenuContent className="bg-white border-black/10 text-black rounded-2xl shadow-2xl p-1.5">
@@ -265,7 +272,7 @@ function CatalogContent() {
             {activeFiltersCount > 0 && (
               <button
                 onClick={resetFilters}
-                className="flex-shrink-0 flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[12px] font-semibold text-black/50 hover:text-black bg-black/5 hover:bg-black/10 border border-black/10 transition-all"
+                className="flex-shrink-0 flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[12px] font-medium text-[#6e6e73] hover:text-[#1d1d1f] bg-white hover:bg-[#f5f5f7] border border-black/10 transition-all"
               >
                 <X className="h-3 w-3" />
                 Reset ({activeFiltersCount})
@@ -276,7 +283,7 @@ function CatalogContent() {
 
         {/* ── Product Grid ── */}
         {loading ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
             {[...Array(10)].map((_, i) => (
               <div key={i} className="rounded-3xl overflow-hidden bg-white shadow-sm border border-black/5">
                 <div className="aspect-[3/4] skeleton bg-black/5" />
@@ -289,7 +296,7 @@ function CatalogContent() {
             ))}
           </div>
         ) : filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
             <AnimatePresence mode="popLayout">
               {filteredProducts.map((product) => (
                 <motion.div
