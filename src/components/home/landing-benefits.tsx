@@ -56,7 +56,7 @@ export function LandingBenefits() {
             <motion.article
               key={title}
               variants={fadeUpChild}
-              className="group rounded-[20px] sm:rounded-[22px] bg-white border border-black/[0.05] p-5 sm:p-6 shadow-[0_2px_16px_-6px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_28px_-8px_rgba(0,0,0,0.1)] sm:hover:-translate-y-0.5 transition-all duration-300"
+              className="group rounded-[20px] sm:rounded-[22px] bg-white p-5 sm:p-6 shadow-[0_4px_20px_-6px_rgba(0,0,0,0.08)] hover:shadow-[0_10px_32px_-8px_rgba(0,0,0,0.12)] sm:hover:-translate-y-0.5 transition-all duration-300"
             >
               <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-xl bg-[#0071e3]/[0.08] flex items-center justify-center mb-3.5 sm:mb-4 group-hover:bg-[#0071e3]/[0.12] transition-colors">
                 <Icon className="h-[18px] w-[18px] sm:h-5 sm:w-5 text-[#0071e3]" strokeWidth={1.75} />

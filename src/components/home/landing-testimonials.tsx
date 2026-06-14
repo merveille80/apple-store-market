@@ -51,7 +51,7 @@ export function LandingTestimonials() {
             <motion.article
               key={name}
               variants={fadeUpChild}
-              className="rounded-[20px] bg-white border border-black/[0.05] p-5 sm:p-6 shadow-[0_2px_14px_-4px_rgba(0,0,0,0.06)]"
+              className="rounded-[20px] bg-white p-5 sm:p-6 shadow-[0_4px_20px_-6px_rgba(0,0,0,0.08)]"
             >
               <div className="flex items-center gap-3 mb-3">
                 <span className="h-9 w-9 rounded-full bg-[#0071e3]/10 text-[#0071e3] text-[12px] font-semibold flex items-center justify-center shrink-0">

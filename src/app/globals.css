@@ -471,3 +471,12 @@
   height: auto;
 }
 .btn-apple-outline:hover { background: transparent; }
+/* ── Landing pro animations ───────────────────────── */
+@keyframes hero-shimmer {
+  0% { transform: translateX(-100%); }
+  60%, 100% { transform: translateX(100%); }
+}
+@keyframes hero-gradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}

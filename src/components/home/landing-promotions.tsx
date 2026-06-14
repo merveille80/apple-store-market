@@ -57,7 +57,7 @@ export function LandingPromotions() {
             <motion.article
               key={title}
               variants={fadeUpChild}
-              className="group relative rounded-[20px] border border-black/[0.06] bg-[#fafafa] p-5 sm:p-6 overflow-hidden hover:bg-white hover:shadow-[0_6px_24px_-8px_rgba(0,0,0,0.1)] transition-all duration-300"
+              className="group relative rounded-[20px] bg-white p-5 sm:p-6 overflow-hidden shadow-[0_4px_18px_-6px_rgba(0,0,0,0.08)] hover:shadow-[0_10px_30px_-8px_rgba(0,0,0,0.13)] transition-all duration-300"
             >
               <div
                 className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${accent} opacity-0 group-hover:opacity-100 transition-opacity`}

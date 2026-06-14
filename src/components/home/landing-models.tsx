@@ -1,7 +1,8 @@
 "use client"
 
+import { useRef } from "react"
 import Link from "next/link"
-import { motion } from "framer-motion"
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
 import {
   LandingSection,
   SectionHeader,
@@ -43,8 +44,31 @@ function modelWhatsApp(name: string) {
 }
 
 function ModelCard({ model }: { model: LandingModel }) {
+  const cardRef = useRef<HTMLElement>(null)
+  const mx = useMotionValue(0)
+  const my = useMotionValue(0)
+  const rotateX = useSpring(useTransform(my, [-0.5, 0.5], [6, -6]), { stiffness: 260, damping: 24 })
+  const rotateY = useSpring(useTransform(mx, [-0.5, 0.5], [-6, 6]), { stiffness: 260, damping: 24 })
+
+  const onMouseMove = (e: React.MouseEvent) => {
+    const rect = cardRef.current?.getBoundingClientRect()
+    if (!rect) return
+    mx.set((e.clientX - rect.left) / rect.width - 0.5)
+    my.set((e.clientY - rect.top) / rect.height - 0.5)
+  }
+  const onMouseLeave = () => {
+    mx.set(0)
+    my.set(0)
+  }
+
   return (
-    <article className="group rounded-[18px] sm:rounded-[22px] bg-white border border-black/[0.06] p-3.5 sm:p-5 shadow-[0_2px_14px_-4px_rgba(0,0,0,0.06)] flex flex-col hover:shadow-[0_8px_28px_-8px_rgba(0,0,0,0.12)] transition-all duration-300">
+    <motion.article
+      ref={cardRef}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      style={{ rotateX, rotateY, transformPerspective: 900 }}
+      className="group rounded-[18px] sm:rounded-[22px] bg-white p-3.5 sm:p-5 shadow-[0_4px_18px_-6px_rgba(0,0,0,0.1)] flex flex-col hover:shadow-[0_16px_44px_-12px_rgba(0,0,0,0.2)] transition-shadow duration-300 will-change-transform"
+    >
       <div className="aspect-[4/5] rounded-2xl bg-[#f5f5f7] mb-3 sm:mb-4 flex items-center justify-center overflow-hidden px-1 sm:px-2 py-3 sm:py-4">
         <img
           src={model.image}
@@ -69,7 +93,7 @@ function ModelCard({ model }: { model: LandingModel }) {
       <a href={modelWhatsApp(model.name)} className={`mt-3 sm:mt-4 w-full ${landingCtaPrimary}`}>
         Commander
       </a>
-    </article>
+    </motion.article>
   )
 }
 

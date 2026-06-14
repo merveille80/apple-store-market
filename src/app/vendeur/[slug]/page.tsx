@@ -18,6 +18,7 @@ import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { useParams } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
+import { ProductCard } from "@/components/product-card"
 
 export default function StoreDetailPage() {
   const params = useParams()
@@ -89,7 +90,7 @@ export default function StoreDetailPage() {
   return (
     <div className="min-h-screen pb-20 bg-[#F5F5F7]">
       {/* Hero Header */}
-      <div className="relative h-64 border-b border-black/5 overflow-hidden bg-white">
+      <div className="relative h-64 overflow-hidden bg-white">
         <div className="absolute inset-0 bg-gradient-to-b from-[#0071e3]/8 to-transparent" />
         <div className="container mx-auto px-4 h-full flex flex-col justify-end pb-8">
            <Link href="/vendeurs" className="absolute top-8 left-4 inline-flex items-center transition-colors text-[#86868b] hover:text-[#0071e3]">
@@ -97,7 +98,7 @@ export default function StoreDetailPage() {
           </Link>
           
           <div className="flex flex-col md:flex-row md:items-end gap-6 relative z-10">
-            <div className="h-24 w-24 md:h-32 md:w-32 rounded-3xl border border-black/5 bg-white shadow-sm flex items-center justify-center overflow-hidden shrink-0">
+            <div className="h-24 w-24 md:h-32 md:w-32 rounded-3xl bg-white shadow-[0_8px_28px_-8px_rgba(0,0,0,0.18)] flex items-center justify-center overflow-hidden shrink-0">
               {store.logo_url ? (
                 <img src={store.logo_url} alt={store.name} className="w-full h-full object-cover" />
               ) : (
@@ -113,7 +114,7 @@ export default function StoreDetailPage() {
                   </Badge>
                 )}
               </div>
-              <p className="max-w-2xl text-sm md:text-base line-clamp-2 text-black/60">
+              <p className="max-w-2xl text-sm md:text-base line-clamp-2 text-[#6e6e73]">
                 {store.description || "Aucune description fournie par le vendeur."}
               </p>
             </div>
@@ -124,7 +125,7 @@ export default function StoreDetailPage() {
       {/* Info Bar */}
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <Card className="border border-black/5 bg-white p-6 flex items-center gap-4 shadow-sm">
+          <Card className="border-0 bg-white p-6 flex items-center gap-4 rounded-3xl shadow-[0_4px_20px_-6px_rgba(0,0,0,0.08)]">
             <div className="h-12 w-12 rounded-2xl bg-black/5 flex items-center justify-center">
               <MapPin className="h-6 w-6 text-black/50" />
             </div>
@@ -134,7 +135,7 @@ export default function StoreDetailPage() {
             </div>
           </Card>
           
-          <Card className="border border-black/5 bg-white p-6 flex items-center gap-4 shadow-sm">
+          <Card className="border-0 bg-white p-6 flex items-center gap-4 rounded-3xl shadow-[0_4px_20px_-6px_rgba(0,0,0,0.08)]">
             <div className="h-12 w-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center">
               <MessageSquare className="h-6 w-6 text-emerald-600" />
             </div>
@@ -144,7 +145,7 @@ export default function StoreDetailPage() {
             </div>
           </Card>
           
-          <Card className="border border-black/5 bg-white p-6 flex items-center gap-4 shadow-sm">
+          <Card className="border-0 bg-white p-6 flex items-center gap-4 rounded-3xl shadow-[0_4px_20px_-6px_rgba(0,0,0,0.08)]">
             <div className="h-12 w-12 rounded-2xl bg-[#0071e3]/10 flex items-center justify-center">
               <Smartphone className="h-6 w-6 text-[#0071e3]" />
             </div>
@@ -158,38 +159,27 @@ export default function StoreDetailPage() {
         <div className="space-y-8">
           <div className="flex items-center justify-between">
             <h2 className="font-sf-display text-[clamp(1.5rem,3vw,2rem)] font-semibold tracking-[-0.03em] text-[#1d1d1f]">Catalogue de {store.name}</h2>
-            <p className="text-sm text-black/50">{products.length} annonces</p>
+            <p className="text-sm text-[#86868b]">{products.length} annonces</p>
           </div>
 
           {products.length === 0 ? (
-            <div className="py-20 text-center rounded-3xl border border-dashed border-black/10 bg-white">
+            <div className="py-20 text-center rounded-3xl bg-white shadow-[0_4px_20px_-6px_rgba(0,0,0,0.08)]">
               <Smartphone className="h-12 w-12 text-black/20 mx-auto mb-4" />
-              <p className="text-black/50">Ce vendeur n'a pas encore de produits en ligne.</p>
+              <p className="text-[#6e6e73] text-[15px]">Ce vendeur n&apos;a pas encore de produits en ligne.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
               {products.map((product) => (
-                <Link key={product.id} href={`/product/${product.id}`} className="group">
-                  <div className="bg-white border border-black/5 rounded-2xl md:rounded-3xl overflow-hidden hover:border-[#0071e3]/30 transition-all duration-300 shadow-sm">
-                    <div className="aspect-square relative overflow-hidden bg-zinc-100">
-                      <img 
-                        src={product.product_images?.[0]?.image_url || "/placeholder.svg"} 
-                        alt={product.model_name}
-                        className="absolute inset-0 object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <Badge className={`absolute top-2 right-2 md:top-3 md:right-3 font-medium text-white text-[10px] md:text-xs px-2 py-0.5 border-0 shadow-sm ${product.condition === 'box' ? 'bg-[#0071e3]' : 'bg-black/60 backdrop-blur-md'}`}>
-                        {product.condition === 'box' ? '✦ Box / Neuf' : 'Occasion'}
-                      </Badge>
-                    </div>
-                    <div className="p-3 md:p-5">
-                      <h3 className="font-medium text-[13px] md:text-[15px] mb-1 truncate text-[#1d1d1f]">{product.model_name}</h3>
-                      <div className="flex justify-between items-center">
-                        <span className="text-[#1d1d1f] font-semibold text-[16px] md:text-[18px]">{product.price_usd}$</span>
-                        <span className="text-[11px] md:text-xs font-medium text-[#86868b]">{product.storage_gb} Go</span>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
+                <ProductCard
+                  key={product.id}
+                  id={product.id}
+                  model={product.model_name}
+                  price={Number(product.price_usd)}
+                  storage={`${product.storage_gb} Go`}
+                  color={product.color}
+                  image={product.product_images?.[0]?.image_url || "/placeholder.svg"}
+                  isNew={product.condition === "box"}
+                />
               ))}
             </div>
           )}

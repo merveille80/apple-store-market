@@ -38,7 +38,7 @@ function SpecCard({
   label,
   value,
 }: {
-  icon: ComponentType<{ className?: string }>
+  icon: ComponentType<{ className?: string; strokeWidth?: number }>
   label: string
   value: string
 }) {

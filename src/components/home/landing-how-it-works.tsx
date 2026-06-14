@@ -52,7 +52,7 @@ export function LandingHowItWorks() {
             <motion.article
               key={step}
               variants={fadeUpChild}
-              className="relative rounded-[20px] sm:rounded-[22px] border border-black/[0.06] bg-[#fafafa] p-5 sm:p-7 text-center md:text-left"
+              className="relative rounded-[20px] sm:rounded-[22px] bg-white p-5 sm:p-7 text-center md:text-left shadow-[0_4px_20px_-6px_rgba(0,0,0,0.08)]"
             >
               <span className="inline-flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#0071e3] text-white text-[14px] sm:text-[15px] font-semibold mb-3 sm:mb-4 shadow-[0_4px_12px_rgba(0,113,227,0.25)]">
                 {step}

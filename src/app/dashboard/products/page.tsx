@@ -191,11 +191,11 @@ export default function MyProductsPage() {
                   </Badge>
 
                   <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
+                    <DropdownMenuTrigger render={
                       <Button variant="ghost" size="icon" className="text-black/50 hover:text-black hover:bg-black/5 rounded-xl">
                         <MoreVertical className="h-5 w-5" />
                       </Button>
-                    </DropdownMenuTrigger>
+                    } />
                     <DropdownMenuContent align="end" className="bg-white border-black/10 shadow-lg text-black rounded-2xl p-2 min-w-[180px]">
                       <Link href={`/dashboard/products/${product.id}/edit`}>
                         <DropdownMenuItem className="gap-2 rounded-xl focus:bg-black/5 cursor-pointer">

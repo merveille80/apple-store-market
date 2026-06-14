@@ -60,7 +60,7 @@ export default function FAQPage() {
           </motion.div>
 
           <div className="max-w-[720px] mx-auto space-y-10">
-            <Accordion type="single" collapsible className="w-full space-y-3">
+            <Accordion multiple={false} className="w-full space-y-3">
               {faqs.map((faq, i) => (
                 <motion.div
                   key={i}

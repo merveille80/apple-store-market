@@ -4,6 +4,7 @@ import Link from "next/link"
 import { Menu, X } from "lucide-react"
 import { useState, useEffect } from "react"
 import { AnimatePresence, motion } from "framer-motion"
+import { CommandSearch } from "@/components/command-search"
 
 const WHATSAPP_ORDER =
   "https://wa.me/243970299448?text=Bonjour%2C%20je%20souhaite%20commander%20un%20iPhone%20chez%20Apple%20Store%20Market."
@@ -47,17 +48,20 @@ export function LandingHeader() {
           {/* Logo */}
           <Link
             href="/"
-            className="relative z-10 flex items-center gap-2 shrink-0"
+            className="relative z-10 flex items-center gap-1.5 shrink-0"
             onClick={() => setOpen(false)}
           >
+            <svg viewBox="0 0 24 24" aria-hidden className="h-[18px] w-[18px] text-[#1d1d1f]" fill="currentColor">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+            </svg>
             <span className="text-[17px] font-semibold tracking-[-0.03em] text-[#1d1d1f]">
               Apple Store Market
             </span>
           </Link>
 
-          {/* Desktop nav — centré */}
+          {/* Desktop nav — centré, en flux flex (pas d'absolu = pas de chevauchement) */}
           <nav
-            className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 md:flex items-center gap-7 lg:gap-8"
+            className="hidden lg:flex flex-1 items-center justify-center gap-6 xl:gap-8 px-4"
             aria-label="Navigation principale"
           >
             {NAV.map(({ href, label }) => (
@@ -72,23 +76,29 @@ export function LandingHeader() {
           </nav>
 
           {/* Desktop CTA */}
-          <a
-            href={WHATSAPP_ORDER}
-            className="relative z-10 hidden md:inline-flex h-8 items-center rounded-full bg-[#0071e3] px-4 text-[12px] font-medium text-white hover:bg-[#0077ed] transition-colors"
-          >
-            Commander maintenant
-          </a>
+          <div className="relative z-10 hidden lg:flex items-center gap-2.5 shrink-0">
+            <CommandSearch />
+            <a
+              href={WHATSAPP_ORDER}
+              className="inline-flex h-8 items-center rounded-full bg-[#0071e3] px-4 text-[12px] font-medium text-white hover:bg-[#0077ed] transition-colors"
+            >
+              Commander maintenant
+            </a>
+          </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile / tablette : recherche + menu */}
+          <div className="relative z-10 flex lg:hidden items-center gap-1.5">
+          <CommandSearch />
           <button
             type="button"
             aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={open}
-            className="relative z-10 flex md:hidden h-10 w-10 items-center justify-center rounded-full text-[#1d1d1f] hover:bg-black/[0.04] transition-colors"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-[#1d1d1f] hover:bg-black/[0.04] transition-colors"
             onClick={() => setOpen((v) => !v)}
           >
             {open ? <X className="h-5 w-5" strokeWidth={1.75} /> : <Menu className="h-5 w-5" strokeWidth={1.75} />}
           </button>
+          </div>
         </div>
       </div>
 

@@ -28,7 +28,7 @@ export function LandingTradeIn() {
 
         <div className="max-w-4xl mx-auto grid md:grid-cols-[1fr_1.1fr] gap-6 sm:gap-8 items-center">
           <div className="hidden md:flex items-center justify-center">
-            <div className="relative w-full max-w-[280px] aspect-square rounded-[28px] bg-white border border-black/[0.05] shadow-[0_8px_32px_-12px_rgba(0,0,0,0.1)] overflow-hidden p-6">
+            <div className="relative w-full max-w-[280px] aspect-square rounded-[28px] bg-white shadow-[0_8px_32px_-12px_rgba(0,0,0,0.12)] overflow-hidden p-6">
               <Image
                 src="/phones/upgrade.jpg"
                 alt="Échangez votre iPhone"
@@ -40,7 +40,7 @@ export function LandingTradeIn() {
             </div>
           </div>
 
-          <div className="rounded-[22px] sm:rounded-[24px] bg-white border border-black/[0.06] p-5 sm:p-8 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.08)]">
+          <div className="rounded-[22px] sm:rounded-[24px] bg-white p-5 sm:p-8 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.1)]">
             <p className="text-[12px] sm:text-[13px] font-medium text-[#86868b] uppercase tracking-wide mb-4">
               Conditions de troc
             </p>

@@ -22,6 +22,7 @@ function UpdatePasswordContent() {
     // Supabase client automatically handles the #access_token fragment from the recovery email
     // and establishes a session. We just need to wait for the user to submit their new password.
     const checkSession = async () => {
+      if (!supabase) return
       const { data: { session } } = await supabase.auth.getSession()
       if (!session) {
         // If they visit this URL without a recovery token, they shouldn't be here

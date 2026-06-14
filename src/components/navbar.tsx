@@ -6,6 +6,7 @@ import { User, Menu, X, AlertTriangle } from "lucide-react"
 import { useState, useEffect } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { motion, AnimatePresence } from "framer-motion"
+import { CommandSearch } from "@/components/command-search"
 
 const WHATSAPP_ORDER =
   "https://wa.me/243970299448?text=Bonjour%2C%20je%20souhaite%20commander%20un%20iPhone%20chez%20Apple%20Store%20Market."
@@ -153,6 +154,7 @@ export function Navbar() {
           </div>
 
           <div className="hidden md:flex items-center gap-3 shrink-0">
+            <CommandSearch />
             {session ? (
               <>
                 <Link href="/dashboard">
@@ -180,6 +182,7 @@ export function Navbar() {
           </div>
 
           <div className="flex md:hidden items-center gap-2 shrink-0">
+            <CommandSearch />
             {isLanding ? (
               <a
                 href={WHATSAPP_ORDER}
