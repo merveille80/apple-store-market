@@ -172,7 +172,7 @@ export default function StoreSettingsPage() {
   }
 
   return (
-    <div className="space-y-10 pb-20">
+    <div className="space-y-6 sm:space-y-8 pb-20">
       <div>
         <h1 className="font-sf-display text-[clamp(1.75rem,4vw,2.25rem)] font-semibold text-[#1d1d1f] tracking-[-0.03em]">Paramètres du store</h1>
         <p className="text-[#6e6e73] text-[15px] mt-1">Gérez l&apos;identité de votre boutique et vos informations de contact.</p>
@@ -180,7 +180,7 @@ export default function StoreSettingsPage() {
 
       <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
-          <Card className="bg-white border-black/5 shadow-sm rounded-3xl p-8">
+          <Card className="bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04)] rounded-2xl p-6 sm:p-8">
             <CardHeader className="p-0 mb-6">
               <CardTitle className="font-sf-display text-[17px] font-semibold text-[#1d1d1f]">Identité de la boutique</CardTitle>
               <CardDescription className="text-[#6e6e73]">Ces informations seront visibles par vos clients sur vos fiches produits.</CardDescription>
@@ -234,7 +234,7 @@ export default function StoreSettingsPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white border-black/5 shadow-sm rounded-3xl p-8">
+          <Card className="bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04)] rounded-2xl p-6 sm:p-8">
             <CardHeader className="p-0 mb-6">
               <CardTitle className="font-sf-display text-[17px] font-semibold text-[#1d1d1f]">Contact WhatsApp</CardTitle>
               <CardDescription className="text-[#6e6e73]">Le numéro utilisé pour recevoir les commandes clients.</CardDescription>
@@ -257,13 +257,13 @@ export default function StoreSettingsPage() {
         </div>
 
         <div className="space-y-8">
-          <Card className="bg-white border-black/5 shadow-sm rounded-3xl p-8 text-center">
+          <Card className="bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04)] rounded-2xl p-6 sm:p-8 text-center">
             <h3 className="font-semibold text-[17px] mb-6 text-[#1d1d1f]">Logo du store</h3>
             <div 
               className="relative inline-block group cursor-pointer"
               onClick={() => document.getElementById('logo-upload')?.click()}
             >
-              <div className="h-32 w-32 rounded-3xl bg-[#f5f5f7] border border-black/10 flex items-center justify-center text-[#86868b] overflow-hidden shadow-sm">
+              <div className="h-32 w-32 rounded-3xl bg-black/[0.02] border border-black/10 flex items-center justify-center text-[#86868b] overflow-hidden shadow-sm">
                 {formData.logo_url ? (
                   <img src={formData.logo_url} alt="Logo du store" className="w-full h-full object-cover" />
                 ) : (
@@ -291,14 +291,14 @@ export default function StoreSettingsPage() {
             </p>
           </Card>
 
-          <Card className="bg-white border-black/5 shadow-sm rounded-3xl p-8 space-y-4">
+          <Card className="bg-white border border-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04)] rounded-2xl p-6 sm:p-8 space-y-4">
              {formData.is_verified ? (
-               <div className="flex items-center gap-3 p-4 bg-[#f5f5f7] rounded-2xl border border-black/5">
+               <div className="flex items-center gap-3 p-4 bg-black/[0.02] rounded-2xl border border-black/5">
                   <ShieldCheck className="h-5 w-5 text-[#0071e3] shrink-0" />
                   <span className="text-sm text-[#1d1d1f] font-medium">Votre store est vérifié et certifié.</span>
                </div>
              ) : (
-               <div className="flex items-center gap-3 p-4 bg-[#f5f5f7] rounded-2xl border border-black/5">
+               <div className="flex items-center gap-3 p-4 bg-black/[0.02] rounded-2xl border border-black/5">
                   <Shield className="h-5 w-5 text-[#86868b] shrink-0" />
                   <span className="text-sm text-[#6e6e73] font-medium">Votre store est en cours de vérification.</span>
                </div>

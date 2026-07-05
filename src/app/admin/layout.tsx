@@ -30,9 +30,9 @@ export default function AdminLayout({
   ]
 
   return (
-    <div className="font-sf flex min-h-screen bg-[#F5F5F7] text-zinc-900">
+    <div className="font-sf flex min-h-screen bg-white text-[#1d1d1f]">
       {/* Admin Sidebar */}
-      <aside className="w-64 border-r border-black/5 flex flex-col bg-white">
+      <aside className="w-64 border-r border-black/[0.06] flex flex-col bg-white">
         <div className="p-8">
           <Link href="/" className="flex items-center gap-2.5">
             <ShieldCheck className="h-6 w-6 text-[#0071e3]" />
@@ -63,7 +63,7 @@ export default function AdminLayout({
 
         <div className="p-4 border-t border-black/5">
           <Link href="/">
-            <Button variant="ghost" className="w-full justify-start gap-3 text-zinc-500 hover:text-black rounded-xl">
+            <Button variant="ghost" className="w-full justify-start gap-3 text-[#86868b] hover:text-[#1d1d1f] rounded-xl">
               <LogOut className="h-5 w-5" />
               Sortir Admin
             </Button>
@@ -72,7 +72,7 @@ export default function AdminLayout({
       </aside>
 
       {/* Admin Content */}
-      <main className="flex-1 overflow-y-auto bg-[#F5F5F7] p-10">
+      <main className="flex-1 overflow-y-auto bg-white p-10">
         <div className="max-w-6xl mx-auto">
           {children}
         </div>

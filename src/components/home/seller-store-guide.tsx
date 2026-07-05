@@ -20,7 +20,7 @@ export function SellerStoreGuide() {
         className="rounded-[24px] bg-white border border-black/[0.06] shadow-[0_24px_64px_-28px_rgba(0,0,0,0.18)] overflow-hidden"
       >
         {/* Barre macOS */}
-        <div className="h-10 bg-[#f5f5f7] border-b border-black/5 flex items-center px-4 gap-2">
+        <div className="h-10 bg-black/[0.02] border-b border-black/5 flex items-center px-4 gap-2">
           <div className="flex items-center gap-1.5 shrink-0">
             <span className="size-[10px] rounded-full bg-[#ff5f57]/90" />
             <span className="size-[10px] rounded-full bg-[#febc2e]/90" />
@@ -60,7 +60,7 @@ export function SellerStoreGuide() {
               ].map((stat) => (
                 <div
                   key={stat.label}
-                  className="rounded-xl bg-[#f5f5f7] border border-black/[0.04] px-2 py-2"
+                  className="rounded-xl bg-black/[0.02] border border-black/[0.04] px-2 py-2"
                 >
                   <stat.icon className="h-3 w-3 text-[#0071e3] mb-1" />
                   <p className="text-[13px] font-semibold text-[#1d1d1f] leading-none">
@@ -73,7 +73,7 @@ export function SellerStoreGuide() {
 
             {/* Produit */}
             <div className="rounded-xl border border-black/[0.06] bg-white px-2.5 py-2 flex items-center gap-2.5 shadow-sm">
-              <div className="h-10 w-10 rounded-lg bg-[#f5f5f7] border border-black/[0.04] flex items-center justify-center shrink-0">
+              <div className="h-10 w-10 rounded-lg bg-black/[0.02] border border-black/[0.04] flex items-center justify-center shrink-0">
                 <Smartphone className="h-4 w-4 text-[#1d1d1f]" />
               </div>
               <div className="min-w-0 flex-1">
@@ -102,7 +102,7 @@ export function SellerStoreGuide() {
               {steps.map((step) => (
                 <div
                   key={step.n}
-                  className="flex items-center gap-1.5 rounded-lg bg-[#f5f5f7] px-2 py-1.5 border border-black/[0.03]"
+                  className="flex items-center gap-1.5 rounded-lg bg-black/[0.02] px-2 py-1.5 border border-black/[0.03]"
                 >
                   <span className="h-4 w-4 shrink-0 rounded-full bg-[#0071e3] text-white text-[8px] font-semibold flex items-center justify-center">
                     {step.n}

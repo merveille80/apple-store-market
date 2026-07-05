@@ -27,7 +27,7 @@ export function LandingHero() {
   const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
 
   return (
-    <section ref={sectionRef} className="relative bg-[#f5f5f7] overflow-hidden">
+    <section ref={sectionRef} className="relative bg-white overflow-hidden">
       {/* Halo doux derrière les iPhones */}
       <div
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_100%,rgba(0,113,227,0.08),transparent_70%)]"

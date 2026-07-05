@@ -13,7 +13,7 @@ import { ScrollProgress } from "@/components/scroll-progress"
 
 export default function Home() {
   return (
-    <div className="flex flex-col bg-[#f5f5f7]">
+    <div className="flex flex-col bg-white">
       <ScrollProgress />
       <LandingHero />
       <LandingMarquee />

@@ -12,9 +12,9 @@ const buttonVariants = cva(
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-[#0077ed]",
         outline:
-          "border-black/10 bg-white text-[#1d1d1f] hover:bg-[#f5f5f7] aria-expanded:bg-[#f5f5f7] dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
+          "border-black/[0.08] bg-white text-[#1d1d1f] hover:bg-black/[0.02] aria-expanded:bg-black/[0.02] dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
         secondary:
-          "bg-[#f5f5f7] text-[#1d1d1f] hover:bg-black/5 aria-expanded:bg-black/5",
+          "bg-black/[0.03] text-[#1d1d1f] hover:bg-black/[0.05] aria-expanded:bg-black/[0.05]",
         ghost:
           "text-[#1d1d1f] hover:bg-black/5 aria-expanded:bg-black/5 dark:hover:bg-muted/50",
         destructive:

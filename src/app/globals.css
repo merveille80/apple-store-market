@@ -54,7 +54,9 @@
   /* aliases */
   --font-apple: var(--font-sf);
   --font-display: var(--font-sf-display);
-  --apple-gray: #f5f5f7;
+  --apple-gray: #ffffff;
+  --apple-surface-subtle: rgba(0, 0, 0, 0.02);
+  --apple-border: rgba(0, 0, 0, 0.06);
   --apple-text: #1d1d1f;
   --apple-text-secondary: #6e6e73;
   --apple-text-tertiary: #86868b;
@@ -264,7 +266,7 @@
   user-select: none;
 }
 .pill-filter:hover {
-  background: #f5f5f7;
+  background: rgba(0, 0, 0, 0.02);
   border-color: rgba(0, 0, 0, 0.12);
 }
 .pill-filter.active {

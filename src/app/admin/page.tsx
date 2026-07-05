@@ -145,7 +145,7 @@ export default function AdminDashboard() {
                   pendingStores.map((store) => (
                     <div key={store.id} className="p-6 flex items-center justify-between">
                       <div className="flex items-center gap-4">
-                        <div className="h-10 w-10 rounded-full bg-zinc-50 border border-black/5 flex items-center justify-center">
+                        <div className="h-10 w-10 rounded-full bg-black/[0.02] border border-black/5 flex items-center justify-center">
                           <Users className="h-4 w-4 text-zinc-400" />
                         </div>
                         <div>
@@ -187,7 +187,7 @@ export default function AdminDashboard() {
                   recentProducts.map((product) => (
                     <div key={product.id} className="p-6 flex items-center justify-between hover:bg-black/5 transition-colors">
                       <div className="flex items-center gap-4">
-                        <div className="h-10 w-10 rounded-lg bg-zinc-50 border border-black/5 flex items-center justify-center">
+                        <div className="h-10 w-10 rounded-lg bg-black/[0.02] border border-black/5 flex items-center justify-center">
                           <Smartphone className="h-5 w-5 text-zinc-400" />
                         </div>
                         <div>

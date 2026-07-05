@@ -215,7 +215,7 @@ export function CommandSearch() {
                         activeIndex === i ? "bg-[#0071e3]/[0.07]" : ""
                       }`}
                     >
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#f5f5f7] overflow-hidden">
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-black/[0.02] overflow-hidden">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src={p.image} alt="" className="h-9 w-9 object-contain" />
                       </span>
@@ -264,7 +264,7 @@ export function CommandSearch() {
                         activeIndex === idx ? "bg-[#0071e3]/[0.07]" : ""
                       }`}
                     >
-                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#f5f5f7]">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-black/[0.02]">
                         <Icon className="h-4 w-4 text-[#6e6e73]" />
                       </span>
                       <span className="text-[14px] text-[#1d1d1f]">{link.label}</span>

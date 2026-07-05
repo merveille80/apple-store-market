@@ -72,7 +72,7 @@ function UpdatePasswordContent() {
   }
 
   return (
-    <div className="min-h-[80vh] bg-[#f5f5f7] flex justify-center items-center px-5 py-16">
+    <div className="min-h-[80vh] bg-white flex justify-center items-center px-5 py-16">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -107,7 +107,7 @@ function UpdatePasswordContent() {
                   <Input 
                     type="password" 
                     placeholder="••••••••" 
-                    className="pl-10 bg-zinc-50 border-black/10 h-12 rounded-xl text-black"
+                    className="pl-10 bg-black/[0.02] border-black/10 h-12 rounded-xl text-black"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -121,7 +121,7 @@ function UpdatePasswordContent() {
                   <Input 
                     type="password" 
                     placeholder="••••••••" 
-                    className="pl-10 bg-zinc-50 border-black/10 h-12 rounded-xl text-black"
+                    className="pl-10 bg-black/[0.02] border-black/10 h-12 rounded-xl text-black"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required

@@ -32,7 +32,7 @@ export const LANDING_MODELS: LandingModel[] = [
 ]
 
 const BADGE_STYLES: Record<LandingModel["badge"], string> = {
-  Disponible: "bg-[#f5f5f7] text-[#1d1d1f] border border-black/[0.06]",
+  Disponible: "bg-black/[0.02] text-[#1d1d1f] border border-black/[0.06]",
   Promo: "bg-[#0071e3] text-white",
   "Troc possible": "bg-white text-[#0071e3] border border-[#0071e3]/30",
 }
@@ -80,7 +80,7 @@ function ModelCard({ model }: { model: LandingModel }) {
         style={{ background: spotlight }}
         className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
       />
-      <div className="relative aspect-[4/5] rounded-2xl bg-[#f5f5f7] mb-3 sm:mb-4 flex items-center justify-center overflow-hidden px-1 sm:px-2 py-3 sm:py-4">
+      <div className="relative aspect-[4/5] rounded-2xl bg-black/[0.02] mb-3 sm:mb-4 flex items-center justify-center overflow-hidden px-1 sm:px-2 py-3 sm:py-4">
         {/* Reflet qui balaie l'image au hover */}
         <span
           aria-hidden
@@ -115,7 +115,7 @@ function ModelCard({ model }: { model: LandingModel }) {
 
 export function LandingModels() {
   return (
-    <LandingSection id="iphones" className="bg-white">
+    <LandingSection id="iphones" className="bg-white border-t border-black/[0.06]">
       <div className="container-pro section-y !py-12 sm:!py-20">
         <SectionHeader
           eyebrow="Catalogue"

@@ -85,8 +85,8 @@ function delta(cur: number, prev: number) {
   return { pct: Math.abs(pct), up: cur >= prev }
 }
 
-/** Style carte façon Efferd : plat, fine bordure, quasi sans ombre */
-const CARD = "bg-white border border-black/[0.08] rounded-2xl shadow-[0_1px_2px_rgba(0,0,0,0.04)]"
+/** Style carte — blanc pur avec bordure fine */
+const CARD = "bg-white border border-black/[0.06] rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
 
 function DeltaBadge({ cur, prev, suffix }: { cur: number; prev: number; suffix: string }) {
   const d = delta(cur, prev)
@@ -317,7 +317,7 @@ export default function DashboardOverview() {
 
       {/* Aire (CA) + Donut (répartition stock) */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
-        <Card className="lg:col-span-2 bg-white border border-black/[0.08] rounded-2xl shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+        <Card className="lg:col-span-2 bg-white border border-black/[0.06] rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
           <CardHeader className="p-5 sm:p-6 pb-0 flex-row items-start justify-between gap-3">
             <div>
               <CardTitle className="text-[16px] sm:text-[17px] font-semibold text-[#1d1d1f] flex items-center gap-2">
@@ -327,7 +327,7 @@ export default function DashboardOverview() {
             </div>
             <DropdownMenu>
               <DropdownMenuTrigger render={
-                <button className="shrink-0 inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full bg-[#f5f5f7] hover:bg-black/[0.07] text-[13px] font-medium text-[#1d1d1f] transition-colors">
+                <button className="shrink-0 inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full bg-black/[0.03] hover:bg-black/[0.06] text-[13px] font-medium text-[#1d1d1f] transition-colors border border-black/[0.06]">
                   {RANGES[range].label}
                   <ChevronDown className="h-3.5 w-3.5 opacity-50" />
                 </button>
@@ -354,7 +354,7 @@ export default function DashboardOverview() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white border border-black/[0.08] rounded-2xl shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+        <Card className="bg-white border border-black/[0.06] rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
           <CardHeader className="p-5 sm:p-6 pb-2">
             <CardTitle className="text-[16px] sm:text-[17px] font-semibold text-[#1d1d1f] flex items-center gap-2">
               <Package className="h-4 w-4 text-violet-600" /> Répartition du stock
@@ -415,7 +415,7 @@ export default function DashboardOverview() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white border border-black/[0.08] rounded-2xl shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+        <Card className="bg-white border border-black/[0.06] rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
           <CardHeader className="p-5 sm:p-6 pb-2">
             <CardTitle className="text-[16px] sm:text-[17px] font-semibold text-[#1d1d1f]">Conversion clients</CardTitle>
           </CardHeader>
@@ -435,7 +435,7 @@ export default function DashboardOverview() {
                 { label: "En cours", val: leads.filter((l) => l.status === "contacted").length, c: "text-[#0071e3]" },
                 { label: "Conclus", val: closedLeads.length, c: "text-emerald-600" },
               ].map((b) => (
-                <div key={b.label} className="rounded-2xl bg-[#f5f5f7] py-3">
+                <div key={b.label} className="rounded-2xl bg-black/[0.02] border border-black/[0.04] py-3">
                   <p className={`font-sf-display text-xl font-semibold ${b.c}`}>{b.val}</p>
                   <p className="text-[11px] text-[#86868b] mt-0.5">{b.label}</p>
                 </div>
@@ -465,10 +465,10 @@ export default function DashboardOverview() {
                   <Link
                     key={p.id}
                     href={`/dashboard/products/${p.id}/edit`}
-                    className="p-4 sm:p-5 flex items-center justify-between hover:bg-[#f5f5f7] transition-colors group"
+                    className="p-4 sm:p-5 flex items-center justify-between hover:bg-black/[0.02] transition-colors group"
                   >
                     <div className="flex items-center gap-3 min-w-0">
-                      <div className="h-11 w-11 rounded-xl bg-[#f5f5f7] overflow-hidden border border-black/5 flex items-center justify-center shrink-0">
+                      <div className="h-11 w-11 rounded-xl bg-black/[0.02] overflow-hidden border border-black/[0.06] flex items-center justify-center shrink-0">
                         {p.product_images?.[0]?.image_url ? (
                           <img src={p.product_images[0].image_url} alt="" className="w-full h-full object-cover" />
                         ) : (
@@ -496,7 +496,7 @@ export default function DashboardOverview() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white border border-black/[0.08] rounded-2xl shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+        <Card className="bg-white border border-black/[0.06] rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
           <CardHeader className="p-5 sm:p-6 pb-2">
             <CardTitle className="text-[16px] sm:text-[17px] font-semibold text-[#1d1d1f] flex items-center gap-2">
               <Flame className="h-4 w-4 text-orange-500" /> Modèles les plus demandés
@@ -525,7 +525,7 @@ export default function DashboardOverview() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white border border-black/[0.08] rounded-2xl shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+        <Card className="bg-white border border-black/[0.06] rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
           <CardHeader className="p-5 sm:p-6 pb-2">
             <CardTitle className="text-[16px] sm:text-[17px] font-semibold text-[#1d1d1f] flex items-center gap-2">
               <Clock className="h-4 w-4 text-rose-500" /> Stock à dynamiser
@@ -543,7 +543,7 @@ export default function DashboardOverview() {
                   <Link
                     key={p.id}
                     href={`/dashboard/products/${p.id}/edit`}
-                    className="flex items-center justify-between p-2.5 rounded-xl hover:bg-[#f5f5f7] transition-colors group"
+                    className="flex items-center justify-between p-2.5 rounded-xl hover:bg-black/[0.02] transition-colors group"
                   >
                     <div className="min-w-0">
                       <p className="text-[14px] font-medium text-[#1d1d1f] truncate group-hover:text-[#0071e3]">{p.model_name}</p>

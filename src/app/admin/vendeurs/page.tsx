@@ -92,7 +92,7 @@ export default function AdminSellersPage() {
           </div>
         ) : (
           <Table>
-            <TableHeader className="bg-[#f5f5f7]">
+            <TableHeader className="bg-black/[0.02]">
               <TableRow className="border-black/5 hover:bg-transparent">
                 <TableHead className="py-5 px-8 text-[#86868b] text-[12px] font-medium">Store</TableHead>
                 <TableHead className="py-5 text-[#86868b] text-[12px] font-medium">Ville / Contact</TableHead>
@@ -113,7 +113,7 @@ export default function AdminSellersPage() {
                   <TableRow key={store.id} className="border-black/5 hover:bg-black/[0.02] transition-colors">
                     <TableCell className="py-5 px-8">
                       <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-xl bg-[#f5f5f7] flex items-center justify-center border border-black/5">
+                        <div className="h-10 w-10 rounded-xl bg-black/[0.02] flex items-center justify-center border border-black/5">
                           <ShieldCheck className={cn("h-5 w-5", store.status === 'verified' ? "text-[#0071e3]" : "text-[#86868b]")} />
                         </div>
                         <span className="font-medium text-[#1d1d1f]">{store.name}</span>

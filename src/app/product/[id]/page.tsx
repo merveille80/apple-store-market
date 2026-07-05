@@ -159,7 +159,7 @@ Lien : ${window.location.href}`
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#f5f5f7]">
+      <div className="min-h-screen bg-white">
         <div className="container mx-auto px-5 py-8 md:py-12 max-w-[1200px]">
           <div className="inline-flex items-center text-[#86868b] mb-8 text-[14px]">
             <ChevronLeft className="mr-1 h-4 w-4" /> Retour au catalogue
@@ -172,7 +172,7 @@ Lien : ${window.location.href}`
 
   if (!product) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-6 bg-[#f5f5f7] px-5">
+      <div className="min-h-screen flex flex-col items-center justify-center gap-6 bg-black/[0.02] px-5">
         <h1 className="font-sf-display text-2xl font-semibold text-[#1d1d1f] tracking-[-0.02em]">
           Produit non trouvé
         </h1>
@@ -235,7 +235,7 @@ Lien : ${window.location.href}`
   )
 
   return (
-    <div className="min-h-screen bg-[#f5f5f7] pb-[var(--product-sticky-h)] md:pb-0">
+    <div className="min-h-screen bg-white pb-[var(--product-sticky-h)] md:pb-0">
       <div className="container-wide py-6 sm:py-8 md:py-12">
         <Link
           href="/catalog"
@@ -285,7 +285,7 @@ Lien : ${window.location.href}`
                       aria-current={activeImage === img}
                       className={`relative w-[4.5rem] h-[4.5rem] sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-xl sm:rounded-2xl overflow-hidden transition-all shrink-0 bg-white ${
                         activeImage === img
-                          ? "ring-2 ring-[#0071e3] ring-offset-2 ring-offset-[#f5f5f7] opacity-100"
+                          ? "ring-2 ring-[#0071e3] ring-offset-2 ring-offset-white opacity-100"
                           : "ring-1 ring-black/[0.08] opacity-70 hover:opacity-100 hover:ring-black/[0.12]"
                       }`}
                     >

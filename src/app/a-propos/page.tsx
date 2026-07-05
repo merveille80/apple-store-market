@@ -72,7 +72,7 @@ export default function AboutPage() {
   ]
 
   return (
-    <div className="flex flex-col bg-[#f5f5f7]">
+    <div className="flex flex-col bg-white">
       <section className="pt-16 pb-14 md:pt-24 md:pb-20">
         <div className="container mx-auto px-5 max-w-[980px] text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>

@@ -55,7 +55,7 @@ export default function VendeursPage() {
 
   if (loading) {
     return (
-      <div className="bg-[#f5f5f7] min-h-screen">
+      <div className="bg-white min-h-screen">
         <div className="container mx-auto px-5 py-16 lg:py-24 max-w-[980px]">
           <Skeleton className="h-10 w-56 mb-4 rounded-lg" />
           <Skeleton className="h-5 w-full max-w-lg mb-12 rounded-lg" />
@@ -70,7 +70,7 @@ export default function VendeursPage() {
   }
 
   return (
-    <div className="bg-[#f5f5f7] min-h-screen pb-16">
+    <div className="bg-white min-h-screen pb-16">
       <section className="pt-14 pb-10 md:pt-20 md:pb-12">
         <div className="container mx-auto px-5 max-w-[980px]">
           <div className="flex flex-wrap items-center gap-3 mb-3">
@@ -105,7 +105,7 @@ export default function VendeursPage() {
             >
               <div className="card-apple h-full flex flex-col p-7 md:p-8">
                 <div className="flex justify-between items-start mb-6">
-                  <div className="h-14 w-14 rounded-2xl bg-[#f5f5f7] border border-black/[0.04] flex items-center justify-center overflow-hidden">
+                  <div className="h-14 w-14 rounded-2xl bg-black/[0.02] border border-black/[0.04] flex items-center justify-center overflow-hidden">
                     {store.logo ? (
                       <img
                         src={store.logo}

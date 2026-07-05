@@ -27,7 +27,7 @@ const TRADE_WHATSAPP =
 export function LandingTradeIn() {
   const reduceMotion = useReducedMotion()
   return (
-    <LandingSection id="troc" className="bg-[#f5f5f7]">
+    <LandingSection id="troc" className="bg-white border-t border-black/[0.06]">
       <div className="container-pro section-y !py-12 sm:!py-20">
         <SectionHeader
           eyebrow="Troc"

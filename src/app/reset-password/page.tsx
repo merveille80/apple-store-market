@@ -42,7 +42,7 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-[80vh] bg-[#f5f5f7] flex justify-center items-center px-5 py-16">
+    <div className="min-h-[80vh] bg-white flex justify-center items-center px-5 py-16">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

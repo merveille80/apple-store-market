@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea"
 
 export default function ContactPage() {
   return (
-    <div className="flex flex-col bg-[#f5f5f7]">
+    <div className="flex flex-col bg-white">
       <section className="pt-16 pb-14 md:pt-24 md:pb-20">
         <div className="container mx-auto px-5 max-w-[980px]">
           <motion.div

@@ -39,7 +39,7 @@ const BENEFITS = [
 
 export function LandingBenefits() {
   return (
-    <LandingSection className="bg-[#f5f5f7]">
+    <LandingSection className="bg-white border-t border-black/[0.06]">
       <div className="container-pro section-y !py-12 sm:!py-20">
         <SectionHeader
           eyebrow="Avantages"
@@ -78,7 +78,7 @@ export function LandingBenefits() {
                   {rest.cities.map((city) => (
                     <span
                       key={city}
-                      className="text-[10px] sm:text-[11px] font-medium text-[#86868b] bg-[#f5f5f7] px-2 py-0.5 rounded-full"
+                      className="text-[10px] sm:text-[11px] font-medium text-[#86868b] bg-black/[0.02] px-2 py-0.5 rounded-full"
                     >
                       {city}
                     </span>

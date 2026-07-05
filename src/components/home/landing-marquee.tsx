@@ -23,8 +23,8 @@ export function LandingMarquee() {
       className="relative py-5 sm:py-7 overflow-hidden select-none"
     >
       {/* fondu sur les bords — se fond dans le fond de page */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-32 z-10 bg-gradient-to-r from-[#f5f5f7] to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-32 z-10 bg-gradient-to-l from-[#f5f5f7] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-32 z-10 bg-gradient-to-r from-white to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-32 z-10 bg-gradient-to-l from-white to-transparent" />
 
       <motion.div
         className="flex w-max items-center"

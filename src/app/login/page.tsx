@@ -121,7 +121,7 @@ function LoginContent() {
   }
 
   return (
-    <div className="min-h-[80vh] bg-[#f5f5f7] flex justify-center items-center px-5 py-16">
+    <div className="min-h-[80vh] bg-white flex justify-center items-center px-5 py-16">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -308,7 +308,7 @@ function LoginContent() {
 export default function LoginPage() {
   return (
     <Suspense fallback={
-      <div className="flex items-center justify-center min-h-screen bg-[#F5F5F7]">
+      <div className="flex items-center justify-center min-h-screen bg-white">
         <div className="h-8 w-8 border-4 border-[#0071e3] border-t-transparent rounded-full animate-spin" />
       </div>
     }>

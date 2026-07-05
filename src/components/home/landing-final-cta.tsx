@@ -19,7 +19,7 @@ const SPRING = { type: "spring", stiffness: 400, damping: 22 } as const
 export function LandingFinalCta() {
   const reduceMotion = useReducedMotion()
   return (
-    <LandingSection className="relative bg-[#f5f5f7] overflow-hidden">
+    <LandingSection className="relative bg-white border-t border-black/[0.06] overflow-hidden">
       {/* Halo qui respire derrière le titre */}
       <motion.div
         aria-hidden

@@ -4,7 +4,7 @@ export function Footer({ className }: { className?: string }) {
   const year = new Date().getFullYear()
 
   return (
-    <footer className={`w-full bg-[#F5F5F7] border-t border-black/5 ${className ?? ""}`}>
+    <footer className={`w-full bg-white border-t border-black/[0.06] ${className ?? ""}`}>
       <div className="container-pro py-14 md:py-16">
         
         {/* Top section */}

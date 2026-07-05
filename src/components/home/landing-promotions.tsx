@@ -40,7 +40,7 @@ const PROMOS = [
 
 export function LandingPromotions() {
   return (
-    <LandingSection id="promotions" className="bg-white">
+    <LandingSection id="promotions" className="bg-white border-t border-black/[0.06]">
       <div className="container-pro section-y !py-12 sm:!py-20">
         <SectionHeader
           eyebrow="Offres"

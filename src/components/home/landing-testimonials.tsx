@@ -34,7 +34,7 @@ const TESTIMONIALS = [
 
 export function LandingTestimonials() {
   return (
-    <LandingSection id="temoignages" className="bg-[#f5f5f7]">
+    <LandingSection id="temoignages" className="bg-white border-t border-black/[0.06]">
       <div className="container-pro section-y !py-12 sm:!py-20">
         <SectionHeader
           eyebrow="Avis clients"

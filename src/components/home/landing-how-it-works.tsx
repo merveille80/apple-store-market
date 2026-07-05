@@ -32,7 +32,7 @@ const STEPS = [
 
 export function LandingHowItWorks() {
   return (
-    <LandingSection className="bg-white">
+    <LandingSection className="bg-white border-t border-black/[0.06]">
       <div className="container-pro section-y !py-12 sm:!py-20">
         <SectionHeader
           eyebrow="Processus"

@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-/** Image 3 iPhone 17 — fond #f5f5f7 identique à la section pour fusion parfaite */
+/** Image 3 iPhone 17 — fond blanc pur, fusion avec la section hero */
 export function HeroLineup({ className = "" }: { className?: string }) {
   return (
     <div className={`relative w-full ${className}`}>

@@ -29,7 +29,7 @@ export function ProductCard({
   return (
     <Link href={`/product/${id}`} className={`group block h-full ${className}`}>
       <article className="bg-white rounded-[18px] sm:rounded-[22px] overflow-hidden border border-black/[0.05] shadow-[0_2px_12px_-4px_rgba(0,0,0,0.08)] h-full flex flex-col transition-all duration-300 sm:group-hover:shadow-[0_12px_32px_-8px_rgba(0,0,0,0.12)] sm:group-hover:-translate-y-1 active:scale-[0.99]">
-        <div className="aspect-[4/5] relative overflow-hidden bg-[#f5f5f7]">
+        <div className="aspect-[4/5] relative overflow-hidden bg-black/[0.02]">
           <img
             src={image}
             alt={model}

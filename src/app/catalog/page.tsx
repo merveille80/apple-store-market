@@ -101,7 +101,7 @@ function CatalogContent() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F5F5F7]">
+    <div className="min-h-screen bg-white">
       <div className="container-wide py-8 sm:py-10 md:py-14">
 
         {/* Page header */}
@@ -272,7 +272,7 @@ function CatalogContent() {
             {activeFiltersCount > 0 && (
               <button
                 onClick={resetFilters}
-                className="flex-shrink-0 flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[12px] font-medium text-[#6e6e73] hover:text-[#1d1d1f] bg-white hover:bg-[#f5f5f7] border border-black/10 transition-all"
+                className="flex-shrink-0 flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[12px] font-medium text-[#6e6e73] hover:text-[#1d1d1f] bg-white hover:bg-black/[0.02] border border-black/10 transition-all"
               >
                 <X className="h-3 w-3" />
                 Reset ({activeFiltersCount})
@@ -346,7 +346,7 @@ function CatalogContent() {
 export default function CatalogPage() {
   return (
     <Suspense fallback={
-      <div className="flex items-center justify-center min-h-screen bg-[#F5F5F7]">
+      <div className="flex items-center justify-center min-h-screen bg-white">
         <div className="h-6 w-6 border-2 border-black/20 border-t-black rounded-full animate-spin" />
       </div>
     }>

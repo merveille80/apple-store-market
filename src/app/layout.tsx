@@ -27,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className="light font-sf">
-      <body className="font-sf bg-[#f5f5f7] text-[#1d1d1f] antialiased">
+      <body className="font-sf bg-white text-[#1d1d1f] antialiased">
         <div className="flex min-h-screen flex-col">
           <ConditionalNavbar />
           <ConditionalMain>{children}</ConditionalMain>

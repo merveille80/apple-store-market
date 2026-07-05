@@ -48,7 +48,7 @@ export function LandingStats() {
   const inView = useInView(ref, { once: true, margin: "-80px" })
 
   return (
-    <section className="bg-[#f5f5f7]">
+    <section className="bg-white border-t border-black/[0.06]">
       <div ref={ref} className="mx-auto max-w-[1060px] px-5 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5">
           {STATS.map((stat, i) => (

@@ -18,7 +18,7 @@ const fadeUp: Variants = {
 
 export function HeroSection() {
   return (
-    <section className="relative bg-[#f5f5f7] overflow-hidden">
+    <section className="relative bg-black/[0.02] overflow-hidden">
       <div className="container-pro pt-8 sm:pt-12 md:pt-16 pb-0 text-center">
         <motion.p
           custom={0}

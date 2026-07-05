@@ -69,7 +69,7 @@ export default function StoreDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-[#F5F5F7]">
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-white">
         <Loader2 className="h-12 w-12 text-[#0071e3] animate-spin" />
         <p className="text-black/50 animate-pulse">Chargement de la boutique...</p>
       </div>
@@ -78,7 +78,7 @@ export default function StoreDetailPage() {
 
   if (!store) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-6 bg-[#F5F5F7]">
+      <div className="min-h-screen flex flex-col items-center justify-center gap-6 bg-white">
         <h1 className="font-sf-display text-2xl font-semibold text-[#1d1d1f] tracking-[-0.02em]">Boutique non trouvée</h1>
         <Link href="/vendeurs">
           <Button className="bg-[#0071e3] text-white font-medium rounded-full h-11 px-6 hover:bg-[#0077ed]">Voir tous les vendeurs</Button>
@@ -88,7 +88,7 @@ export default function StoreDetailPage() {
   }
 
   return (
-    <div className="min-h-screen pb-20 bg-[#F5F5F7]">
+    <div className="min-h-screen pb-20 bg-white">
       {/* Hero Header */}
       <div className="relative h-64 overflow-hidden bg-white">
         <div className="absolute inset-0 bg-gradient-to-b from-[#0071e3]/8 to-transparent" />

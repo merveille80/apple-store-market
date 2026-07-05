@@ -424,7 +424,7 @@ export default function EditProductPage() {
               
               <div className="grid grid-cols-2 gap-4">
                 {previewUrls.map((url, i) => (
-                  <div key={i} className="aspect-square relative rounded-2xl overflow-hidden bg-zinc-50 border border-black/10 group">
+                  <div key={i} className="aspect-square relative rounded-2xl overflow-hidden bg-black/[0.02] border border-black/10 group">
                     <img src={url} className="w-full h-full object-cover" />
                     <button 
                       type="button"
@@ -436,7 +436,7 @@ export default function EditProductPage() {
                   </div>
                 ))}
                 {previewUrls.length < 6 && (
-                  <label className="aspect-square rounded-2xl border-2 border-dashed border-black/10 bg-zinc-50 flex flex-col items-center justify-center cursor-pointer hover:border-[#0071e3]/30 hover:bg-[#0071e3]/5 transition-all">
+                  <label className="aspect-square rounded-2xl border-2 border-dashed border-black/10 bg-black/[0.02] flex flex-col items-center justify-center cursor-pointer hover:border-[#0071e3]/30 hover:bg-[#0071e3]/5 transition-all">
                     <Upload className="h-6 w-6 text-black/40 mb-2" />
                     <span className="text-xs text-black/40">Ajouter</span>
                     <input type="file" className="hidden" onChange={handleImageUpload} accept="image/*" />
