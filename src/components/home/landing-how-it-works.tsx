@@ -6,6 +6,7 @@ import {
   SectionHeader,
   fadeUpStagger,
   fadeUpChild,
+  springPop,
 } from "@/components/home/landing-motion"
 
 const STEPS = [
@@ -44,19 +45,29 @@ export function LandingHowItWorks() {
           viewport={{ once: true, margin: "-60px" }}
           className="relative grid md:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto"
         >
-          <div
-            className="hidden md:block absolute top-[52px] left-[18%] right-[18%] h-px bg-gradient-to-r from-transparent via-[#0071e3]/25 to-transparent"
+          {/* Ligne qui se dessine de gauche à droite au scroll */}
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 1.1, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="hidden md:block absolute top-[52px] left-[18%] right-[18%] h-px origin-left bg-gradient-to-r from-transparent via-[#0071e3]/25 to-transparent"
             aria-hidden
           />
           {STEPS.map(({ step, title, description }) => (
             <motion.article
               key={step}
               variants={fadeUpChild}
-              className="relative rounded-[20px] sm:rounded-[22px] bg-white p-5 sm:p-7 text-center md:text-left shadow-[0_4px_20px_-6px_rgba(0,0,0,0.08)]"
+              whileHover={{ y: -4 }}
+              transition={{ type: "spring", stiffness: 320, damping: 24 }}
+              className="relative rounded-[20px] sm:rounded-[22px] bg-white p-5 sm:p-7 text-center md:text-left shadow-[0_4px_20px_-6px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_36px_-10px_rgba(0,0,0,0.14)] transition-shadow duration-300"
             >
-              <span className="inline-flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#0071e3] text-white text-[14px] sm:text-[15px] font-semibold mb-3 sm:mb-4 shadow-[0_4px_12px_rgba(0,113,227,0.25)]">
+              <motion.span
+                variants={springPop}
+                className="inline-flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#0071e3] text-white text-[14px] sm:text-[15px] font-semibold mb-3 sm:mb-4 shadow-[0_4px_12px_rgba(0,113,227,0.25)]"
+              >
                 {step}
-              </span>
+              </motion.span>
               <h3 className="text-[15px] sm:text-[16px] font-semibold text-[#1d1d1f] tracking-[-0.02em]">
                 {title}
               </h3>

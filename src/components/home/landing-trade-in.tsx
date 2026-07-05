@@ -2,7 +2,15 @@
 
 import Image from "next/image"
 import { Check } from "lucide-react"
-import { LandingSection, SectionHeader, landingCtaWhatsapp } from "@/components/home/landing-motion"
+import { motion, useReducedMotion } from "framer-motion"
+import {
+  LandingSection,
+  SectionHeader,
+  fadeUpStagger,
+  fadeUpChild,
+  springPop,
+  landingCtaWhatsapp,
+} from "@/components/home/landing-motion"
 
 const CONDITIONS = [
   "Téléphone original",
@@ -17,6 +25,7 @@ const TRADE_WHATSAPP =
   encodeURIComponent("Bonjour, je souhaite une estimation de troc pour mon téléphone chez Apple Store Market.")
 
 export function LandingTradeIn() {
+  const reduceMotion = useReducedMotion()
   return (
     <LandingSection id="troc" className="bg-[#f5f5f7]">
       <div className="container-pro section-y !py-12 sm:!py-20">
@@ -28,36 +37,68 @@ export function LandingTradeIn() {
 
         <div className="max-w-4xl mx-auto grid md:grid-cols-[1fr_1.1fr] gap-6 sm:gap-8 items-center">
           <div className="hidden md:flex items-center justify-center">
-            <div className="relative w-full max-w-[280px] aspect-square rounded-[28px] bg-white shadow-[0_8px_32px_-12px_rgba(0,0,0,0.12)] overflow-hidden p-6">
-              <Image
-                src="/phones/upgrade.jpg"
-                alt="Échangez votre iPhone"
-                width={400}
-                height={400}
-                unoptimized
-                className="w-full h-full object-cover rounded-2xl"
-              />
-            </div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.94, rotate: -2 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="w-full max-w-[280px]"
+            >
+              {/* Flottement continu, sur une couche séparée de l'entrée */}
+              <motion.div
+                animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                className="relative aspect-square rounded-[28px] bg-white shadow-[0_8px_32px_-12px_rgba(0,0,0,0.12)] overflow-hidden p-6"
+              >
+                <Image
+                  src="/phones/upgrade.jpg"
+                  alt="Échangez votre iPhone"
+                  width={400}
+                  height={400}
+                  unoptimized
+                  className="w-full h-full object-cover rounded-2xl"
+                />
+              </motion.div>
+            </motion.div>
           </div>
 
           <div className="rounded-[22px] sm:rounded-[24px] bg-white p-5 sm:p-8 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.1)]">
             <p className="text-[12px] sm:text-[13px] font-medium text-[#86868b] uppercase tracking-wide mb-4">
               Conditions de troc
             </p>
-            <ul className="space-y-2.5 sm:space-y-3">
+            <motion.ul
+              variants={fadeUpStagger}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              className="space-y-2.5 sm:space-y-3"
+            >
               {CONDITIONS.map((item) => (
-                <li key={item} className="flex items-center gap-3 text-[14px] sm:text-[15px] text-[#1d1d1f]">
-                  <span className="h-6 w-6 rounded-full bg-[#0071e3]/10 flex items-center justify-center shrink-0">
+                <motion.li
+                  key={item}
+                  variants={fadeUpChild}
+                  className="flex items-center gap-3 text-[14px] sm:text-[15px] text-[#1d1d1f]"
+                >
+                  <motion.span
+                    variants={springPop}
+                    className="h-6 w-6 rounded-full bg-[#0071e3]/10 flex items-center justify-center shrink-0"
+                  >
                     <Check className="h-3.5 w-3.5 text-[#0071e3]" strokeWidth={2.5} />
-                  </span>
+                  </motion.span>
                   {item}
-                </li>
+                </motion.li>
               ))}
-            </ul>
+            </motion.ul>
             <div className="mt-6 sm:mt-8 flex justify-center sm:justify-start">
-              <a href={TRADE_WHATSAPP} className={landingCtaWhatsapp}>
+              <motion.a
+                href={TRADE_WHATSAPP}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 400, damping: 22 }}
+                className={landingCtaWhatsapp}
+              >
                 Demander une estimation
-              </a>
+              </motion.a>
             </div>
           </div>
         </div>

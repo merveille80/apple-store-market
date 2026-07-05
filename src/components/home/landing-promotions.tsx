@@ -57,16 +57,22 @@ export function LandingPromotions() {
             <motion.article
               key={title}
               variants={fadeUpChild}
-              className="group relative rounded-[20px] bg-white p-5 sm:p-6 overflow-hidden shadow-[0_4px_18px_-6px_rgba(0,0,0,0.08)] hover:shadow-[0_10px_30px_-8px_rgba(0,0,0,0.13)] transition-all duration-300"
+              whileHover={{ y: -4 }}
+              transition={{ type: "spring", stiffness: 320, damping: 24 }}
+              className="group relative rounded-[20px] bg-white p-5 sm:p-6 overflow-hidden shadow-[0_4px_18px_-6px_rgba(0,0,0,0.08)] hover:shadow-[0_10px_30px_-8px_rgba(0,0,0,0.13)] transition-shadow duration-300"
             >
               <div
                 className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${accent} opacity-0 group-hover:opacity-100 transition-opacity`}
                 aria-hidden
               />
               <div className="relative">
-                <div className="h-9 w-9 rounded-xl bg-[#0071e3]/10 flex items-center justify-center mb-3">
+                <motion.div
+                  whileHover={{ scale: 1.12, rotate: -4 }}
+                  transition={{ type: "spring", stiffness: 380, damping: 16 }}
+                  className="h-9 w-9 rounded-xl bg-[#0071e3]/10 flex items-center justify-center mb-3"
+                >
                   <Icon className="h-[18px] w-[18px] text-[#0071e3]" strokeWidth={1.75} />
-                </div>
+                </motion.div>
                 <h3 className="text-[14px] sm:text-[15px] font-semibold text-[#1d1d1f] tracking-[-0.02em]">
                   {title}
                 </h3>

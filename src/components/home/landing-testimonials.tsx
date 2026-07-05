@@ -51,7 +51,9 @@ export function LandingTestimonials() {
             <motion.article
               key={name}
               variants={fadeUpChild}
-              className="rounded-[20px] bg-white p-5 sm:p-6 shadow-[0_4px_20px_-6px_rgba(0,0,0,0.08)]"
+              whileHover={{ y: -4 }}
+              transition={{ type: "spring", stiffness: 320, damping: 24 }}
+              className="rounded-[20px] bg-white p-5 sm:p-6 shadow-[0_4px_20px_-6px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_36px_-10px_rgba(0,0,0,0.14)] transition-shadow duration-300"
             >
               <div className="flex items-center gap-3 mb-3">
                 <span className="h-9 w-9 rounded-full bg-[#0071e3]/10 text-[#0071e3] text-[12px] font-semibold flex items-center justify-center shrink-0">
@@ -61,11 +63,21 @@ export function LandingTestimonials() {
                   <p className="text-[14px] font-medium text-[#1d1d1f]">{name}</p>
                   <div className="flex items-center gap-0.5 mt-0.5" aria-label="5 étoiles sur 5">
                     {Array.from({ length: 5 }).map((_, i) => (
-                      <Star
+                      <motion.span
                         key={i}
-                        className="h-3 w-3 fill-[#0071e3] text-[#0071e3]"
-                        strokeWidth={0}
-                      />
+                        initial={{ opacity: 0, scale: 0.4 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 420,
+                          damping: 17,
+                          delay: 0.3 + i * 0.07,
+                        }}
+                        className="inline-flex"
+                      >
+                        <Star className="h-3 w-3 fill-[#0071e3] text-[#0071e3]" strokeWidth={0} />
+                      </motion.span>
                     ))}
                   </div>
                 </div>

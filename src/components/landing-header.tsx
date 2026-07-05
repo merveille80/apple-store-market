@@ -68,7 +68,7 @@ export function LandingHeader() {
               <Link
                 key={href}
                 href={href}
-                className="text-[12px] font-normal text-[#1d1d1f]/80 hover:text-[#1d1d1f] transition-colors whitespace-nowrap"
+                className="nav-link !text-[12px] !font-normal whitespace-nowrap"
               >
                 {label}
               </Link>

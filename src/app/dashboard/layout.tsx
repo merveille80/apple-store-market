@@ -2,14 +2,12 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { 
-  LayoutDashboard, 
-  Smartphone, 
-  MessageSquare, 
-  Settings, 
-  LogOut, 
-  PlusCircle,
-  ChevronRight
+import {
+  LayoutDashboard,
+  Smartphone,
+  MessageSquare,
+  Settings,
+  LogOut,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -30,17 +28,26 @@ export default function DashboardLayout({
     router.push("/login")
   }
 
-  const navItems = [
-    { name: "Vue d'ensemble", href: "/dashboard", icon: LayoutDashboard },
-    { name: "Mes iPhones", href: "/dashboard/products", icon: Smartphone },
-    { name: "Leads WhatsApp", href: "/dashboard/leads", icon: MessageSquare },
-    { name: "Paramètres Store", href: "/dashboard/settings", icon: Settings },
+  const navGroups = [
+    {
+      label: "Gestion",
+      items: [
+        { name: "Vue d'ensemble", href: "/dashboard", icon: LayoutDashboard },
+        { name: "Mes iPhones", href: "/dashboard/products", icon: Smartphone },
+        { name: "Leads WhatsApp", href: "/dashboard/leads", icon: MessageSquare },
+      ],
+    },
+    {
+      label: "Compte",
+      items: [{ name: "Paramètres Store", href: "/dashboard/settings", icon: Settings }],
+    },
   ]
+  const navItems = navGroups.flatMap((g) => g.items)
 
   return (
     <div className="font-sf flex flex-col md:flex-row min-h-screen bg-[#F5F5F7] text-zinc-900">
       {/* Sidebar (Desktop) */}
-      <aside className="hidden md:flex w-64 border-r border-black/5 flex-col bg-white/50 backdrop-blur-xl">
+      <aside className="hidden md:flex w-64 border-r border-black/[0.07] flex-col bg-white">
         <div className="p-6">
           <Link href="/" className="flex items-center gap-2.5">
             <svg viewBox="0 0 24 24" aria-hidden className="h-5 w-5 fill-[#1d1d1f] shrink-0">
@@ -50,26 +57,32 @@ export default function DashboardLayout({
           </Link>
         </div>
 
-        <nav className="flex-1 px-4 space-y-1">
-          {navItems.map((item) => {
-            const isActive = pathname === item.href
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all group",
-                  isActive 
-                    ? "bg-[#0071e3] text-white" 
-                    : "text-[#86868b] hover:text-[#1d1d1f] hover:bg-black/5"
-                )}
-              >
-                <item.icon className={cn("h-5 w-5", isActive ? "text-white" : "text-zinc-400 group-hover:text-black")} />
-                {item.name}
-                {isActive && <ChevronRight className="ml-auto h-4 w-4" />}
-              </Link>
-            )
-          })}
+        <nav className="flex-1 px-3 space-y-5">
+          {navGroups.map((group) => (
+            <div key={group.label} className="space-y-0.5">
+              <p className="px-3 mb-1.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-[#aeaeb2]">
+                {group.label}
+              </p>
+              {group.items.map((item) => {
+                const isActive = pathname === item.href
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={cn(
+                      "flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13.5px] font-medium transition-colors group",
+                      isActive
+                        ? "bg-black/[0.05] text-[#1d1d1f]"
+                        : "text-[#6e6e73] hover:text-[#1d1d1f] hover:bg-black/[0.03]"
+                    )}
+                  >
+                    <item.icon className={cn("h-[18px] w-[18px]", isActive ? "text-[#0071e3]" : "text-[#aeaeb2] group-hover:text-[#6e6e73]")} strokeWidth={2} />
+                    {item.name}
+                  </Link>
+                )
+              })}
+            </div>
+          ))}
         </nav>
 
         <div className="p-4 border-t border-black/5">

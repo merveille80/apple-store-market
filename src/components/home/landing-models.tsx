@@ -2,7 +2,7 @@
 
 import { useRef } from "react"
 import Link from "next/link"
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
+import { motion, useMotionValue, useMotionTemplate, useSpring, useTransform } from "framer-motion"
 import {
   LandingSection,
   SectionHeader,
@@ -50,6 +50,11 @@ function ModelCard({ model }: { model: LandingModel }) {
   const rotateX = useSpring(useTransform(my, [-0.5, 0.5], [6, -6]), { stiffness: 260, damping: 24 })
   const rotateY = useSpring(useTransform(mx, [-0.5, 0.5], [-6, 6]), { stiffness: 260, damping: 24 })
 
+  // Spotlight qui suit le curseur (en % de la carte)
+  const spotX = useTransform(mx, (v) => `${(v + 0.5) * 100}%`)
+  const spotY = useTransform(my, (v) => `${(v + 0.5) * 100}%`)
+  const spotlight = useMotionTemplate`radial-gradient(360px circle at ${spotX} ${spotY}, rgba(0,113,227,0.07), transparent 65%)`
+
   const onMouseMove = (e: React.MouseEvent) => {
     const rect = cardRef.current?.getBoundingClientRect()
     if (!rect) return
@@ -67,14 +72,25 @@ function ModelCard({ model }: { model: LandingModel }) {
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
       style={{ rotateX, rotateY, transformPerspective: 900 }}
-      className="group rounded-[18px] sm:rounded-[22px] bg-white p-3.5 sm:p-5 shadow-[0_4px_18px_-6px_rgba(0,0,0,0.1)] flex flex-col hover:shadow-[0_16px_44px_-12px_rgba(0,0,0,0.2)] transition-shadow duration-300 will-change-transform"
+      className="group relative rounded-[18px] sm:rounded-[22px] bg-white p-3.5 sm:p-5 shadow-[0_4px_18px_-6px_rgba(0,0,0,0.1)] flex flex-col hover:shadow-[0_16px_44px_-12px_rgba(0,0,0,0.2)] transition-shadow duration-300 will-change-transform"
     >
-      <div className="aspect-[4/5] rounded-2xl bg-[#f5f5f7] mb-3 sm:mb-4 flex items-center justify-center overflow-hidden px-1 sm:px-2 py-3 sm:py-4">
+      {/* Spotlight curseur */}
+      <motion.div
+        aria-hidden
+        style={{ background: spotlight }}
+        className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      />
+      <div className="relative aspect-[4/5] rounded-2xl bg-[#f5f5f7] mb-3 sm:mb-4 flex items-center justify-center overflow-hidden px-1 sm:px-2 py-3 sm:py-4">
+        {/* Reflet qui balaie l'image au hover */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-10 -translate-x-[120%] group-hover:translate-x-[120%] transition-transform duration-[900ms] ease-out bg-gradient-to-r from-transparent via-white/45 to-transparent skew-x-[-18deg]"
+        />
         <img
           src={model.image}
           alt={model.name}
           loading="lazy"
-          className="max-h-full max-w-full w-auto object-contain transition-transform duration-500 group-hover:scale-[1.03] drop-shadow-[0_12px_28px_rgba(0,0,0,0.14)]"
+          className="max-h-full max-w-full w-auto object-contain transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05] group-hover:-translate-y-1 drop-shadow-[0_12px_28px_rgba(0,0,0,0.14)]"
         />
       </div>
       <span

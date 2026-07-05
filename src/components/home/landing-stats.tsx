@@ -57,7 +57,8 @@ export function LandingStats() {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
-              className="rounded-[20px] bg-white px-4 py-7 sm:py-9 text-center shadow-[0_4px_24px_-8px_rgba(0,0,0,0.1)]"
+              whileHover={{ y: -4 }}
+              className="rounded-[20px] bg-white px-4 py-7 sm:py-9 text-center shadow-[0_4px_24px_-8px_rgba(0,0,0,0.1)] hover:shadow-[0_12px_36px_-10px_rgba(0,0,0,0.14)] transition-shadow duration-300"
             >
               <p className="font-sf-display text-[clamp(1.6rem,4vw,2.4rem)] font-semibold text-[#1d1d1f] tracking-[-0.04em]">
                 <CountUp value={stat.value} suffix={stat.suffix} start={inView} />
